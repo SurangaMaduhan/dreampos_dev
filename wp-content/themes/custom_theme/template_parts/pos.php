@@ -1,0 +1,1 @@
+<?php echo do_shortcode('[add_to_cart id="' . $product->get_id() . '"]'); ?>
