@@ -1,0 +1,60 @@
+/*
+Theme Name: Dreams POS system
+Theme URI: https://github.com/SurangaMaduhan
+Author: Suranga Madushan
+Author URI: https://github.com/SurangaMaduhan
+Description: Dreams POS: Seamlessly elevate your business with our visionary point-of-sale system.
+Version: 0.0.1
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+*/
+
+.me-3 {
+  margin-right: 1em;
+}
+
+#drop-area {
+  border: 2px dashed #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+}
+
+#drop-area.highlight {
+  border-color: #2196f3;
+}
+
+#file-input {
+  /* display: none; */
+}
+
+#file-info {
+  margin-top: 20px;
+}
+
+#file-preview {
+  max-width: 100%;
+}
+div#preview_wrap {
+  width: 200px;
+  position: relative;
+  margin-top: 40px;
+  border: 1px solid #ddd;
+}
+
+button#remove-btn {
+  position: absolute;
+  background: red;
+  border: none;
+  color: #fff;
+  line-height: 1;
+  width: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 20px;
+  top: -10px;
+  border-radius: 100%;
+  right: -10px;
+}
