@@ -948,6 +948,7 @@ function toggleFullscreen(elem) {
 		document.webkitExitFullscreen();
 	  }
 	}
+
   }
   
   document.getElementById('btnFullscreen').addEventListener('click', function() {

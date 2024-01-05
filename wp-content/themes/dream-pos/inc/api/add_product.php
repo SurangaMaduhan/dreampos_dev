@@ -17,8 +17,6 @@ add_action('rest_api_init', function () {
 
 function add_new_product($product)
 {
-
-
     $product_data = array(
         'post_title' => sanitize_text_field($product['product_title']),
         'post_content' => $product['product_description'],
@@ -28,10 +26,15 @@ function add_new_product($product)
 
     $product_id = wp_insert_post($product_data);
     $product = wc_get_product($product_id);
-    $product->set_regular_price(sanitize_text_field($_POST['product_price']));
-    // update_post_meta($product_id, '_regular_price', );
-    update_post_meta($product_id, '_sku', $_POST['product_sku']);
 
+    $term = get_term_by('slug', $_POST['product_category'], 'product_cat');
+
+    wp_set_object_terms($product_id, $term->term_id, 'product_cat');
+
+    $product->set_regular_price(sanitize_text_field($_POST['product_price']));
+
+    update_post_meta($product_id, '_sku', $_POST['product_sku']);
+    update_post_meta($product_id, '_cost', $_POST['product_cost']);
     update_post_meta($product_id, '_stock', sanitize_text_field($_POST['quantity']));
     update_post_meta($product_id, '_stock_status', 'instock');
     update_post_meta($product_id, '_manage_stock', 'yes');
@@ -49,6 +52,7 @@ function add_new_product($product)
             set_post_thumbnail($product_id, $attachment_id);
         }
     }
-    $product->save();
-    exit;
+    $response = $product->save();
+
+    return $response;
 }

@@ -30,12 +30,12 @@ function add_category($category)
             $thumbnail_id = media_handle_upload('thumbnail', $category_id);
             if (!is_wp_error($thumbnail_id)) {
                 update_woocommerce_term_meta($category_id, 'thumbnail_id', absint($thumbnail_id));
-                return 'Category added/updated successfully with thumbnail.';
+                return 'Category updated successfully with thumbnail.';
             } else {
                 return 'Error uploading thumbnail: ' . $thumbnail_id->get_error_message();
             }
         } else {
-            return 'Category added/updated successfully without thumbnail.';
+            return 'Category updated successfully without thumbnail.';
         }
     }
 }

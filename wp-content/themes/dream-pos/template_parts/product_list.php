@@ -18,8 +18,7 @@ $args = array(
                 <h6>Manage your products</h6>
             </div>
             <div class="page-btn">
-                <a href="addproduct.html" class="btn btn-added"><img src="<?php echo get_bloginfo('template_directory'); ?>/src/img/plus.svg" alt="img"
-                        class="me-1">Add New Product</a>
+                <a href="/add-products/" class="btn btn-added"><img src="<?php echo get_bloginfo('template_directory'); ?>/src/img/plus.svg" alt="img" class="me-1">Add New Product</a>
             </div>
         </div>
 
@@ -41,18 +40,9 @@ $args = array(
                     </div>
                     <div class="wordset">
                         <ul>
-                            <li>
-                                <a data-bs-toggle="tooltip" data-bs-placement="top" title="pdf"><img
-                                        src="<?php echo get_bloginfo('template_directory'); ?>/src/img/pdf.svg" alt="img"></a>
-                            </li>
-                            <li>
-                                <a data-bs-toggle="tooltip" data-bs-placement="top" title="excel"><img
-                                        src="<?php echo get_bloginfo('template_directory'); ?>/src/img/excel.svg" alt="img"></a>
-                            </li>
-                            <li>
-                                <a data-bs-toggle="tooltip" data-bs-placement="top" title="print"><img
-                                        src="<?php echo get_bloginfo('template_directory'); ?>/src/img/printer.svg" alt="img"></a>
-                            </li>
+                            <li><a data-bs-toggle="tooltip" data-bs-placement="top" title="pdf"><img src="<?php echo get_bloginfo('template_directory'); ?>/src/img/pdf.svg" alt="img"></a></li>
+                            <li><a data-bs-toggle="tooltip" data-bs-placement="top" title="excel"><img src="<?php echo get_bloginfo('template_directory'); ?>/src/img/excel.svg" alt="img"></a></li>
+                            <li><a data-bs-toggle="tooltip" data-bs-placement="top" title="print"><img src="<?php echo get_bloginfo('template_directory'); ?>/src/img/printer.svg" alt="img"></a></li>
                         </ul>
                     </div>
                 </div>
@@ -64,7 +54,7 @@ $args = array(
                                 <div class="row">
                                     <div class="col-lg col-sm-6 col-12">
                                         <div class="form-group">
-                                            <?php echo do_shortcode('[facetwp facet="categories"]');?>
+                                            <?php echo do_shortcode('[facetwp facet="categories"]'); ?>
                                         </div>
                                     </div>
                                     <div class="col-lg col-sm-6 col-12">
@@ -102,8 +92,7 @@ $args = array(
                                     </div>
                                     <div class="col-lg-1 col-sm-6 col-12">
                                         <div class="form-group">
-                                            <a class="btn btn-filters ms-auto"><img
-                                                    src="<?php echo get_bloginfo('template_directory'); ?>/src/img/search-whites.svg" alt="img"></a>
+                                            <a class="btn btn-filters ms-auto"><img src="<?php echo get_bloginfo('template_directory'); ?>/src/img/search-whites.svg" alt="img"></a>
                                         </div>
                                     </div>
                                 </div>
@@ -112,6 +101,8 @@ $args = array(
                     </div>
                 </div>
                 <!-- /Filter -->
+
+
                 <div class="table-responsive">
                     <table class="table  datanew">
                         <thead>
@@ -124,12 +115,11 @@ $args = array(
                                 </th>
                                 <th>Product Name</th>
                                 <th>SKU</th>
-                                <th>Category </th>
-                                <th>Brand</th>
-                                <th>price</th>
-                                <th>Unit</th>
+                                <th>Category</th>
+                                <th>Cost</th>
+                                <th>Sale Price</th>
                                 <th>Qty</th>
-                                <th>Created By</th>
+                                <th>Product Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -152,15 +142,18 @@ $args = array(
                                         </a>
                                         <a href="javascript:void(0);"><?php echo $product->get_name(); ?></a>
                                     </td>
-                                    <td><?php echo get_post_meta($product->get_id(), '_sku', true); ?></td>
-                                    <td><?php //echo $product->get_name(); ?></td>
-                                    <td><?php echo get_post_meta($product->get_id(), '_stock', true);?></td>
-                                    <td><?php echo $product->get_price(); ?></td>
-                                    <td>pc</td>
-                                    <td>100.00</td>
-                                    <td>Admin</td>
+                                    <td><?php echo $product->get_sku(); ?></td>
+                                    <td><?php echo $product->get_categories(); ?></td>
+                                    <td><?php echo get_woocommerce_currency_symbol() . ': ' . number_format((float) $product->get_meta('_cost'), 2, '.', ''); ?></td>
+                                    <td><?php echo get_woocommerce_currency_symbol() . ': ' . number_format((float) $product->get_price(), 2, '.', ''); ?></td>
+                                    <td><?php echo get_post_meta($product->get_id(), '_stock', true); ?></td>
+                                    <td><?php if ($product->managing_stock() && $product->is_in_stock()) {
+                                            echo '<span class="instock">In stock</span>';
+                                        } else {
+                                            echo '<span class="outofstock">Out of stock</span>';
+                                    } ?></td>
                                     <td>
-                                        <a class="me-3" href="product-details.html">
+                                        <a class="me-3" href="/view-product/?product-id=<?php echo $product->get_id(); ?>">
                                             <img src="<?php echo get_bloginfo('template_directory'); ?>/src/img/eye.svg" alt="img">
                                         </a>
                                         <a class="me-3" href="editproduct.html">
@@ -181,5 +174,7 @@ $args = array(
             </div>
         </div>
         <!-- /product list -->
+
     </div>
 </div>
+

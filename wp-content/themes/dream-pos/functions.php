@@ -7,10 +7,11 @@ require_once(ABSPATH . 'wp-admin/includes/media.php');
 
 require_once 'inc/api/add_product.php';
 require_once 'inc/api/add_category.php';
+require_once 'inc/api/remove_category.php';
 
 function enqueue_custom_styles() {
-  // Enqueue the main style.css file
   wp_enqueue_style('style', get_stylesheet_uri());
+  
 }
 
 add_action('wp_enqueue_scripts', 'enqueue_custom_styles');

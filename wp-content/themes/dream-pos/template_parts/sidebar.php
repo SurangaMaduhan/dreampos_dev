@@ -26,9 +26,7 @@
                         <li><a href="/products-list/"><i data-feather="box"></i><span>Products</span></a></li>
                         <li><a href="/add-products/"><i data-feather="plus-square"></i><span>Create Product</span></a></li>
                         <li><a href="/category-list/"><i data-feather="codepen"></i><span>Category</span></a></li>
-                        <li><a href="/sub-category-list/"><i data-feather="speaker"></i><span>Sub Category</span></a></li>
-                        <li><a href="/brand-list/"><i data-feather="tag"></i><span>Brands</span></a></li>                        
-                        <!-- <li><a href="barcode.html"><i data-feather="align-justify"></i><span>Print Barcode</span></a></li> -->
+                        <li><a href="/brand-list/"><i data-feather="tag"></i><span>Brands</span></a></li>
                         <li><a href="importproduct.html"><i data-feather="minimize-2"></i><span>Import Products</span></a></li>
                     </ul>
                 </li>

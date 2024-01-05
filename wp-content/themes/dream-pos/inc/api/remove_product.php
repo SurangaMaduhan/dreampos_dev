@@ -15,8 +15,8 @@ function remove_product($product)
     if (get_post_type($product) === 'product') {
         // Delete the product
         wp_delete_post($product, true);
-        echo "Product deleted successfully.";
+        return "Product deleted successfully.";
     } else {
-        echo "Product not found.";
+        return "Product not found.";
     }
 }
