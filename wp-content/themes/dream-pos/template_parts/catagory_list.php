@@ -56,12 +56,7 @@ $product_categories = get_terms(array(
                     <table class="table  datanew">
                         <thead>
                             <tr>
-                                <th>
-                                    <label class="checkboxs">
-                                        <input type="checkbox" id="select-all">
-                                        <span class="checkmarks"></span>
-                                    </label>
-                                </th>
+                               
                                 <th>Category name</th>
                                 <th>Category ID</th>
                                 <th>Slug</th>
@@ -76,12 +71,6 @@ $product_categories = get_terms(array(
                                 $thumbnail_url = wp_get_attachment_thumb_url($thumbnail_id);
                                 ?>
                                 <tr>
-                                    <td>
-                                        <label class="checkboxs">
-                                            <input type="checkbox">
-                                            <span class="checkmarks"></span>
-                                        </label>
-                                    </td>
                                     <td class="productimgname">
                                         <a href="javascript:void(0);" class="product-img">
                                             <img src="
@@ -143,6 +132,11 @@ $product_categories = get_terms(array(
 					type: 'POST',
 					data: {'cat_id': categoryId},
 					success: function (response) {
+                        Swal.fire({
+                            icon: "success",
+                            title: "success...",
+                            text: response.message,
+                        });
 						document.location.reload(true);
 					},
 					error: function (error) {

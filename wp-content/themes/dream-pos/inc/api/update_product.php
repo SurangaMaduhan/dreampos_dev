@@ -1,8 +1,4 @@
 <?php
-require_once(ABSPATH . 'wp-admin/includes/image.php');
-require_once(ABSPATH . 'wp-admin/includes/file.php');
-require_once(ABSPATH . 'wp-admin/includes/media.php');
-
 add_action('rest_api_init', function () {
     register_rest_route(
         'products/v1/',
@@ -14,37 +10,29 @@ add_action('rest_api_init', function () {
     );
 });
 
-function update_product($product)
+function update_product($request)
 {
-    $product_data = array(
-        'post_title' => sanitize_text_field($product['product_title']),
-        'post_content' => $product['product_description'],
-        'post_status' => 'publish',
-        'post_type' => 'product',
-    );
+    $parameters = $request->get_params();
+    $product = wc_get_product($parameters['product_id']);
+    if (is_a($product, 'WC_Product')) {
+        $product->set_name(sanitize_text_field($parameters['product_name']));
+        $product->set_regular_price(sanitize_text_field($parameters['product_price']));
+        update_post_meta($parameters['product_id'], '_cost', sanitize_text_field($parameters['product_cost']));
+        $product->set_stock_quantity(sanitize_text_field($parameters['product_qty']));
 
-    $product_id = wp_insert_post($product_data);
-    update_post_meta($product_id, '_regular_price', sanitize_text_field($_POST['product_price']));
-    update_post_meta($product_id, '_sku', sanitize_text_field($_POST['product_sku']));
+        update_post_meta($parameters['product_id'], '_stock_status', 'instock');
+        update_post_meta($parameters['product_id'], '_manage_stock', 'yes');
 
-    update_post_meta($product_id, '_manage_stock', 'yes');
-    update_post_meta($product_id, '_stock', 5);
-    update_post_meta($product_id, '_stock_status', 'instock');
+        $product->set_category_ids(array());
 
-
-    // Check if the file was uploaded successfully
-    if ($_FILES['product_image']['error'] == 0) {
-        // Handle the file upload and get the attachment ID
-        $attachment_id = media_handle_upload('product_image', $product_id);
-
-        if (is_wp_error($attachment_id)) {
-            // Handle the error if the upload fails
-            echo "Error uploading image: " . $attachment_id->get_error_message();
-        } else {
-            // Set the attachment as the featured image for the product
-            set_post_thumbnail($product_id, $attachment_id);
+        // Set the new category
+        $term = get_term_by('slug', sanitize_text_field($parameters['product_category']), 'product_cat');
+        if ($term && !is_wp_error($term)) {
+            $product->set_category_ids(array($term->term_id));
         }
+        $response = $product->save();
+        return $response;
+    } else {
+        return new WP_Error('update_failed', 'Failed to update the product.', array('status' => 500));
     }
-
-    exit;
 }

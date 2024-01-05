@@ -21,6 +21,17 @@
                 'hide_empty' => 0,
             )
         );
+        $brands = get_categories(
+            array(
+                'taxonomy' => 'brands',
+                'orderby' => 'name',
+                'show_count' => 0,
+                'pad_counts' => 0,
+                'hierarchical' => 1,
+                'title_li' => '',
+                'hide_empty' => 0,
+            )
+        );
         ?>
 
 
@@ -45,6 +56,19 @@
                                 </select>
                             </div>
                         </div>
+
+                        <div class="col-lg-3 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label>Brand</label>
+                                <select class="select" name="product_brand" id="product_brand" required>
+                                    <option value="">Choose brand</option>
+                                    <?php foreach ($brands as $brand) {
+                                        echo '<option value="' . $brand->slug .'">' . $brand->name . '</option>';
+                                    };?>
+                                </select>
+                            </div>
+                        </div>
+
                         <div class="col-lg-3 col-sm-6 col-12">
                             <div class="form-group">
                                 <label>SKU</label>
@@ -175,7 +199,7 @@
                     Swal.fire({
                         icon: "success",
                         title: "success...",
-                        text: response,
+                        text:'ID '+response+' Updated',
                     });
                 },
                 error: function (error) {

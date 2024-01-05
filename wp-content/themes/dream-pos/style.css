@@ -79,10 +79,10 @@ button#remove-btn {
   align-items: center;
   background: #ffffffa6;
 }
-#drop-area h4{
+#drop-area h4 {
   font-size: 14px;
   font-weight: 500;
-  color: #212B36;
+  color: #212b36;
 }
 .btn_style {
   border: none;
@@ -101,8 +101,8 @@ button#remove-btn {
   width: 100%; /* Full width */
   height: 100%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 }
 
 /* Modal Content/Box */
@@ -138,7 +138,7 @@ span.instock {
   font-weight: bold;
   text-transform: uppercase;
 }
-span.outofstock{
+span.outofstock {
   display: block;
   text-align: center;
   background: red;
@@ -148,8 +148,54 @@ span.outofstock{
   font-weight: bold;
   text-transform: uppercase;
 }
-.product-img-in_view{
+.product-img-in_view {
   text-align: center;
   display: block;
   padding: 30px;
+}
+button.remove_product {
+  padding: 0;
+  border: none;
+  background: no-repeat;
+  outline: none;
+}
+.hide_for_popup {
+  display: none;
+}
+.edit_product {
+  max-width: 700px;
+  padding: 0;
+}
+.edit_product input {
+  display: block;
+  width: 100%;
+  padding: 5px 10px;
+  margin-bottom: 10px;
+}
+.edit_product .col-sm-7 img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.edit_product h5 {
+  font-size: 20px;
+  font-weight: 900;
+  margin-bottom: 20px;
+  text-align: center;
+}
+.button_set {
+  padding-top: 20px;
+}
+.featherlight-close-icon {
+  display: none;
+}
+select.style_select {
+  width: 100%;
+  padding: 5px 10px;
+}
+.brand_image {
+  min-width: 40px;
+  width: 40px;
+  height: 40px;
+  border: 0;
 }

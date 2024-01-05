@@ -22,6 +22,7 @@
 <!-- Sweetalert 2 -->
 <script src="<?php echo get_bloginfo('template_directory'); ?>/src/js/sweetalert2.all.min.js"></script>
 <script src="<?php echo get_bloginfo('template_directory'); ?>/src/js/sweetalerts.min.js"></script>
+<script src="<?php echo get_bloginfo('template_directory'); ?>/src/js/featherlight.js"></script>
 <!-- Custom JS -->
 <script src="<?php echo get_bloginfo('template_directory'); ?>/src/js/script.js"></script>
 

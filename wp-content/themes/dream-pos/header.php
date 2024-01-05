@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="<?php echo get_bloginfo('template_directory'); ?>/src/css/bootstrap.min.css">
   <link rel="stylesheet" href="<?php echo get_bloginfo('template_directory'); ?>/src/css/bootstrap-theme.min.css">
   <link rel="stylesheet" href="<?php echo get_bloginfo('template_directory'); ?>/src/css/select2.min.css">
+  <link href="<?php echo get_bloginfo('template_directory'); ?>/src/css/featherlight.css" type="text/css" rel="stylesheet" />
   <link rel="stylesheet" href="<?php echo get_bloginfo('template_directory'); ?>/src/css/style.css">
   <?php wp_head(); ?>
 </head>

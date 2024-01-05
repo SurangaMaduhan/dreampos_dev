@@ -28,8 +28,11 @@ function add_new_product($product)
     $product = wc_get_product($product_id);
 
     $term = get_term_by('slug', $_POST['product_category'], 'product_cat');
+    $term_brands = get_term_by('slug', $_POST['product_brand'], 'brands');
 
     wp_set_object_terms($product_id, $term->term_id, 'product_cat');
+
+    wp_set_object_terms($product_id, $term_brands->term_id, 'brands');
 
     $product->set_regular_price(sanitize_text_field($_POST['product_price']));
 

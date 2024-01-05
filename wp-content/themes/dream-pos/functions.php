@@ -9,6 +9,9 @@ require_once 'inc/api/add_product.php';
 require_once 'inc/api/add_category.php';
 require_once 'inc/api/remove_category.php';
 require_once 'inc/api/add_brand.php';
+require_once 'inc/api/remove_product.php';
+require_once 'inc/api/update_product.php';
+
 
 function enqueue_custom_styles() {
   wp_enqueue_style('style', get_stylesheet_uri());
