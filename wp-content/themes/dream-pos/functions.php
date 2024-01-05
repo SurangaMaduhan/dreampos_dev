@@ -8,6 +8,7 @@ require_once(ABSPATH . 'wp-admin/includes/media.php');
 require_once 'inc/api/add_product.php';
 require_once 'inc/api/add_category.php';
 require_once 'inc/api/remove_category.php';
+require_once 'inc/api/add_brand.php';
 
 function enqueue_custom_styles() {
   wp_enqueue_style('style', get_stylesheet_uri());
@@ -117,3 +118,30 @@ function save_custom_product_field($post_id)
     update_post_meta($post_id, '_cost', sanitize_text_field($custom_field));
   }
 }
+
+function wporg_register_taxonomy_course() {
+  $labels = array(
+      'name'              => _x( 'Brands', 'taxonomy general name' ),
+      'singular_name'     => _x( 'Brand', 'taxonomy singular name' ),
+      'search_items'      => __( 'Search Brands' ),
+      'all_items'         => __( 'All Brands' ),
+      'parent_item'       => __( 'Parent Brands' ),
+      'parent_item_colon' => __( 'Parent Brands:' ),
+      'edit_item'         => __( 'Edit Brand' ),
+      'update_item'       => __( 'Update Brand' ),
+      'add_new_item'      => __( 'Add New Brand' ),
+      'new_item_name'     => __( 'New Brand Name' ),
+      'menu_name'         => __( 'Brands' ),
+  );
+  $args   = array(
+      'hierarchical'      => true, // make it hierarchical (like categories)
+      'labels'            => $labels,
+      'show_ui'           => true,
+      'show_admin_column' => true,
+      'query_var'         => true,
+      'rewrite'           => [ 'slug' => 'brands' ],
+  );
+  register_taxonomy( 'brands', [ 'product' ], $args );
+}
+add_action( 'init', 'wporg_register_taxonomy_course' );
+
