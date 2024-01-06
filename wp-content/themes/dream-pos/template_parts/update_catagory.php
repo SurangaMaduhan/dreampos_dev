@@ -1,9 +1,15 @@
+<?php 
+    $category_id = $_GET['category-id'];
+    $term = get_term($category_id);
+    $thumbnail_id = get_woocommerce_term_meta($category_id, 'thumbnail_id', true);
+    $thumbnail_url = wp_get_attachment_thumb_url($thumbnail_id);
+?>
 <div class="page-wrapper with_loader">
     <div class="content">
         <div class="page-header">
             <div class="page-title">
-                <h4>Product Add Category</h4>
-                <h6>Create new product Category</h6>
+                <h4>Update Product ID #<?php echo $category_id;?> Category</h4>
+                <h6>Update product Category Details</h6>
             </div>
         </div>
         <!-- /add -->
@@ -14,7 +20,7 @@
                         <div class="col-lg-12 col-sm-12 col-12">
                             <div class="form-group">
                                 <label>Category Name</label>
-                                <input type="text" name="category_name" required>
+                                <input type="text" name="category_name" value="<?php echo $term->name;?>" required>
                             </div>
                         </div>
                         <div class="col-lg-12">
@@ -26,13 +32,20 @@
                                     <h4>Drag and drop a file to upload</h4>
                                     <input type="file" id="file-input" accept="image/*" name="thumbnail">
                                 </div>
-                                <div id="preview_wrap" style="display:none">
-                                    <img id="file-preview" alt="File Preview">
+                                <div id="preview_wrap">
+                                    <img id="file-preview" alt="File Preview" 
+                                        src="<?php if ($thumbnail_url) {
+                                            echo $thumbnail_url;
+                                        } else {
+                                            echo get_template_directory_uri() . '/src/img/noimage.png';
+                                        };
+                                    ?>">
                                     <button type="button" id="remove-btn"><i class="fa fa-times" aria-hidden="true"></i></button>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-12">
+                            <input type="hidden" name="category_id" value="<?php echo $category_id ?>">
                             <button type="submit" class="btn btn-submit me-2">Submit</button>
                             <a href="/category-list/" class="btn btn-cancel">Cancel</a>
                         </div>
@@ -102,19 +115,18 @@
             var formData = new FormData(this);
             $.ajax({
                 type: "POST",
-                url: "/wp-json/v1/products/add-category",
+                url: "/wp-json/v1/products/update-category",
                 data: formData,
                 contentType: false,
                 processData: false,
                 success: function (response) {
                     $(".global-loader").hide();
-                    $("form").trigger('reset');
-                    hide_wrap.style.display = 'none'; 
                     Swal.fire({
                         icon: "success",
                         title: "success...",
                         text: response,
                     });
+                    window.location.href = "/category-list/";
                 },
                 error: function (error) {
                     $(".global-loader").hide();

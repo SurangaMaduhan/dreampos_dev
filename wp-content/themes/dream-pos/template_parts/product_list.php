@@ -59,42 +59,16 @@ $args = array(
                                     </div>
                                     <div class="col-lg col-sm-6 col-12">
                                         <div class="form-group">
-                                            <select class="select">
-                                                <option>Choose Category</option>
-                                                <option>Computers</option>
-                                                <option>Fruits</option>
-                                            </select>
+                                            <?php echo do_shortcode('[facetwp facet="brands"]'); ?>
                                         </div>
                                     </div>
+                                    
                                     <div class="col-lg col-sm-6 col-12">
                                         <div class="form-group">
-                                            <select class="select">
-                                                <option>Choose Sub Category</option>
-                                                <option>Computer</option>
-                                            </select>
+                                            <?php echo do_shortcode('[facetwp facet="price"]'); ?>
                                         </div>
                                     </div>
-                                    <div class="col-lg col-sm-6 col-12">
-                                        <div class="form-group">
-                                            <select class="select">
-                                                <option>Brand</option>
-                                                <option>N/D</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg col-sm-6 col-12 ">
-                                        <div class="form-group">
-                                            <select class="select">
-                                                <option>Price</option>
-                                                <option>150.00</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-1 col-sm-6 col-12">
-                                        <div class="form-group">
-                                            <a class="btn btn-filters ms-auto"><img src="<?php echo get_bloginfo('template_directory'); ?>/src/img/search-whites.svg" alt="img"></a>
-                                        </div>
-                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -138,8 +112,20 @@ $args = array(
                                     )
                                 );
 
+                                $product_brand = get_categories(
+                                    array(
+                                        'taxonomy' => 'brands',
+                                        'orderby' => 'name',
+                                        'show_count' => 0,
+                                        'pad_counts' => 0,
+                                        'hierarchical' => 1,
+                                        'title_li' => '',
+                                        'hide_empty' => 0,
+                                    )
+                                );
+
                                 $currentCategories = get_the_terms($product->get_id(), 'product_cat');
-                                $currentCategory = current($currentCategories);
+                                // $currentCategory = current($currentCategories);
                                 $product_terms = get_the_terms($product_id, 'brands');
                                 $thumbnail_id = get_option('z_taxonomy_image_id' . $product_terms[0]->term_id);
                                 $thumbnail_url = wp_get_attachment_thumb_url($thumbnail_id, 'thumbnail');
@@ -155,7 +141,9 @@ $args = array(
                                             <a href="javascript:void(0);"><?php echo $product->get_name(); ?></a>
                                         </td>
                                         <td><?php echo $product->get_sku(); ?></td>
-                                        <td><?php echo $product->get_categories(); ?></td>
+                                        <td><?php if($currentCategories[0]->name){
+                                            echo $currentCategories[0]->name;
+                                        }; ?></td>
                                         <td>
                                             <img class="brand_image" src="<?php if ($thumbnail_url) {
                                                 echo $thumbnail_url;
@@ -224,6 +212,19 @@ $args = array(
                                                                         ; ?>
                                                                     </select>
                                                                 </div>
+                                                                <div class="col-sm-12">
+                                                                    <label for="product_name">Product Qty</label>
+                                                                    <select class="style_select" name="product_brand"  required>
+                                                                        <?php foreach ($product_brand as $brand) {
+                                                                            if ($product_terms[0]->name == $brand->name) {
+                                                                                echo '<option value="' . $brand->slug . '" selected>' . $brand->name . '</option>';
+                                                                            } else {
+                                                                                echo '<option value="' . $brand->slug . '">' . $brand->name . '</option>';
+                                                                            }
+                                                                        };?>
+                                                                    </select>
+                                                                </div>
+
                                                             </div>
                                                         </div>    
                                                     </div>

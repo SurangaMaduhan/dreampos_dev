@@ -199,3 +199,42 @@ select.style_select {
   height: 40px;
   border: 0;
 }
+[name="product_category"] {
+  margin-bottom: 10px;
+}
+div#preview_wrap {
+  text-align: center;
+}
+.facetwp-facet .fs-wrap {
+  width: 100%;
+}
+
+.fs-label-wrap .fs-label {
+  padding: 15px 20px !important;
+  border-radius: 10px !important;
+}
+
+.facetwp-facet .fs-wrap .fs-label-wrap {
+  border-radius: 5px;
+}
+.fs-arrow {
+  right: 15px !important;
+}
+.facetwp-facet-price {
+  display: flex;
+  gap: 10px;
+}
+input.facetwp-submit {
+  background: #ff9f43;
+  padding: 7px 15px;
+  color: #fff;
+  font-weight: 700;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+}
+
+input.facetwp-number {
+  padding: 11px 20px !important;
+  height: auto !important;
+}

@@ -59,7 +59,6 @@ $product_categories = get_terms(array(
                                
                                 <th>Category name</th>
                                 <th>Category ID</th>
-                                <th>Slug</th>
                                 <th>Related Product Count</th>
                                 <th>Action</th>
                             </tr>
@@ -88,16 +87,12 @@ $product_categories = get_terms(array(
                                         <?php echo $category->term_taxonomy_id; ?>
                                     </td>
                                     <td>
-                                        <?php echo $category->slug; ?>
-                                    </td>
-                                    <td>
                                         <?php echo $category->count; ?>
                                     </td>
                                     <td>
-                                        <button type="button" class="me-3 btn_style"  data-toggle="modal" data-target="#editModal">
-                                            <img src="<?php echo get_bloginfo('template_directory'); ?>/src/img/edit.svg"
-                                                alt="img">
-                                        </button>
+                                        <a href="/update-category/?category-id=<?php echo $category_id; ?>" class="me-3 btn_style">
+                                            <img src="<?php echo get_bloginfo('template_directory'); ?>/src/img/edit.svg" alt="img">
+                                        </a>
                                         <button type="button" class="me-3 delete_btn btn_style"
                                             pr_id="<?php echo $category->term_taxonomy_id; ?>">
                                             <img src="<?php echo get_bloginfo('template_directory'); ?>/src/img/delete.svg"

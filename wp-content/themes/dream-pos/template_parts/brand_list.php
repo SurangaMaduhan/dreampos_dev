@@ -85,9 +85,9 @@ $product_categories = get_terms(
                         <tbody>
                             <?php foreach ($product_categories as $category) {
                                 $category_id = $category->term_id;
-                                $thumbnail_id = get_option('z_taxonomy_image_id'.$category_id);
+                                $thumbnail_id = get_option('z_taxonomy_image_id' . $category_id);
                                 $thumbnail_url = wp_get_attachment_thumb_url($thumbnail_id);
-                            ?>
+                                ?>
                                 <tr>
                                     <td>
                                         <label class="checkboxs">
@@ -117,9 +117,9 @@ $product_categories = get_terms(
                                         <?php echo $category->count; ?>
                                     </td>
                                     <td>
-                                        <button type="button" class="me-3 btn_style" data-toggle="modal" data-target="#editModal">
+                                        <a href="/update-brand/?brand_id=<?php echo $category_id; ?>" class="me-3 btn_style">
                                             <img src="<?php echo get_bloginfo('template_directory'); ?>/src/img/edit.svg" alt="img">
-                                        </button>
+                                        </a>
                                         <button type="button" class="me-3 delete_btn btn_style" pr_id="<?php echo $category->term_taxonomy_id; ?>">
                                             <img src="<?php echo get_bloginfo('template_directory'); ?>/src/img/delete.svg" alt="img">
                                         </button>
@@ -133,4 +133,48 @@ $product_categories = get_terms(
     </div>
     <!-- /product list -->
 </div></div>
+
+<script>
+    jQuery(document).ready(function($){
+        $('.delete_btn').on('click', function () {
+		var categoryId = $(this).attr('pr_id');
+		Swal.fire({
+			title: "Do you want to delete Category?",
+			showDenyButton: true,
+			// showCancelButton: true,
+			confirmButtonText: "Yes",
+			denyButtonText: `no`
+		}).then((result) => {
+			if (result.isConfirmed) {
+				$.ajax({
+					url: '/wp-json/v1/products/remove_brand',
+					type: 'POST',
+					data: {'cat_id': categoryId},
+					success: function (response) {
+                        Swal.fire({
+                            icon: "success",
+                            title: "success...",
+                            text: response.message,
+                        });
+						document.location.reload(true);
+					},
+					error: function (error) {
+						Swal.fire({
+							icon: "error",
+							title: "Oops...",
+							text: error,
+						});
+					}
+				});
+			} else if (result.isDenied) {
+				Swal.fire({
+					icon: "error",
+					title: "Oops...",
+					text: error,
+				});
+			}
+		});
+	});
+    })
+</script>
 

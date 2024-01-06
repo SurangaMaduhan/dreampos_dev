@@ -11,6 +11,9 @@ require_once 'inc/api/remove_category.php';
 require_once 'inc/api/add_brand.php';
 require_once 'inc/api/remove_product.php';
 require_once 'inc/api/update_product.php';
+require_once 'inc/api/update_category.php';
+require_once 'inc/api/update_brand.php';
+require_once 'inc/api/remove_brand.php';
 
 
 function enqueue_custom_styles() {
