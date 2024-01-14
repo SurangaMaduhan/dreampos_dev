@@ -13,7 +13,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
   margin-right: 1em;
 }
 
-#drop-area {
+#drop-area , .drop-area {
   border: 2px dashed #ccc;
   border-radius: 8px;
   padding: 20px;
@@ -22,11 +22,11 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
   position: relative;
 }
 
-#drop-area.highlight {
+#drop-area.highlight ,.drop-area.highlight{
   border-color: #2196f3;
 }
 
-#file-input {
+#file-input,.file-input {
   opacity: 0;
   position: absolute;
   width: 100%;
@@ -35,21 +35,21 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
   top: 0;
 }
 
-#file-info {
+#file-info,.file-info {
   margin-top: 20px;
 }
 
-#file-preview {
+#file-preview,.file-preview {
   max-width: 100%;
 }
-div#preview_wrap {
+div#preview_wrap,.preview_wrap {
   width: 200px;
   position: relative;
   margin-top: 40px;
   border: 1px solid #ddd;
 }
 
-button#remove-btn {
+button#remove-btn,button.remove-btn  {
   position: absolute;
   background: red;
   border: none;
@@ -79,7 +79,7 @@ button#remove-btn {
   align-items: center;
   background: #ffffffa6;
 }
-#drop-area h4 {
+#drop-area h4,.drop-area h4 {
   font-size: 14px;
   font-weight: 500;
   color: #212b36;
@@ -102,6 +102,7 @@ button#remove-btn {
   height: 100%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
   background-color: rgb(0, 0, 0); /* Fallback color */
+  z-index: 999999;
   background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 }
 
@@ -153,7 +154,7 @@ span.outofstock {
   display: block;
   padding: 30px;
 }
-button.remove_product {
+button.remove_product,.me-3 {
   padding: 0;
   border: none;
   background: no-repeat;
@@ -237,4 +238,139 @@ input.facetwp-submit {
 input.facetwp-number {
   padding: 11px 20px !important;
   height: auto !important;
+}
+.add_to_cart_inline span.woocommerce-Price-amount.amount {
+  display: none;
+}
+
+p.product.woocommerce.add_to_cart_inline {
+  border: none !important;
+}
+a.added_to_cart.wc-forward {
+  display: none !important;
+}
+.productimg .productcontet h4 {
+  display: block !important;
+}
+input.input-text.qty.text {
+  width: 100%;
+  text-align: center;
+  padding: 8px 4px;
+  border: 2px solid #ff9f43;
+}
+
+.product-lists > li:nth-child(2) {
+  padding: 0;
+}
+.woocommerce-mini-cart__empty-message img {
+  width: 200px;
+  margin: 0 auto;
+  display: block;
+}
+
+.facetwp-facet-categories_list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.facetwp-facet-categories_list .facetwp-radio {
+  margin: 5px;
+  padding: 0;
+  width: 10%;
+  padding: 5px;
+  background: #fff !important;
+}
+
+.bc_items {
+  height: 110px;
+  background-size: cover !important;
+  display: flex;
+  position: relative;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  border-radius: 7px;
+  overflow: hidden;
+}
+
+.bc_items:after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #000000b3;
+  left: 0;
+  top: 0;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+}
+
+.bc_items span {
+  position: relative;
+  z-index: 1;
+  color: #fff;
+  font-weight: bold;
+  padding: 0 10px;
+}
+.facetwp-radio.checked .bc_items:after {
+  background: #fe9f43f2;
+}
+.facetwp-facet-products input.facetwp-search {
+  padding: 10px 34px 10px 20px;
+  width: 400px;
+  border: 2px solid #fe9f43;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.facetwp-facet-products .facetwp-icon {
+  right: 10px;
+}
+.col-lg-8.col-sm-12.tabs_wrapper {
+  max-height: calc(100vh - 90px);
+  overflow-y: scroll;
+}
+.bc_items i {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 25px;
+  line-height: 25px;
+  z-index: 1;
+  background: #fff;
+  border-radius: 5px;
+  font-size: 13px;
+}
+.product-table .product-table {
+  height: 410px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.productsetcontent .add_to_cart_inline a {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, -20px);
+  width: 80%;
+}
+
+.productset {
+  padding-bottom: 45px;
+}
+.drop-area img {
+  width: 50px !important;
+}
+.current_image label {
+  display: block;
+  font-size: 18px;
+  color: #000;
+}
+
+.current_image img {
+  MARGIN-BOTTOM: 20PX;
+}
+.edit_product select{
+  display: block;
 }

@@ -1,8 +1,11 @@
+<script src="<?php echo get_bloginfo('template_directory'); ?>/src/js/popper.min.js"></script>
 <script src="<?php echo get_bloginfo('template_directory'); ?>/src/js/bootstrap.min.js"></script>
+<script src="<?php echo get_bloginfo('template_directory'); ?>/src/js/bootstrapV4.min.js"></script>
+<!-- Bootstrap Core JS 
 
-<!-- Bootstrap Core JS -->
-<script src="<?php echo get_bloginfo('template_directory'); ?>/src/js/bootstrap.bundle.min.js"></script>
 
+
+-->
 <!-- Feather Icon JS -->
 <script src="<?php echo get_bloginfo('template_directory'); ?>/src/js/feather.min.js"></script>
 
@@ -23,6 +26,7 @@
 <script src="<?php echo get_bloginfo('template_directory'); ?>/src/js/sweetalert2.all.min.js"></script>
 <script src="<?php echo get_bloginfo('template_directory'); ?>/src/js/sweetalerts.min.js"></script>
 <script src="<?php echo get_bloginfo('template_directory'); ?>/src/js/featherlight.js"></script>
+<script src="<?php echo get_bloginfo('template_directory'); ?>/src/js/slick.min.js"></script>
 <!-- Custom JS -->
 <script src="<?php echo get_bloginfo('template_directory'); ?>/src/js/script.js"></script>
 

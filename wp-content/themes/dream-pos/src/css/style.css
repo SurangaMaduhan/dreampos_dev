@@ -7522,11 +7522,6 @@ span.select2-container.select2-container--default.select2-container--open {
   position: relative;
   top: 2px;
 }
-
-.product-table {
-  height: 34vh;
-  overflow: auto;
-}
 @media (max-width: 991.98px) {
   .product-table {
     height: auto;

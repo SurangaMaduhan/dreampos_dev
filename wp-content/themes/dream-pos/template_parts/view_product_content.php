@@ -2,6 +2,11 @@
 
 $product = wc_get_product(intval($_GET['product-id']));
 $terms = get_the_terms(intval($_GET['product-id']), 'product_cat');
+$brands = get_the_terms(intval($_GET['product-id']), 'brands');
+$thumbnail_id = get_option('z_taxonomy_image_id' . $brands[0]->term_id);
+$thumbnail_url = wp_get_attachment_thumb_url($thumbnail_id, 'thumbnail');
+
+
 
 ?>
 <div class="page-wrapper" style="min-height: 452px;">
@@ -26,6 +31,16 @@ $terms = get_the_terms(intval($_GET['product-id']), 'product_cat');
                                 <li>
                                     <h4>Category</h4>
                                     <h6><?php echo $product->get_categories(); ?></h6>
+                                </li>
+                                <li>
+                                    <h4>Brand</h4>
+                                    <h6>
+                                        <img class="brand_image" src="<?php if ($thumbnail_url) {
+                                            echo $thumbnail_url;
+                                        } else {
+                                            echo get_template_directory_uri() . '/src/img/noimage.png';
+                                        } ?>" alt="">
+                                    </h6>
                                 </li>
                                 <li>
                                     <h4>SKU</h4>
