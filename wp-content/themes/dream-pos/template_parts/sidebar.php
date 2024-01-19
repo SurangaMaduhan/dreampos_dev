@@ -27,18 +27,19 @@
                         <li><a href="/add-products/"><i data-feather="plus-square"></i><span>Create Product</span></a></li>
                         <li><a href="/category-list/"><i data-feather="codepen"></i><span>Category</span></a></li>
                         <li><a href="/brand-list/"><i data-feather="tag"></i><span>Brands</span></a></li>
-                        <li><a href="importproduct.html"><i data-feather="minimize-2"></i><span>Import Products</span></a></li>
+                        <li><a href="/import-product/"><i data-feather="minimize-2"></i><span>Import Products</span></a></li>
+                        <li><a href="/import-product/"><i data-feather="minimize-2"></i><span>Import Products</span></a></li>
                     </ul>
                 </li>
                 <li class="submenu-open">
                     <h6 class="submenu-hdr">Sales</h6>
                     <ul>
+                        <li><a href="/point-of-sale/"><i data-feather="hard-drive"></i><span>POS</a></li>
                         <li><a href="saleslist.html"><i data-feather="shopping-cart"></i><span>Sales</span></a></li>
                         <li><a href="invoicereport.html"><i data-feather="file-text"></i><span>Invoices</span></a></li>
                         <li><a href="salesreturnlists.html"><i data-feather="copy"></i><span>Sales Return</span></a>
                         </li>
                         <li><a href="quotationList.html"><i data-feather="save"></i><span>Quotation</span></a></li>
-                        <li><a href="pos.html"><i data-feather="hard-drive"></i><span>POS</a></li>
                         <li class="submenu">
                             <a href="javascript:void(0);"><i data-feather="shuffle"></i><span>Transfer</span><span
                                     class="menu-arrow"></span></a>

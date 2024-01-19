@@ -34,16 +34,56 @@ function import_product($request)
 }
 
 // CSV import function
-function import_products_from_csv($csv_file) {
+function import_products_from_csv($csv_file)
+{
     $success_count = 0;
 
     if (($handle = fopen($csv_file, 'r')) !== FALSE) {
+        // Skip the first row (headers)
+        fgetcsv($handle, 1000, ',');
+
         while (($data = fgetcsv($handle, 1000, ',')) !== FALSE) {
-            // Your CSV import logic here
-            // Example: Create or update products, set featured image, etc.
-            print_r($data);
-            // exit();
-            $success_count++;
+            $sku = sanitize_text_field($data[1]);
+
+            // Check if a product with the same SKU already exists
+            $existing_product = get_posts(array(
+                'post_type' => 'product',
+                'meta_query' => array(
+                    array(
+                        'key' => '_sku',
+                        'value' => $sku,
+                    ),
+                ),
+            ));
+
+            if (!empty($existing_product)) {
+                $success_count;
+            } else {
+                // Product with the SKU doesn't exist, insert a new one
+                $product_data = array(
+                    'post_title' => sanitize_text_field($data[0]),
+                    'post_content' => '',
+                    'post_status' => 'publish',
+                    'post_type' => 'product',
+                );
+
+                $product_id = wp_insert_post($product_data);
+                $product = wc_get_product($product_id);
+
+                $success_count++;
+            }
+            $term = get_term_by('id', $data[5], 'product_cat');
+            $term_brands = get_term_by('id', $data[6], 'brands');
+            wp_set_object_terms($product_id, $term->term_id, 'product_cat');
+            wp_set_object_terms($product_id, $term_brands->term_id, 'brands');
+            $product->set_regular_price(sanitize_text_field($data[3]));
+            update_post_meta($product_id, '_sku', $sku);
+            update_post_meta($product_id, '_cost', $data[4]);
+            update_post_meta($product_id, '_stock', sanitize_text_field($data[2]));
+            update_post_meta($product_id, '_stock_status', 'instock');
+            update_post_meta($product_id, '_manage_stock', 'yes');
+
+            $product->save();
         }
         fclose($handle);
     }

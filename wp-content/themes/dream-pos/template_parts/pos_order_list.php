@@ -1,7 +1,7 @@
 <div class="order-list">
     <div class="orderid">
         <h4>Order List</h4>
-        <h5>Transaction id : #65565</h5>
+        <h5>Order Date : <?php echo date("F j, Y, g:i a");?></h5>
     </div>
 </div>
 <div class="card card-order">

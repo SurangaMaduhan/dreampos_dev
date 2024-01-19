@@ -15,14 +15,13 @@ require_once 'inc/api/update_category.php';
 require_once 'inc/api/import_products.php';
 require_once 'inc/api/update_brand.php';
 require_once 'inc/api/remove_brand.php';
-require_once 'inc/api/empty_cart.php';
+require_once 'inc/api/new_orders.php';
 
 
 
 function enqueue_custom_styles()
 {
   wp_enqueue_style('style', get_stylesheet_uri());
-
 }
 
 add_action('wp_enqueue_scripts', 'enqueue_custom_styles');
@@ -83,12 +82,20 @@ function mytheme_add_woocommerce_support()
 }
 add_action('after_setup_theme', 'mytheme_add_woocommerce_support');
 
+function enqueue_custom_scripts() {
+  // Enqueue your custom script
+  wp_enqueue_script('woocommerce');
+  wp_enqueue_script('wc-cart-fragments', null, array('jquery'), '', true);
+}
+
+add_action('wp_enqueue_scripts', 'enqueue_custom_scripts');
+
+
 function custom_mini_cart()
 {
   echo '<div class="widget_shopping_cart_content">';
   woocommerce_mini_cart();
   echo '</div>';
-
 }
 add_shortcode('custom-techno-mini-cart', 'custom_mini_cart');
 
@@ -155,6 +162,7 @@ function wporg_register_taxonomy_course()
 }
 add_action('init', 'wporg_register_taxonomy_course');
 
+
 add_action('wp_loaded', 'woocommerce_empty_cart_action', 20);
 function woocommerce_empty_cart_action()
 {
@@ -190,7 +198,7 @@ add_filter('facetwp_render_output', function ($output, $params) {
 
     // Modify the 'categories_list' HTML for styled radio buttons
     $categoriesHTML = preg_replace_callback(
-      '/<div class="facetwp-radio(?: checked)?" data-value="(.*?)".*?><span class="facetwp-display-value">(.*?)<\/span><span class="facetwp-counter">\((\d+)\)<\/span><\/div>/',
+      '/<div class="facetwp-radio(?: checked)?(?: disabled)?" data-value="(.*?)".*?><span class="facetwp-display-value">(.*?)<\/span><span class="facetwp-counter">\((\d+)\)<\/span><\/div>/',
       function ($matches) use ($params) {
         $category_slug = $matches[1];
         $category_name = $matches[2];
@@ -205,9 +213,9 @@ add_filter('facetwp_render_output', function ($output, $params) {
           $is_selected = in_array($category_slug, $params['facets'][1]['selected_values']);
         } else {
           $term = get_term_by('slug', $params['facets'][1]['selected_values'][0], 'product_cat');
-          
+
           $thumbnail_id = get_woocommerce_term_meta($term->term_id, 'thumbnail_id', true);
-          
+
           $thumbnail_url = wp_get_attachment_thumb_url($thumbnail_id);
           $is_selected = in_array($category_slug, $params['facets'][1]['selected_values']);
           var_dump($thumbnail_url);
@@ -225,3 +233,39 @@ add_filter('facetwp_render_output', function ($output, $params) {
 
   return $output;
 }, 10, 2);
+
+
+add_action('wp_ajax_empty_cart_action', 'ts_empty_cart_action_callback');
+add_action('wp_ajax_nopriv_empty_cart_action', 'ts_empty_cart_action_callback');
+function ts_empty_cart_action_callback() {
+    // Set quantities to zero for all items in the cart
+    foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
+        WC()->cart->set_quantity( $cart_item_key, 0 );
+    }
+    die();
+}
+
+function clear_cart() {
+  if (function_exists('WC')) {
+      WC()->cart->empty_cart();
+      error_log('Cart emptied successfully', 0);
+  } else {
+      error_log('WooCommerce not active', 0);
+  }
+}
+
+add_action('rest_api_init', function () {
+  register_rest_route(
+      'v1',
+      '/products/empty-cart',
+      array(
+          'methods' => 'POST',
+          'callback' => 'empty_cart_callback',
+      )
+  );
+});
+
+function empty_cart_callback() {
+  clear_cart();
+  return 'Cart cleared successfully';
+}
