@@ -6,6 +6,20 @@
 $args = array(
     'post_type' => 'product',
     'posts_per_page' => -1,
+    'meta_query'     => array(
+        'relation' => 'AND', // Add this line for an AND relationship between conditions
+        array(
+            'key'     => '_stock_status',
+            'value'   => 'instock',
+            'compare' => '=',
+        ),
+        array(
+            'key'     => '_stock',
+            'value'   => 0,
+            'compare' => '>',
+            'type'    => 'NUMERIC',
+        ),
+    ),
     'facetwp' => true
 );
 $loop = new WP_Query($args);

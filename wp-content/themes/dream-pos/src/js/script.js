@@ -101,6 +101,7 @@ jQuery(document).ready(function($){
 			"sDom": 'fBtlpi',  
 			'pagingType': 'numbers', 
 			"ordering": true,
+			"order": [[0, 'desc']],
 			"language": {
 				search: ' ',
 				sLengthMenu: '_MENU_',
@@ -413,6 +414,10 @@ jQuery(document).ready(function($){
 		var secondUpload = new FileUploadWithPreview('mySecondImage')
 	}
 
+	function addThousandsSeparator(number) {
+		return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	}
+
 	$('.counters').each(function() {
 		var $this = $(this),
 			countTo = $this.attr('data-count');
@@ -423,10 +428,10 @@ jQuery(document).ready(function($){
 			duration: 2000,
 			easing:'linear',
 			step: function() {
-			$this.text(Math.floor(this.countNum));
+			$this.text(addThousandsSeparator(Math.floor(this.countNum).toLocaleString()));
 			},
 			complete: function() {
-			$this.text(this.countNum);
+			$this.text(addThousandsSeparator(this.countNum.toLocaleString()));
 			}
 		
 		});  

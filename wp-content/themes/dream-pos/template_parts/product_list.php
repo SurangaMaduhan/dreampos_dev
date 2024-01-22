@@ -7,7 +7,7 @@ if (!isset($paged) || !$paged) {
 $args = array(
     'post_type' => 'product',
     'posts_per_page' => -1,
-    'facetwp' => true
+    'facetwp' => true,
 ); ?>
 
 <div class="page-wrapper">
@@ -75,8 +75,6 @@ $args = array(
                     </div>
                 </div>
                 <!-- /Filter -->
-
-
                 <div class="table-responsive">
                     <table class="table  datanew">
                         <thead>

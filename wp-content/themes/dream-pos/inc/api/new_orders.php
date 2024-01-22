@@ -23,7 +23,8 @@ function add_order($request)
     $order_profit = $request->get_param('order-profit');
     $payment_type = $request->get_param('payment_type');
     $parts_type = $request->get_param('parts_type');
-
+    $customer_name = $request->get_param('customer_name');
+    
     // Validate the cart data
     if (empty($cart_data) || !is_array($cart_data)) {
         return new WP_Error('invalid_cart_data', 'Invalid cart data', array('status' => 400));
@@ -63,6 +64,7 @@ function add_order($request)
     $order->update_meta_data('_order_profit', $order_profit);
     // $order->update_meta_data('_payment_type', $payment_type);
     $order->update_meta_data('_parts_type', $parts_type);
+    $order->update_meta_data('_customer_name', $customer_name);
     
 
     // Optionally mark the order as paid

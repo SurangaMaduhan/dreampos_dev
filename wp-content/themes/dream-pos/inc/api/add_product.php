@@ -39,8 +39,14 @@ function add_new_product($product)
     update_post_meta($product_id, '_sku', $_POST['product_sku']);
     update_post_meta($product_id, '_cost', $_POST['product_cost']);
     update_post_meta($product_id, '_stock', sanitize_text_field($_POST['quantity']));
-    update_post_meta($product_id, '_stock_status', 'instock');
     update_post_meta($product_id, '_manage_stock', 'yes');
+
+    if(sanitize_text_field($_POST['quantity']) < 0 ){
+        update_post_meta($product_id, '_stock_status', 'instock');
+    } else{
+        update_post_meta($product_id, '_stock_status', 'outofstock');
+    }
+    
 
     // Check if the file was uploaded successfully
     if ($_FILES['product_image']['error'] == 0) {

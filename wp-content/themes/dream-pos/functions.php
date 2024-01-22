@@ -16,6 +16,7 @@ require_once 'inc/api/import_products.php';
 require_once 'inc/api/update_brand.php';
 require_once 'inc/api/remove_brand.php';
 require_once 'inc/api/new_orders.php';
+require_once 'inc/api/update_order.php';
 
 
 

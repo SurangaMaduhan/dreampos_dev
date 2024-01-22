@@ -5,9 +5,10 @@ if (!isset($paged) || !$paged) {
 }
 
 $ordersn = wc_get_orders(array(
-    'limit' => -1,
-    'orderby'  => 'ID',
-    'order'    => 'DESC',
+        'limit' => -1,
+        'status'       => array('pending'),
+        'orderby'  => 'ID',
+        'order'    => 'DESC',
 ));
 
 foreach ($ordersn as $order) {
@@ -24,9 +25,11 @@ foreach ($ordersn as $order) {
 
 $quary = array(
     'limit' => -1,
+    'status'       => array('pending'),
     'orderby'  => 'ID',
     'order'    => 'DESC',
 );
+
 $start_date = isset($_GET['start_date']) ? sanitize_text_field($_GET['start_date']) : '';
 $end_date = isset($_GET['end_date']) ? sanitize_text_field($_GET['end_date']) : '';
 $sales_type = isset($_GET['sales_type']) ? sanitize_text_field($_GET['sales_type']) : '';
@@ -34,6 +37,7 @@ $sales_type = isset($_GET['sales_type']) ? sanitize_text_field($_GET['sales_type
 if (!empty($_GET['start_date']) || !empty($_GET['end_date']) || !empty($_GET['sales_type']) || !empty($_GET['sales_type'])) {
     $quary = array(
         'limit' => -1,
+        'status'       => array('pending'),
         'orderby'  => 'ID',
         'order'    => 'DESC',
         'date_created' => date("Y-m-d", strtotime($start_date)) . '...' .  date("Y-m-d", strtotime($end_date . ' 23:59:59')),
@@ -46,7 +50,6 @@ if (!empty($_GET['start_date']) || !empty($_GET['end_date']) || !empty($_GET['sa
         )
     );
 }
-
 $orders = wc_get_orders($quary);
 $orders_sub_total = 0;
 $orders_cost_total = 0;
@@ -58,11 +61,12 @@ $pending_orders = 0;
 $cancelled_orders = 0;
 
 foreach ($orders as $order2) {
-    if ($order2->get_status() != 'cancelled' && $order2->get_status() != 'pending') {
+    if ($order2->get_status() != 'cancelled') {
         $orders_sub_total += (float) $order2->get_subtotal();
         $orders_cost_total += (float) $order2->get_meta('_cost_total', true);
         $orders_profit_total += (float) $order2->get_meta('_order_profit', true);
     }
+
     $all_orders++;
 
     if ($order2->get_status() == 'completed') {
@@ -77,16 +81,14 @@ foreach ($orders as $order2) {
         $cancelled_orders++;
     }
 }
-
-// print_r();
 ?>
 
 <div class="page-wrapper">
     <div class="content">
         <div class="page-header">
             <div class="page-title">
-                <h4>Sales List</h4>
-                <h6>Manage your Sales</h6>
+                <h4>Pending Sales List</h4>
+                <h6>Manage your Pending Sales</h6>
             </div>
         </div>
 
@@ -101,7 +103,7 @@ foreach ($orders as $order2) {
                         </div>
                         <div class="dash-widgetcontent">
                             <h5><?php echo get_woocommerce_currency_symbol(); ?>,<span class="counters" data-count="<?php echo (float) $orders_sub_total; ?>"><?php echo $orders_sub_total; ?></span>.00</h5>
-                            <h6>Total Orders Amount</h6>
+                            <h6>Total Pending Amount</h6>
                         </div>
                     </div>
                 </div>
@@ -114,7 +116,7 @@ foreach ($orders as $order2) {
                         </div>
                         <div class="dash-widgetcontent">
                             <h5><?php echo get_woocommerce_currency_symbol(); ?>,<span class="counters" data-count="<?php echo (float) $orders_cost_total; ?>"><?php echo $orders_cost_total; ?></span>.00</h5>
-                            <h6>Total Orders Cost Amount</h6>
+                            <h6>Total Pending Cost Amount</h6>
                         </div>
                     </div>
                 </div>
@@ -125,57 +127,13 @@ foreach ($orders as $order2) {
                         </div>
                         <div class="dash-widgetcontent">
                             <h5><?php echo get_woocommerce_currency_symbol(); ?>,<span class="counters" data-count="<?php echo (float) $orders_profit_total; ?>"><?php echo $orders_profit_total; ?></span>.00</h5>
-                            <h6>Total Profit Amount</h6>
+                            <h6>Total Pending Profit Amount</h6>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-sm-6 col-12 d-flex">
-                    <div class="dash-count das2">
-                        <div class="dash-counts">
-                            <h4><?php echo $all_orders; ?></h4>
-                            <h5>All Sales</h5>
-                        </div>
-                        <div class="dash-imgs">
-                            <i data-feather="file-text"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6 col-12 d-flex">
-                    <div class="dash-count das3">
-                        <div class="dash-counts">
-                            <h4><?php echo $completed_orders; ?></h4>
-                            <h5>Completed Sales</h5>
-                        </div>
-                        <div class="dash-imgs">
-                            <i data-feather="file"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6 col-12 d-flex">
-                    <div class="dash-count">
-                        <div class="dash-counts">
-                            <h4><?php echo $pending_orders; ?></h4>
-                            <h5>Pending Sales</h5>
-                        </div>
-                        <div class="dash-imgs">
-                            <i data-feather="user"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6 col-12 d-flex">
-                    <div class="dash-count das1">
-                        <div class="dash-counts">
-                            <h4><?php echo $cancelled_orders; ?></h4>
-                            <h5>Cancelled Sales</h5>
-                        </div>
-                        <div class="dash-imgs">
-                            <i data-feather="user-check"></i>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </div>
+
 
         <!-- /product list -->
         <div class="card">
@@ -266,9 +224,9 @@ foreach ($orders as $order2) {
                                     </td>
                                     <td><?php echo $order->get_meta('_customer_name', true); ?></td>
                                     <td style="text-transform: capitalize;"><?php echo $bike_type; ?></td>
-                                    <td><?php echo get_woocommerce_currency_symbol() . ': ' . number_format((float) $order->get_subtotal(), 2, '.', ','); ?></td>
-                                    <td><?php echo get_woocommerce_currency_symbol() . ': ' . number_format((float) $order->get_meta('_cost_total', true), 2, '.', ','); ?></td>
-                                    <td><?php echo get_woocommerce_currency_symbol() . ': ' . number_format((float) $order->get_meta('_order_profit', true), 2, '.', ','); ?></td>
+                                    <td><?php echo get_woocommerce_currency_symbol() . ': ' . number_format((float) $order->get_subtotal(), 2, '.', ''); ?></td>
+                                    <td><?php echo get_woocommerce_currency_symbol() . ': ' . number_format((float) $order->get_meta('_cost_total', true), 2, '.', ''); ?></td>
+                                    <td><?php echo get_woocommerce_currency_symbol() . ': ' . number_format((float) $order->get_meta('_order_profit', true), 2, '.', ''); ?></td>
                                     <td><?php echo date('F j, Y, g:i a', strtotime($order->get_date_created())); ?></td>
                                     <td><?php echo $order->get_item_count(); ?></td>
                                     <td><span class="<?php echo $order->get_status(); ?> order_status"><?php echo $order->get_status(); ?></span></td>

@@ -26,7 +26,7 @@ do_action('woocommerce_before_mini_cart'); ?>
     <div class="totalitem">
         <h4>Total items :
             <?php echo WC()->cart->get_cart_contents_count(); ?></h4>
-        <?php echo '<a href="?&empty_cart=yes" class="button" title="' . esc_attr('Empty Cart', 'woocommerce') . '">' . esc_html('Empty cart', 'woocommerce') . '</a>'; ?>
+        <button type="button" id="clear_cart" class="button" title="<?php echo esc_attr('Empty Cart', 'woocommerce'); ?>"><img src="<?php echo get_bloginfo('template_directory'); ?>/src/img/delete-2.svg" alt="img"> <?php echo esc_html('Empty cart', 'woocommerce'); ?></button>
     </div>
     <div class="product-table">
         <?php
@@ -164,7 +164,7 @@ do_action('woocommerce_before_mini_cart'); ?>
             </div>
 
             <div class="customer_input">
-                <input type="text" name="customer_name" placeholder="Please enter customer Name">
+                <input type="text" name="customer_name" placeholder="Please enter customer Name" required>
             </div>
 
             <div class="btn-totallabel">
@@ -257,5 +257,23 @@ do_action('woocommerce_before_mini_cart'); ?>
             });
 
         });
+        $('button#clear_cart').click(function() {
+            $.ajax({
+                type: 'POST',
+                url: wc_cart_fragments_params.ajax_url,
+                data: {
+                    action: 'empty_cart_action'
+                },
+                success: function(response) {
+
+                    $(document.body).trigger('wc_fragment_refresh');
+                    Swal.fire({
+                        icon: "success",
+                        title: "Cart Cleared...",
+                        text: 'Your cart has been successfully cleared',
+                    });
+                }
+            });
+        })
     });
 </script>
