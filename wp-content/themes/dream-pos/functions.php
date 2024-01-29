@@ -23,6 +23,7 @@ require_once 'inc/api/remove_user.php';
 require_once 'inc/api/update_user.php';
 require_once 'inc/api/export_products.php';
 require_once 'inc/api/import_purchase.php';
+require_once 'inc/api/remove_order.php';
 
 
 

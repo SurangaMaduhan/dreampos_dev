@@ -280,76 +280,58 @@ $args = array(
                                                 </div>
                                             </div>
                                         </div>
-                                        <div id="view_product_<?php echo $product->get_id(); ?>" class="modal fade ProductView" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog ">
+                                        <div id="view_product_<?php echo $product->get_id(); ?>" class="modal fade product_view" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-lg">
                                                 <div class="modal-content">
                                                     <div class="row">
                                                         <div class="col-sm-12">
-                                                            <h5><?php echo $product->get_name(); ?></h5>
+                                                            <h2>"<?php echo $product->get_sku(); ?>" Product</h2>
                                                         </div>
-                                                        <div class="col-sm-12">
-                                                            <div class="current_image">
-                                                                <img class="preview" alt="File Preview" src="<?php if ($image) {
-                                                                                                                    echo $image;
-                                                                                                                } else {
-                                                                                                                    echo get_template_directory_uri() . '/src/img/noimage.png';
-                                                                                                                }; ?>
-                                                                    ">
-                                                            </div>
+                                                        <div class="col-sm-6">
+                                                            <?php if ($image) { ?>
+                                                                <div class="current_image">
+                                                                    <?php echo woocommerce_get_product_thumbnail(); ?>
+                                                                </div>
+                                                            <?php }; ?>
                                                         </div>
-                                                        <div class="col-sm-12">
+                                                        <div class="col-sm-6">
                                                             <div class="row">
                                                                 <div class="col-sm-12">
-                                                                    <div class="wrap_contents">
-                                                                        <strong>Product Name </strong>:
-                                                                        <span><?php echo $product->get_name(); ?></span>
-                                                                    </div>
+                                                                    <strong>Product Name </strong>:
+                                                                    <span><?php echo $product->get_name(); ?></span>
                                                                 </div>
                                                                 <div class="col-sm-12">
-                                                                    <div class="wrap_contents">
-                                                                        <strong>Product Cost </strong>:
-                                                                        <span><?php echo get_woocommerce_currency_symbol() . ': ' . number_format((float) $product->get_meta('_cost'), 2, '.', ''); ?></span>
-                                                                    </div>
+                                                                    <strong>Product Cost </strong>:
+                                                                    <span><?php echo get_woocommerce_currency_symbol() . ': ' . number_format((float) $product->get_meta('_cost'), 2, '.', ''); ?></span>
                                                                 </div>
                                                                 <div class="col-sm-12">
-                                                                    <div class="wrap_contents">
-                                                                        <strong>Sale Price </strong>:
-                                                                        <span><?php echo get_woocommerce_currency_symbol() . ': ' . number_format((float) $product->get_price(), 2, '.', ''); ?></span>
-                                                                    </div>
+                                                                    <strong>Sale Price </strong>:
+                                                                    <span><?php echo get_woocommerce_currency_symbol() . ': ' . number_format((float) $product->get_price(), 2, '.', ''); ?></span>
                                                                 </div>
                                                                 <div class="col-sm-12">
-                                                                    <div class="wrap_contents">
-                                                                        <strong>Product SKU </strong>:
-                                                                        <span><?php echo get_post_meta($product->get_id(), '_sku', true); ?></span>
-                                                                    </div>
+                                                                    <strong>Product SKU </strong>:
+                                                                    <span><?php echo get_post_meta($product->get_id(), '_sku', true); ?></span>
                                                                 </div>
                                                                 <div class="col-sm-12">
-                                                                    <div class="wrap_contents">
-                                                                        <strong>Product Qty </strong>:
-                                                                        <span><?php echo get_post_meta($product->get_id(), '_stock', true); ?></span>
-                                                                    </div>
+                                                                    <strong>Product Qty </strong>:
+                                                                    <span><?php echo get_post_meta($product->get_id(), '_stock', true); ?></span>
                                                                 </div>
                                                                 <div class="col-sm-12">
-                                                                    <div class="wrap_contents">
-                                                                        <strong>Product Category </strong>:
-                                                                        <span><?php echo $currentCategory->name; ?></span>
-                                                                    </div>
+                                                                    <strong>Product Category </strong>:
+                                                                    <span><?php echo $currentCategory->name; ?></span>
                                                                 </div>
                                                                 <div class="col-sm-12">
-                                                                    <div class="wrap_contents">
-                                                                        <strong>Product Brand </strong><br>
-                                                                        <span><img class="brand_image" src="<?php if ($thumbnail_url) {
-                                                                                                                echo $thumbnail_url;
-                                                                                                            } else {
-                                                                                                                echo get_template_directory_uri() . '/src/img/noimage.png';
-                                                                                                            } ?>" alt="<?php echo $product_terms[0]->name; ?>"></span>
-                                                                    </div>
+                                                                    <strong>Product Brand </strong><br>
+                                                                    <span><img class="brand_image" src="
+                                                                    <?php if ($thumbnail_url) {
+                                                                        echo $thumbnail_url;
+                                                                    } else {
+                                                                        echo get_template_directory_uri() . '/src/img/noimage.png';
+                                                                    } ?>" alt="<?php echo $product_terms[0]->name; ?>"></span>
                                                                 </div>
                                                                 <div class="col-sm-12">
-                                                                    <div class="wrap_contents">
-                                                                        <strong>Product Description</strong><br>
-                                                                        <span><?php echo $product->get_description(); ?></span>
-                                                                    </div>
+                                                                    <strong>Product Description</strong><br>
+                                                                    <span><?php echo $product->get_description(); ?></span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -358,6 +340,10 @@ $args = array(
                                                         <button type="button" class="btn btn-cancel me-2" data-dismiss="modal" aria-label="Close">
                                                             close
                                                         </button>
+                                                    </div>
+                                                    </form>
+                                                    <div class="global-loader" style="display:none">
+                                                        <div class="whirly-loader"> </div>
                                                     </div>
                                                 </div>
                                             </div>

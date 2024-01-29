@@ -23,14 +23,14 @@ function update_product($request)
 
     $product->set_regular_price(sanitize_text_field($parameters['product_price']));
     update_post_meta($parameters['product_id'], '_cost', sanitize_text_field($parameters['product_cost']));
+    update_post_meta($parameters['product_id'], '_manage_stock', 'yes');
     $product->set_stock_quantity(sanitize_text_field($parameters['product_qty']));
 
-    if (sanitize_text_field($parameters['quantity']) < 0) {
-        update_post_meta($parameters['product_id'], '_stock_status', 'instock');
-    } else {
+    if ($parameters['quantity'] == 0) {
         update_post_meta($parameters['product_id'], '_stock_status', 'outofstock');
+    } else {
+        update_post_meta($parameters['product_id'], '_stock_status', 'instock');
     }
-    update_post_meta($parameters['product_id'], '_manage_stock', 'yes');
     update_post_meta($parameters['product_id'], '_sku', $parameters['product_sku']);
 
     $product->set_category_ids(array());
@@ -51,7 +51,7 @@ function update_product($request)
         // Handle the file upload and get the attachment ID
         $attachment_id = media_handle_upload('thumbnail', $parameters['product_id']);
 
-        if (!is_wp_error($attachment_id)) {        
+        if (!is_wp_error($attachment_id)) {
             // Set the attachment as the featured image for the product
             set_post_thumbnail($parameters['product_id'], $attachment_id);
         }

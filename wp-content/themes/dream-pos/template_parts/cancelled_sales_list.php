@@ -234,7 +234,11 @@ foreach ($orders as $order2) {
                                         <button type="button" class="me-3" data-toggle="modal" data-target="#change_status_<?php echo $order_id; ?>">
                                             <img src="<?php echo get_bloginfo('template_directory'); ?>/src/img/edit.svg" alt="img">
                                         </button>
-
+                                        <?php if ($order->get_status() == 'cancelled') { ?>
+                                            <button type="button" class="remove_order" order_id="<?php echo $order_id; ?>">
+                                                <img src="<?php echo get_bloginfo('template_directory'); ?>/src/img/delete.svg" alt="img">
+                                            </button>
+                                        <?php } ?>
                                         <div id="view_order_<?php echo $order_id; ?>" class="modal fade bd-example-modal-lg Order_view" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
                                             <div class="modal-dialog modal-lg">
                                                 <div class="modal-content">
@@ -500,5 +504,44 @@ foreach ($orders as $order2) {
                 }
             });
         });
+
+        $('.remove_order').on('click', function() {
+            var productID = $(this).attr('order_id');
+
+            Swal.fire({
+                title: "Do you want to delete Sale?",
+                showDenyButton: true,
+                confirmButtonText: "Yes",
+                denyButtonText: "No"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: '/wp-json/v1/remove-order',
+                        type: 'POST',
+                        data: {
+                            'order_id': productID
+                        },
+                        success: function(response) {
+                            document.location.reload(true);
+                            // console.log(response);
+                        },
+                        error: function(xhr, status, error) {
+                            Swal.fire({
+                                icon: "error",
+                                title: "Oops...",
+                                text: xhr.responseText,
+                            });
+                        }
+                    });
+                } else if (result.isDenied) {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: 'User denied the deletion.',
+                    });
+                }
+            });
+        });
+
     });
 </script>

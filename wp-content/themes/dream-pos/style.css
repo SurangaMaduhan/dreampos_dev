@@ -776,3 +776,17 @@ p.product.woocommerce.add_to_cart_inline {
   border: none !important;
   padding: 0 !important;
 }
+.product_view h2 {
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: 900;
+}
+.product_view .col-sm-6 .col-sm-12{
+  margin-bottom: 10px;
+}
+button.remove_order {
+  border: none !important;
+  background: none !important;
+  padding: 0 !important;
+  outline: none !important;
+}
