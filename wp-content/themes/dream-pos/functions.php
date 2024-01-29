@@ -10,13 +10,19 @@ require_once 'inc/api/add_category.php';
 require_once 'inc/api/remove_category.php';
 require_once 'inc/api/add_brand.php';
 require_once 'inc/api/remove_product.php';
-require_once 'inc/api/update_product.php';
+
 require_once 'inc/api/update_category.php';
 require_once 'inc/api/import_products.php';
 require_once 'inc/api/update_brand.php';
 require_once 'inc/api/remove_brand.php';
 require_once 'inc/api/new_orders.php';
 require_once 'inc/api/update_order.php';
+require_once 'inc/api/update_product.php';
+require_once 'inc/api/add_user.php';
+require_once 'inc/api/remove_user.php';
+require_once 'inc/api/update_user.php';
+require_once 'inc/api/export_products.php';
+require_once 'inc/api/import_purchase.php';
 
 
 
@@ -270,3 +276,24 @@ function empty_cart_callback() {
   clear_cart();
   return 'Cart cleared successfully';
 }
+
+function redirect_to_last_page() {
+  // Check if the current request is a single product page
+  if (is_product()) {
+      // Get the referrer (last visited page)
+      $referrer = wp_get_referer();
+
+      // If a referrer is found, redirect to the last visited page
+      if ($referrer) {
+          wp_safe_redirect($referrer);
+          exit;
+      } else {
+          // If no referrer is found, redirect to the home page or any other desired page
+          wp_safe_redirect(home_url('/'));
+          exit;
+      }
+  }
+}
+
+// Hook the function to the template_redirect action
+add_action('template_redirect', 'redirect_to_last_page');

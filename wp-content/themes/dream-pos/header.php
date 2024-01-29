@@ -68,188 +68,115 @@
               <a href="javascript:void(0);" class="responsive-search">
                 <i class="fa fa-search"></i>
               </a>
-              <form action="#">
-                <div class="searchinputs">
-                  <input type="text" placeholder="Search">
-                  <div class="search-addon">
-                    <span><i data-feather="search" class="feather-14"></i></span>
-                  </div>
-                </div>
-                <!-- <a class="btn"  id="searchdiv"><img src="<?php echo get_bloginfo('template_directory'); ?>/src/icons/search.svg" alt="img"></a> -->
-              </form>
             </div>
           </li>
-          <!-- /Search -->
-
-          <!-- Flag -->
-          <!-- <li class="nav-item dropdown has-arrow flag-nav nav-item-box">
-            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="javascript:void(0);" role="button">
-              <i data-feather="globe"></i>
-            </a>
-            <div class="dropdown-menu dropdown-menu-right">
-              <a href="javascript:void(0);" class="dropdown-item active">
-                <img src="<?php echo get_bloginfo('template_directory'); ?>/src/flags/us.png" alt="" height="16"> English
-              </a>
-              <a href="javascript:void(0);" class="dropdown-item">
-                <img src="<?php echo get_bloginfo('template_directory'); ?>/src/flags/fr.png" alt="" height="16"> French
-              </a>
-              <a href="javascript:void(0);" class="dropdown-item">
-                <img src="<?php echo get_bloginfo('template_directory'); ?>/src/flags/es.png" alt="" height="16"> Spanish
-              </a>
-              <a href="javascript:void(0);" class="dropdown-item">
-                <img src="<?php echo get_bloginfo('template_directory'); ?>/src/flags/de.png" alt="" height="16"> German
-              </a>
-            </div>
-          </li> -->
-          <!-- /Flag -->
 
           <li class="nav-item nav-item-box">
             <a href="javascript:void(0);" id="btnFullscreen">
               <i data-feather="maximize"></i>
             </a>
           </li>
-          <li class="nav-item nav-item-box">
-            <a href="email.html">
-              <i data-feather="mail"></i>
-              <span class="badge rounded-pill">1</span>
-            </a>
-          </li>
           <!-- Notifications -->
-          <li class="nav-item dropdown nav-item-box">
-            <a href="javascript:void(0);" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
-              <i data-feather="bell"></i><span class="badge rounded-pill">2</span>
-            </a>
-            <div class="dropdown-menu notifications">
-              <div class="topnav-dropdown-header">
-                <span class="notification-title">Notifications</span>
-                <a href="javascript:void(0)" class="clear-noti"> Clear All </a>
-              </div>
-              <div class="noti-content">
-                <ul class="notification-list">
-                  <li class="notification-message">
-                    <a href="activities.html">
-                      <div class="media d-flex">
-                        <span class="avatar flex-shrink-0">
-                          <!-- <img alt="" src="<?php echo get_bloginfo('template_directory'); ?>/src/img/avatar-02.jpg"> -->
-                        </span>
-                        <div class="media-body flex-grow-1">
-                          <p class="noti-details"><span class="noti-title">John Doe</span> added
-                            new task <span class="noti-title">Patient appointment booking</span>
-                          </p>
-                          <p class="noti-time"><span class="notification-time">4 mins ago</span>
-                          </p>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                  <li class="notification-message">
-                    <a href="activities.html">
-                      <div class="media d-flex">
-                        <span class="avatar flex-shrink-0">
-                          <!-- <img alt="" src="<?php echo get_bloginfo('template_directory'); ?>/src/img/avatar-03.jpg"> -->
-                        </span>
-                        <div class="media-body flex-grow-1">
-                          <p class="noti-details"><span class="noti-title">Tarah Shropshire</span>
-                            changed the task name
-                            <span class="noti-title">Appointment booking with payment
-                              gateway</span>
-                          </p>
-                          <p class="noti-time"><span class="notification-time">6 mins ago</span>
-                          </p>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                  <li class="notification-message">
-                    <a href="activities.html">
-                      <div class="media d-flex">
-                        <span class="avatar flex-shrink-0">
-                          <!-- <img alt="" src="<?php echo get_bloginfo('template_directory'); ?>/src/img/avatar-06.jpg"> -->
-                        </span>
-                        <div class="media-body flex-grow-1">
-                          <p class="noti-details"><span class="noti-title">Misty Tison</span>
-                            added <span class="noti-title">Domenic Houston</span> and <span class="noti-title">Claire Mapes</span>
-                            to project <span class="noti-title">Doctor available module</span>
-                          </p>
-                          <p class="noti-time"><span class="notification-time">8 mins ago</span>
-                          </p>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                  <li class="notification-message">
-                    <a href="activities.html">
-                      <div class="media d-flex">
-                        <span class="avatar flex-shrink-0">
-                          <!-- <img alt="" src="<?php echo get_bloginfo('template_directory'); ?>/src/img/avatar-17.jpg"> -->
-                        </span>
-                        <div class="media-body flex-grow-1">
-                          <p class="noti-details"><span class="noti-title">Rolland Webber</span>
-                            completed task <span class="noti-title">Patient and Doctor video
-                              conferencing</span></p>
-                          <p class="noti-time"><span class="notification-time">12 mins ago</span>
-                          </p>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                  <li class="notification-message">
-                    <a href="activities.html">
-                      <div class="media d-flex">
-                        <span class="avatar flex-shrink-0">
-                          <!-- <img alt="" src="<?php echo get_bloginfo('template_directory'); ?>/src/img/avatar-13.jpg"> -->
-                        </span>
-                        <div class="media-body flex-grow-1">
-                          <p class="noti-details"><span class="noti-title">Bernardo Galaviz</span>
-                            added new task <span class="noti-title">Private chat module</span>
-                          </p>
-                          <p class="noti-time"><span class="notification-time">2 days ago</span>
-                          </p>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-              <div class="topnav-dropdown-footer">
-                <a href="activities.html">View all Notifications</a>
-              </div>
-            </div>
-          </li>
-          <!-- /Notifications -->
 
-          <li class="nav-item nav-item-box">
-            <a href="generalsettings.html"><i data-feather="settings"></i></a>
-          </li>
+
+          <?php
+          $args = array(
+            'post_type'      => 'product',
+            'post_status'    => 'publish',
+            'posts_per_page' => -1,
+            'meta_query'     => array(
+              array(
+                'key'     => '_stock',
+                'value'   => 3,
+                'compare' => '<=',
+                'type'    => 'NUMERIC',
+              ),
+            ),
+          );
+
+          $loop = new WP_Query($args);
+          $product_count = $loop->found_posts;
+
+          if ($product_count > 0) { ?>
+            <li class="nav-item dropdown nav-item-box">
+              <a href="javascript:void(0);" class="dropdown-toggle nav-link" data-bs-toggle="dropdown" aria-expanded="false">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bell">
+                  <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                  <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                </svg><span class="badge rounded-pill"><?php echo $product_count; ?></span>
+              </a>
+              <div class="dropdown-menu notifications">
+                <div class="topnav-dropdown-header">
+                  <span class="notification-title">Notifications</span>
+                </div>
+                <div class="noti-content">
+                  <ul class="notification-list">
+
+                    <?php
+                    while ($loop->have_posts()) : $loop->the_post();
+                      global $product; ?>
+                      <li class="notification-message">
+                        <a href="/products-list/">
+                          <div class="media d-flex">
+                            <span class="avatar flex-shrink-0">
+                              <?php echo woocommerce_get_product_thumbnail(); ?>
+                            </span>
+                            <div class="media-body flex-grow-1">
+                              <p class="noti-details"><?php echo $product->get_name(); ?> <span class="noti-title"> Low stock.</span></p>
+                              <p class="noti-time"><span class="notification-time">Stock Count : <?php echo get_post_meta($product->get_id(), '_stock', true); ?></span></p>
+                            </div>
+                          </div>
+                        </a>
+                      </li>
+
+                    <?php endwhile;
+
+                    wp_reset_query(); ?>
+
+
+
+                  </ul>
+                </div>
+              </div>
+            </li> <!-- /Notifications -->
+          <?php }?>
           <li class="nav-item dropdown has-arrow main-drop">
             <a href="javascript:void(0);" class="dropdown-toggle nav-link userset" data-bs-toggle="dropdown">
               <span class="user-info">
                 <span class="user-letter">
-                  <!-- <img src="<?php echo get_bloginfo('template_directory'); ?>/src/img/avator1.jpg" alt="" class="img-fluid"> -->
+                  <img src="<?php echo get_bloginfo('template_directory'); ?>/src/img/logo-small.png" alt="" class="img-fluid">
                 </span>
+                <?php
+                $user = wp_get_current_user();
+                $user_meta = get_userdata($user->ID);
+                $userFname = get_user_meta($user->ID, 'first_name', true);
+                $userLname = get_user_meta($user->ID, 'last_name', true);
+                $user_role = $user_meta->roles;
+                $role = $user_role[0];
+                $name = $userFname . ' ' . $userLname;
+                if ($name == ' ') {
+                  $name = 'Super Admin';
+                  $role = 'Super_admin';
+                }
+                ?>
                 <span class="user-detail">
-                  <span class="user-name">John Smilga</span>
-                  <span class="user-role">Super Admin</span>
+                  <span class="user-name"><?php echo $name; ?></span>
+                  <span class="user-role"><?php echo $role; ?></span>
                 </span>
               </span>
             </a>
             <div class="dropdown-menu menu-drop-user">
               <div class="profilename">
                 <div class="profileset">
-                  <!-- <span class="user-img"><img src="<?php echo get_bloginfo('template_directory'); ?>/src/img/avator1.jpg" alt=""> -->
+                  <img src="<?php echo get_bloginfo('template_directory'); ?>/src/img/logo-small.png" alt="" class="img-fluid">
                   <span class="status online"></span></span>
                   <div class="profilesets">
-                    <h6>John Smilga</h6>
-                    <h5>Super Admin</h5>
+                    <h6><?php echo $name; ?></h6>
+                    <h5><?php echo $role; ?></h5>
                   </div>
                 </div>
                 <hr class="m-0">
-                <a class="dropdown-item" href="profile.html"> <i class="me-2" data-feather="user"></i> My
-                  Profile</a>
-                <a class="dropdown-item" href="generalsettings.html"><i class="me-2" data-feather="settings"></i>Settings</a>
-                <hr class="m-0">
-                <a class="dropdown-item logout pb-0" href="signin.html">
-                  <!-- <img src="<?php echo get_bloginfo('template_directory'); ?>/src/img/log-out.svg" class="me-2" alt="img"> -->
+                <a class="dropdown-item logout pb-0" href="<?php echo wp_logout_url(get_permalink()); ?>">
                   Logout
                 </a>
               </div>
@@ -262,9 +189,7 @@
         <div class="dropdown mobile-user-menu">
           <a href="javascript:void(0);" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
           <div class="dropdown-menu dropdown-menu-right">
-            <a class="dropdown-item" href="profile.html">My Profile</a>
-            <!-- <a class="dropdown-item" href="generalsettings.html">Settings</a> -->
-            <a class="dropdown-item" href="signin.html">Logout</a>
+            <a class="dropdown-item" href="<?php echo wp_logout_url(get_permalink()); ?>">Logout</a>
           </div>
         </div>
         <!-- /Mobile Menu -->

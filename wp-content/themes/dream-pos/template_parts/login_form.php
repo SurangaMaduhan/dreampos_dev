@@ -1,8 +1,7 @@
 <div id="login__wrapper">
     <div class="login-form">
-        <img src="<?php echo get_template_directory_uri() ?>/src/img/Freedom-logo.png" alt="Freedom-logo">
+        <img src="<?php echo get_template_directory_uri() ?>/src/img/logo.png" alt="logo">
         <?php
-
         $args = array(
             'echo' => true,
             'redirect' => '/',
@@ -21,8 +20,5 @@
         );
         wp_login_form($args);
         ?>
-        <div class="powerd__by">
-            <p>Powered by <a href="#">test</a></p>
-        </div>
     </div>
 </div>

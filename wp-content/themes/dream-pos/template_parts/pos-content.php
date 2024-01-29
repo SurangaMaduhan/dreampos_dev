@@ -9,19 +9,22 @@
                     </div>
                 </div>
                 <div class="pos-products-list">
-                    
+
                     <?php include_once 'pos_product_list.php'; ?>
                 </div>
             </div>
-            <div class="col-lg-4 col-sm-12 ">
+            <div class="col-lg-4 col-sm-12 overs">
                 <?php include_once 'pos_order_list.php'; ?>
             </div>
         </div>
     </div>
+    <div class="global-loader" style="display:none">
+        <div class="whirly-loader"> </div>
+    </div>
 </div>
 
 <script>
-    jQuery(document).ready(function ($) {
+    jQuery(document).ready(function($) {
         // Function to update cart quantity
         function updateCartQuantity(key, quantity) {
             // alert(wc_cart_params);
@@ -33,7 +36,7 @@
                     cart_key: key,
                     quantity: quantity,
                 },
-                success: function (response) {
+                success: function(response) {
                     if (response && !response.error) {
                         // Update mini cart content
                         $('.widget_shopping_cart_content').html(response);
@@ -43,7 +46,7 @@
             });
         }
         // Attach change event to the quantity input field
-        $(document).on('change', '.qty', function () {
+        $(document).on('change', '.qty', function() {
             var key = $(this).attr('name');
             var quantity = $(this).val();
             updateCartQuantity(key, quantity);

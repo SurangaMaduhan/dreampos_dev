@@ -56,6 +56,10 @@ do_action('woocommerce_before_mini_cart'); ?>
                 $thumbnail = apply_filters('woocommerce_cart_item_thumbnail', $_product->get_image(), $cart_item, $cart_item_key);
                 $product_price = apply_filters('woocommerce_cart_item_price', WC()->cart->get_product_price($_product), $cart_item, $cart_item_key);
                 $product_permalink = apply_filters('woocommerce_cart_item_permalink', $_product->is_visible() ? $_product->get_permalink($cart_item) : '', $cart_item, $cart_item_key);
+                $product = $cart_item['data'];
+                $stock_quantity = $product->get_stock_quantity();
+                $min_quantity = 1;
+                $max_quantity = ($stock_quantity > 0) ? $stock_quantity : '';
         ?>
                 <ul class="product-lists row">
                     <li class="col-sm-6">
@@ -76,8 +80,9 @@ do_action('woocommerce_before_mini_cart'); ?>
                             </div>
                     </li>
                     <li class="col-sm-1">
-                        <input type="number" class="input-text qty text" step="1" min="1" max="" name="<?php echo $cart_item_key; ?>" value="<?php echo $cart_item['quantity']; ?>" title="Qty" size="4" pattern="[0-9]*" inputmode="numeric" aria-labelledby="label_here" />
-
+                        <div class="quntity">
+                            <input type="number" class="input-text qty text" step="1" min="1" max="<?php echo $max_quantity; ?>" name="<?php echo $cart_item_key; ?>" value="<?php echo $cart_item['quantity']; ?>" title="Qty" onkeyup="checkMaxValue(jQuery(this))" />
+                        </div>
                     </li>
                     <li class="col-sm-4">
                         <strong><?php echo apply_filters('woocommerce_cart_item_subtotal', WC()->cart->get_product_subtotal($_product, $cart_item['quantity']), $cart_item, $cart_item_key); ?></strong></br>
@@ -191,6 +196,15 @@ do_action('woocommerce_before_mini_cart'); ?>
 <?php do_action('woocommerce_after_mini_cart'); ?>
 
 <script>
+    function checkMaxValue($this) {
+        const num = parseFloat($this.val());
+        const maxValue = parseFloat($this.attr('max'));
+
+        if (maxValue < num) {
+            $this.val(maxValue);
+        }
+
+    }
     jQuery(document).ready(function($) {
         $('input[name=payment_type]').change(function() {
             $('.payment_type_item').removeClass('active');
@@ -204,7 +218,7 @@ do_action('woocommerce_before_mini_cart'); ?>
 
         $("#order_submit_form").submit(function(event) {
             event.preventDefault();
-            // $(".global-loader").show();
+            $(".global-loader").show();
             var cartData = JSON.stringify(<?php echo json_encode(WC()->cart->get_cart()); ?>);
 
             // Create FormData object
@@ -212,9 +226,6 @@ do_action('woocommerce_before_mini_cart'); ?>
 
             // Append cart data to FormData
             formData.append('cart_data', cartData);
-
-            // console.log(formData);
-
             $.ajax({
                 type: "POST",
                 url: "/wp-json/v1/products/add-order", // Corrected the URL
@@ -222,8 +233,6 @@ do_action('woocommerce_before_mini_cart'); ?>
                 contentType: false,
                 processData: false,
                 success: function(response) {
-                    console.log(response);
-                    // console.log(response);
                     const order_id = response['order_id'];
                     $.ajax({
                         type: 'POST',
@@ -232,19 +241,19 @@ do_action('woocommerce_before_mini_cart'); ?>
                             action: 'empty_cart_action'
                         },
                         success: function(response) {
-
                             $(document.body).trigger('wc_fragment_refresh');
+                            $(".global-loader").hide();
                             Swal.fire({
                                 icon: "success",
                                 title: "success...",
                                 text: 'New Order Added ID ' + order_id,
                             });
+                            FWP.refresh();
                         }
                     });
                 },
                 error: function(xhr, status, error) {
-                    console.log("Error:", xhr, status, error);
-                    // Handle error response
+                    $(".global-loader").hide();
                     Swal.fire({
                         icon: "error",
                         title: "Oops...",
@@ -265,15 +274,27 @@ do_action('woocommerce_before_mini_cart'); ?>
                     action: 'empty_cart_action'
                 },
                 success: function(response) {
-
                     $(document.body).trigger('wc_fragment_refresh');
+                    $(".global-loader").hide();
                     Swal.fire({
                         icon: "success",
                         title: "Cart Cleared...",
                         text: 'Your cart has been successfully cleared',
                     });
+                    FWP.refresh();
                 }
             });
         })
+
+        jQuery(document.body).on('added_to_cart', function() {
+            FWP.refresh();
+        });
+        jQuery(document.body)
+            .on(
+                'removed_from_cart updated_cart_totals',
+                function() {
+                    FWP.refresh();
+                }
+            );
     });
 </script>

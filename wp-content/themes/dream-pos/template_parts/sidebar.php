@@ -34,7 +34,7 @@
                                 <li><a href="/sales/"><span>All Sales</span></a></li>
                                 <li><a href="/pending-sales/"><span>Pending Sales</span></a></li>
                                 <li><a href="/completed-sales/"><span>Completed Sales</span></a></li>
-                                <li><a href="/completed-sales/"><span>Cancelled Sales</span></a></li>
+                                <li><a href="/canceled-sales/"><span>Canceled Sales</span></a></li>
                             </ul>
                         </li>
                     </ul>
@@ -42,7 +42,7 @@
                 <li class="submenu-open">
                     <h6 class="submenu-hdr">Purchases</h6>
                     <ul>
-                        <li><a href="importpurchase.html"><i data-feather="minimize-2"></i><span>Import
+                        <li><a href="/import-purchase/"><i data-feather="minimize-2"></i><span>Import
                                     Purchases</span></a></li>
 
                     </ul>
@@ -54,8 +54,8 @@
                             <a href="javascript:void(0);"><i data-feather="users"></i><span>Manage Users</span><span
                                     class="menu-arrow"></span></a>
                             <ul>
-                                <li><a href="newuser.html">New User </a></li>
-                                <li><a href="userlists.html">Users List</a></li>
+                                <li><a href="/add-user/">New User </a></li>
+                                <li><a href="/users-list/">Users List</a></li>
                             </ul>
                         </li>
                     </ul>

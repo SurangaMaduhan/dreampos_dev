@@ -546,65 +546,65 @@ jQuery(document).ready(function($){
 		})
 	}
 
-	var right_side_views = '<div class="right-side-views d-none">' +
-	'<ul class="sticky-sidebar siderbar-view">' +
-		'<li class="sidebar-icons">' +
-			'<a class="toggle tipinfo open-layout open-siderbar" href="javascript:void(0);" data-toggle="tooltip" data-placement="left" data-bs-original-title="Tooltip on left">' +
-				'<div class="tooltip-five ">' +
-					'<img src="assets/img/icons/siderbar-icon2.svg" class="feather-five" alt="">' +
-					'<span class="tooltiptext">Check Layout</span>' +
-				'</div>' +
-			'</a>' +
-		'</li>' +
-	'</ul>' +
-'</div>' +
+// 	var right_side_views = '<div class="right-side-views d-none">' +
+// 	'<ul class="sticky-sidebar siderbar-view">' +
+// 		'<li class="sidebar-icons">' +
+// 			'<a class="toggle tipinfo open-layout open-siderbar" href="javascript:void(0);" data-toggle="tooltip" data-placement="left" data-bs-original-title="Tooltip on left">' +
+// 				'<div class="tooltip-five ">' +
+// 					'<img src="assets/img/icons/siderbar-icon2.svg" class="feather-five" alt="">' +
+// 					'<span class="tooltiptext">Check Layout</span>' +
+// 				'</div>' +
+// 			'</a>' +
+// 		'</li>' +
+// 	'</ul>' +
+// '</div>' +
 
-'<div class="sidebar-layout">' +
-	'<div class="sidebar-content">' +
-		'<div class="sidebar-top">' +
-			'<div class="container-fluid">' +
-				'<div class="row align-items-center">' +
-					'<div class="col-xl-6 col-sm-6 col-12">' +
-						'<div class="sidebar-logo">' +
-							'<a href="index" class="logo">' +
-								'<img src="assets/img/logo.png" alt="Logo" class="img-flex">' +
-							'</a>' +
-						'</div>' +
-					'</div>' +
-					'<div class="col-xl-6 col-sm-6 col-12">' +
-						'<a class="btn-closed" href="javascript:void(0);"><img class="img-fliud" src="assets/img/icons/sidebar-delete-icon.svg" alt="demo"></a>' +
-					'</div>' +
-				'</div>' +
-			'</div>' +
-		'</div>' +
-		'<div class="container-fluid">' +
-			'<div class="row align-items-center">' +
-				'<h5 class="sidebar-title">Choose layout</h5>' +
-				'<div class="col-xl-12 col-sm-6 col-12">' +
-					'<div class="sidebar-image align-center">' +
-						'<img class="img-fliud" src="assets/img/demo-one.png" alt="demo">' +
-					'</div>' +
-					'<div class="row">' +
-						'<div class="col-lg-6 layout">' +
-							'<h5 class="layout-title">Dark Mode</h5>' +
-						'</div>' +
-						'<div class="col-lg-6 layout dark-mode">' +
-							'<label class="toggle-switch" for="notification_switch3">' +
-							'<span>' +
-							'<input type="checkbox" class="toggle-switch-input" id="notification_switch3">' +
-							'<span class="toggle-switch-label ms-auto">' +
-							'	<span class="toggle-switch-indicator"></span>' +
-							'</span>' +
-							'</span>' +
-							' </label>' +
-						'</div>' +
-					'</div>' +
-				'</div>' +
-			'</div>' +
-		'</div>' +
-	'</div>' +
-	'</div>' +
-    $("body").append(right_side_views);
+// '<div class="sidebar-layout">' +
+// 	'<div class="sidebar-content">' +
+// 		'<div class="sidebar-top">' +
+// 			'<div class="container-fluid">' +
+// 				'<div class="row align-items-center">' +
+// 					'<div class="col-xl-6 col-sm-6 col-12">' +
+// 						'<div class="sidebar-logo">' +
+// 							'<a href="index" class="logo">' +
+// 								'<img src="assets/img/logo.png" alt="Logo" class="img-flex">' +
+// 							'</a>' +
+// 						'</div>' +
+// 					'</div>' +
+// 					'<div class="col-xl-6 col-sm-6 col-12">' +
+// 						'<a class="btn-closed" href="javascript:void(0);"><img class="img-fliud" src="assets/img/icons/sidebar-delete-icon.svg" alt="demo"></a>' +
+// 					'</div>' +
+// 				'</div>' +
+// 			'</div>' +
+// 		'</div>' +
+// 		'<div class="container-fluid">' +
+// 			'<div class="row align-items-center">' +
+// 				'<h5 class="sidebar-title">Choose layout</h5>' +
+// 				'<div class="col-xl-12 col-sm-6 col-12">' +
+// 					'<div class="sidebar-image align-center">' +
+// 						'<img class="img-fliud" src="assets/img/demo-one.png" alt="demo">' +
+// 					'</div>' +
+// 					'<div class="row">' +
+// 						'<div class="col-lg-6 layout">' +
+// 							'<h5 class="layout-title">Dark Mode</h5>' +
+// 						'</div>' +
+// 						'<div class="col-lg-6 layout dark-mode">' +
+// 							'<label class="toggle-switch" for="notification_switch3">' +
+// 							'<span>' +
+// 							'<input type="checkbox" class="toggle-switch-input" id="notification_switch3">' +
+// 							'<span class="toggle-switch-label ms-auto">' +
+// 							'	<span class="toggle-switch-indicator"></span>' +
+// 							'</span>' +
+// 							'</span>' +
+// 							' </label>' +
+// 						'</div>' +
+// 					'</div>' +
+// 				'</div>' +
+// 			'</div>' +
+// 		'</div>' +
+// 	'</div>' +
+// 	'</div>' +
+//     $("body").append(right_side_views);
 
 	// Sidebar Visible
 	
@@ -690,189 +690,189 @@ jQuery(document).ready(function($){
 
 	
 
-	var customize_link = '<div class="customizer-links">' +
-			'<ul class="sticky-sidebar">' +
-				'<li class="sidebar-icons">' +
-					'<a href="#" class="add-setting" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-original-title="Tooltip on left">' +
-						'<img src="assets/img/icons/sidebar-icon-01.svg" class="feather-five" alt="">' +
-					'</a>' +
-				'</li>' +
-				'<li class="sidebar-icons">' +
-					'<a href="#" class="navigation-add" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-original-title="Tooltip on left">' +
-						'<img src="assets/img/icons/sidebar-icon-02.svg" class="feather-five" alt="">' +
-					'</a>' +
-				'</li>' +
-				// '<li class="sidebar-icons">' +
-				// 	'<a href="https://themeforest.net/item/dreamspos-pos-inventory-management-admin-dashboard-template/38834413" target="_blank" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-original-title="Tooltip on left">' +
-				// 		'<img src="assets/img/icons/sidebar-icon-03.svg" class="feather-five" alt="">' +
-				// 	'</a>' +
-				// '</li>' +
-			'</ul>' +
-		'</div>' +
+// 	var customize_link = '<div class="customizer-links">' +
+// 			'<ul class="sticky-sidebar">' +
+// 				'<li class="sidebar-icons">' +
+// 					'<a href="#" class="add-setting" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-original-title="Tooltip on left">' +
+// 						'<img src="assets/img/icons/sidebar-icon-01.svg" class="feather-five" alt="">' +
+// 					'</a>' +
+// 				'</li>' +
+// 				'<li class="sidebar-icons">' +
+// 					'<a href="#" class="navigation-add" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-original-title="Tooltip on left">' +
+// 						'<img src="assets/img/icons/sidebar-icon-02.svg" class="feather-five" alt="">' +
+// 					'</a>' +
+// 				'</li>' +
+// 				// '<li class="sidebar-icons">' +
+// 				// 	'<a href="https://themeforest.net/item/dreamspos-pos-inventory-management-admin-dashboard-template/38834413" target="_blank" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-original-title="Tooltip on left">' +
+// 				// 		'<img src="assets/img/icons/sidebar-icon-03.svg" class="feather-five" alt="">' +
+// 				// 	'</a>' +
+// 				// '</li>' +
+// 			'</ul>' +
+// 		'</div>' +
 
-		'<div class="sidebar-settings preview-toggle">' +
-			'<div class="sidebar-content sticky-sidebar-one">' +
-				'<div class="sidebar-header">' +
-					'<h5>Preview Settings</h5>' +
-					'<a class="sidebar-close" href="#"><img src="assets/img/icons/close-icon.svg" alt=""></a>' +
-				'</div>' +
-				'<div class="sidebar-body">' +
-					'<h6 class="theme-title">Choose Mode</h6>' +
-					'<div class="switch-wrapper">' +
-						'<div id="dark-mode-toggle">' +
-							'<span class="light-mode active"> <img src="assets/img/icons/sun-icon.svg" class="me-2" alt=""> Light</span>' +
-							'<span class="dark-mode"><i class="far fa-moon me-2"></i> Dark</span>' +
-						'</div>' +
-					'</div>' +
-					'<div class="row  ">' +
-						'<div class="col-xl-6 ere">' +
-							'<div class="layout-wrap">' +								
-								'<div class="d-flex align-items-center">' +
-									'<div class="status-toggle d-flex align-items-center me-2">' +
-										'<input type="checkbox" id="1" class="check">' +
-										'<label for="1" class="checktoggle"><a  href="index.html"class="layout-link">checkbox</a> </label>' + 
-									'</div>' +
-									'<span class="status-text">LTR</span>' +
-								'</div>' +
-								'<div class="layout-img">' +
-									'<img class="img-fliud" src="assets/img/layout-ltr.png" alt="layout">' +
-								'</div>' +
-							'</div>' +
-						'</div>' +
-						'<div class="col-xl-6 ere">' +
-							'<div class="layout-wrap">' +								
-								'<div class="d-flex align-items-center">' +
-									'<div class="status-toggle d-flex align-items-center me-2">' +
-										'<input type="checkbox" id="1" class="check">' +
-										'<label for="1" class="checktoggle"><a  href="../template-rtl/index.html"class="layout-link">checkbox</a> </label>' + 
-									'</div>' +
-									'<span class="status-text">RTL</span>' +
-								'</div>' +
-								'<div class="layout-img">' +
-									'<img class="img-fliud" src="assets/img/layout-rtl.png" alt="layout">' +
-								'</div>' +
-							'</div>' +
-						'</div>' +
-					'</div>' +
-					'<div class="row  ">' +
-						'<div class="col-xl-6 ere">' +
-							'<div class="layout-wrap">' +								
-								'<div class="d-flex align-items-center">' +
-									'<div class="status-toggle d-flex align-items-center me-2">' +
-										'<input type="checkbox" id="3" class="check">' +
-										'<label for="3" class="checktoggle"><a  href="index-three.html"class="layout-link">checkbox</a> </label>' + 
-									'</div>' +
-									'<span class="status-text">Boxed</span>' +
-								'</div>' +
-								'<div class="layout-img">' +
-									'<img class="img-fliud" src="assets/img/layout-04.png" alt="layout">' +
-								'</div>' +
-							'</div>' +
-						'</div>' +
-						'<div class="col-xl-6 ere">' +
-						 	'<div class="layout-wrap">' +								
-								'<div class="d-flex align-items-center">' +
-								 	'<div class="status-toggle d-flex align-items-center me-2">' +
-									 	'<input type="checkbox" id="3" class="check">' +
-									 	'<label for="3" class="checktoggle"><a  href="index-four.html"class="layout-link">checkbox</a> </label>' + 
-								 	'</div>' +
-								 	'<span class="status-text">Collapsed</span>' +
-								'</div>' +
-							 	'<div class="layout-img">' +
-									 '<img class="img-fliud" src="assets/img/layout-01.png" alt="layout">' +
-							 	'</div>' +
-						 	'</div>' +
-						'</div>' +
-					'</div>' +
-				'</div>' +
-			'</div>' +
-	 	'</div>' +
+// 		'<div class="sidebar-settings preview-toggle">' +
+// 			'<div class="sidebar-content sticky-sidebar-one">' +
+// 				'<div class="sidebar-header">' +
+// 					'<h5>Preview Settings</h5>' +
+// 					'<a class="sidebar-close" href="#"><img src="assets/img/icons/close-icon.svg" alt=""></a>' +
+// 				'</div>' +
+// 				'<div class="sidebar-body">' +
+// 					'<h6 class="theme-title">Choose Mode</h6>' +
+// 					'<div class="switch-wrapper">' +
+// 						'<div id="dark-mode-toggle">' +
+// 							'<span class="light-mode active"> <img src="assets/img/icons/sun-icon.svg" class="me-2" alt=""> Light</span>' +
+// 							'<span class="dark-mode"><i class="far fa-moon me-2"></i> Dark</span>' +
+// 						'</div>' +
+// 					'</div>' +
+// 					'<div class="row  ">' +
+// 						'<div class="col-xl-6 ere">' +
+// 							'<div class="layout-wrap">' +								
+// 								'<div class="d-flex align-items-center">' +
+// 									'<div class="status-toggle d-flex align-items-center me-2">' +
+// 										'<input type="checkbox" id="1" class="check">' +
+// 										'<label for="1" class="checktoggle"><a  href="index.html"class="layout-link">checkbox</a> </label>' + 
+// 									'</div>' +
+// 									'<span class="status-text">LTR</span>' +
+// 								'</div>' +
+// 								'<div class="layout-img">' +
+// 									'<img class="img-fliud" src="assets/img/layout-ltr.png" alt="layout">' +
+// 								'</div>' +
+// 							'</div>' +
+// 						'</div>' +
+// 						'<div class="col-xl-6 ere">' +
+// 							'<div class="layout-wrap">' +								
+// 								'<div class="d-flex align-items-center">' +
+// 									'<div class="status-toggle d-flex align-items-center me-2">' +
+// 										'<input type="checkbox" id="1" class="check">' +
+// 										'<label for="1" class="checktoggle"><a  href="../template-rtl/index.html"class="layout-link">checkbox</a> </label>' + 
+// 									'</div>' +
+// 									'<span class="status-text">RTL</span>' +
+// 								'</div>' +
+// 								'<div class="layout-img">' +
+// 									'<img class="img-fliud" src="assets/img/layout-rtl.png" alt="layout">' +
+// 								'</div>' +
+// 							'</div>' +
+// 						'</div>' +
+// 					'</div>' +
+// 					'<div class="row  ">' +
+// 						'<div class="col-xl-6 ere">' +
+// 							'<div class="layout-wrap">' +								
+// 								'<div class="d-flex align-items-center">' +
+// 									'<div class="status-toggle d-flex align-items-center me-2">' +
+// 										'<input type="checkbox" id="3" class="check">' +
+// 										'<label for="3" class="checktoggle"><a  href="index-three.html"class="layout-link">checkbox</a> </label>' + 
+// 									'</div>' +
+// 									'<span class="status-text">Boxed</span>' +
+// 								'</div>' +
+// 								'<div class="layout-img">' +
+// 									'<img class="img-fliud" src="assets/img/layout-04.png" alt="layout">' +
+// 								'</div>' +
+// 							'</div>' +
+// 						'</div>' +
+// 						'<div class="col-xl-6 ere">' +
+// 						 	'<div class="layout-wrap">' +								
+// 								'<div class="d-flex align-items-center">' +
+// 								 	'<div class="status-toggle d-flex align-items-center me-2">' +
+// 									 	'<input type="checkbox" id="3" class="check">' +
+// 									 	'<label for="3" class="checktoggle"><a  href="index-four.html"class="layout-link">checkbox</a> </label>' + 
+// 								 	'</div>' +
+// 								 	'<span class="status-text">Collapsed</span>' +
+// 								'</div>' +
+// 							 	'<div class="layout-img">' +
+// 									 '<img class="img-fliud" src="assets/img/layout-01.png" alt="layout">' +
+// 							 	'</div>' +
+// 						 	'</div>' +
+// 						'</div>' +
+// 					'</div>' +
+// 				'</div>' +
+// 			'</div>' +
+// 	 	'</div>' +
 		
-		'<div class="sidebar-settings nav-toggle">' +
-			'<div class="sidebar-content sticky-sidebar-one">' +
-				'<div class="sidebar-header">' +
-					'<h5>Navigation Settings</h5>' +
-				 	'<a class="sidebar-close" href="#"><img src="assets/img/icons/close-icon.svg" alt=""></a>' +
-				'</div>' +
-			 	'<div class="sidebar-body">' +
-				 	'<h6 class="theme-title">Navigation Type</h6>' +
-				 	'<div class="row  ">' +
-						'<div class="col-xl-6 ere">' +
-							'<div class="layout-wrap">' +								
-								'<div class="d-flex align-items-center">' +
-									'<div class="status-toggle d-flex align-items-center me-2">' +
-										'<input type="checkbox" id="1" class="check">' +
-										'<label for="1" class="checktoggle"><a  href="index.html"class="layout-link">checkbox</a> </label>' + 
-									'</div>' +
-									'<span class="status-text">Vertical</span>' +
-								'</div>' +
-								'<div class="layout-img">' +
-									'<img class="img-fliud" src="assets/img/layout-03.png" alt="layout">' +
-								'</div>' +
-							'</div>' +
-						'</div>' +
-						'<div class="col-xl-6 ere">' +
-						 	'<div class="layout-wrap">' +								
-								'<div class="d-flex align-items-center">' +
-								 	'<div class="status-toggle d-flex align-items-center me-2">' +
-									 	'<input type="checkbox" id="2" class="check">' +
-									 	'<label for="2" class="checktoggle"><a  href="index-one.html"class="layout-link">checkbox</a> </label>' + 
-								 	'</div>' +
-								 	'<span class="status-text">Horizontal</span>' +
-								'</div>' +
-							 	'<div class="layout-img">' +
-									 '<img class="img-fliud" src="assets/img/layout-01.png" alt="layout">' +
-							 	'</div>' +
-						 	'</div>' +
-						'</div>' +
-						'<div class="col-xl-6 ere">' +
-						 	'<div class="layout-wrap">' +								
-								'<div class="d-flex align-items-center">' +
-								 	'<div class="status-toggle d-flex align-items-center me-2">' +
-									 	'<input type="checkbox" id="3" class="check">' +
-									 	'<label for="3" class="checktoggle"><a  href="index-four.html"class="layout-link">checkbox</a> </label>' + 
-								 	'</div>' +
-								 	'<span class="status-text">Collapsed</span>' +
-								'</div>' +
-							 	'<div class="layout-img">' +
-									 '<img class="img-fliud" src="assets/img/layout-01.png" alt="layout">' +
-							 	'</div>' +
-						 	'</div>' +
-						'</div>' +
-						'<div class="col-xl-6 ere">' +
-						 	'<div class="layout-wrap">' +								
-								'<div class="d-flex align-items-center">' +
-								 	'<div class="status-toggle d-flex align-items-center me-2">' +
-									 	'<input type="checkbox" id="3" class="check">' +
-									 	'<label for="3" class="checktoggle"><a  href="index-three.html"class="layout-link">checkbox</a> </label>' + 
-								 	'</div>' +
-								 	'<span class="status-text">Modern</span>' +
-								'</div>' +
-							 	'<div class="layout-img">' +
-									 '<img class="img-fliud" src="assets/img/layout-04.png" alt="layout">' +
-							 	'</div>' +
-						 	'</div>' +
-						'</div>' +
-						'<div class="col-xl-6 ere">' +
-						 	'<div class="layout-wrap">' +								
-								'<div class="d-flex align-items-center">' +
-								 	'<div class="status-toggle d-flex align-items-center me-2">' +
-									 	'<input type="checkbox" id="3" class="check">' +
-									 	'<label for="3" class="checktoggle"><a  href="index-two.html"class="layout-link">checkbox</a> </label>' + 
-								 	'</div>' +
-								 	'<span class="status-text">Boxed</span>' +
-								'</div>' +
-							 	'<div class="layout-img">' +
-									 '<img class="img-fliud" src="assets/img/layout-03.png" alt="layout">' +
-							 	'</div>' +
-						 	'</div>' +
-						'</div>' +
-					'</div>' +
-				'</div>' +
-		 	'</div>' +
-	  	'</div>';
+// 		'<div class="sidebar-settings nav-toggle">' +
+// 			'<div class="sidebar-content sticky-sidebar-one">' +
+// 				'<div class="sidebar-header">' +
+// 					'<h5>Navigation Settings</h5>' +
+// 				 	'<a class="sidebar-close" href="#"><img src="assets/img/icons/close-icon.svg" alt=""></a>' +
+// 				'</div>' +
+// 			 	'<div class="sidebar-body">' +
+// 				 	'<h6 class="theme-title">Navigation Type</h6>' +
+// 				 	'<div class="row  ">' +
+// 						'<div class="col-xl-6 ere">' +
+// 							'<div class="layout-wrap">' +								
+// 								'<div class="d-flex align-items-center">' +
+// 									'<div class="status-toggle d-flex align-items-center me-2">' +
+// 										'<input type="checkbox" id="1" class="check">' +
+// 										'<label for="1" class="checktoggle"><a  href="index.html"class="layout-link">checkbox</a> </label>' + 
+// 									'</div>' +
+// 									'<span class="status-text">Vertical</span>' +
+// 								'</div>' +
+// 								'<div class="layout-img">' +
+// 									'<img class="img-fliud" src="assets/img/layout-03.png" alt="layout">' +
+// 								'</div>' +
+// 							'</div>' +
+// 						'</div>' +
+// 						'<div class="col-xl-6 ere">' +
+// 						 	'<div class="layout-wrap">' +								
+// 								'<div class="d-flex align-items-center">' +
+// 								 	'<div class="status-toggle d-flex align-items-center me-2">' +
+// 									 	'<input type="checkbox" id="2" class="check">' +
+// 									 	'<label for="2" class="checktoggle"><a  href="index-one.html"class="layout-link">checkbox</a> </label>' + 
+// 								 	'</div>' +
+// 								 	'<span class="status-text">Horizontal</span>' +
+// 								'</div>' +
+// 							 	'<div class="layout-img">' +
+// 									 '<img class="img-fliud" src="assets/img/layout-01.png" alt="layout">' +
+// 							 	'</div>' +
+// 						 	'</div>' +
+// 						'</div>' +
+// 						'<div class="col-xl-6 ere">' +
+// 						 	'<div class="layout-wrap">' +								
+// 								'<div class="d-flex align-items-center">' +
+// 								 	'<div class="status-toggle d-flex align-items-center me-2">' +
+// 									 	'<input type="checkbox" id="3" class="check">' +
+// 									 	'<label for="3" class="checktoggle"><a  href="index-four.html"class="layout-link">checkbox</a> </label>' + 
+// 								 	'</div>' +
+// 								 	'<span class="status-text">Collapsed</span>' +
+// 								'</div>' +
+// 							 	'<div class="layout-img">' +
+// 									 '<img class="img-fliud" src="assets/img/layout-01.png" alt="layout">' +
+// 							 	'</div>' +
+// 						 	'</div>' +
+// 						'</div>' +
+// 						'<div class="col-xl-6 ere">' +
+// 						 	'<div class="layout-wrap">' +								
+// 								'<div class="d-flex align-items-center">' +
+// 								 	'<div class="status-toggle d-flex align-items-center me-2">' +
+// 									 	'<input type="checkbox" id="3" class="check">' +
+// 									 	'<label for="3" class="checktoggle"><a  href="index-three.html"class="layout-link">checkbox</a> </label>' + 
+// 								 	'</div>' +
+// 								 	'<span class="status-text">Modern</span>' +
+// 								'</div>' +
+// 							 	'<div class="layout-img">' +
+// 									 '<img class="img-fliud" src="assets/img/layout-04.png" alt="layout">' +
+// 							 	'</div>' +
+// 						 	'</div>' +
+// 						'</div>' +
+// 						'<div class="col-xl-6 ere">' +
+// 						 	'<div class="layout-wrap">' +								
+// 								'<div class="d-flex align-items-center">' +
+// 								 	'<div class="status-toggle d-flex align-items-center me-2">' +
+// 									 	'<input type="checkbox" id="3" class="check">' +
+// 									 	'<label for="3" class="checktoggle"><a  href="index-two.html"class="layout-link">checkbox</a> </label>' + 
+// 								 	'</div>' +
+// 								 	'<span class="status-text">Boxed</span>' +
+// 								'</div>' +
+// 							 	'<div class="layout-img">' +
+// 									 '<img class="img-fliud" src="assets/img/layout-03.png" alt="layout">' +
+// 							 	'</div>' +
+// 						 	'</div>' +
+// 						'</div>' +
+// 					'</div>' +
+// 				'</div>' +
+// 		 	'</div>' +
+// 	  	'</div>';
 
-$("body").append(customize_link);
+// $("body").append(customize_link);
 
 $('.add-setting').on("click", function (e) {
 	e.preventDefault();

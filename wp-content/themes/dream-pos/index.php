@@ -2,9 +2,11 @@
 <?php if (!is_user_logged_in()) { ?>
     <div id="login__wrapper">
         <div class="login-form">
-            <img src="<?php echo get_template_directory_uri() ?>/src/img/Freedom-logo.png" alt="Freedom-logo">
+            <span class="login100-form-title p-b-26">
+                Welcome
+            </span>
+            <img src="<?php echo get_template_directory_uri() ?>/src/img/logo.png" alt="Freedom-logo">
             <?php
-
             $args = array(
                 'echo' => true,
                 'redirect' => '/test',
@@ -24,11 +26,11 @@
             wp_login_form($args);
             ?>
             <div class="powerd__by">
-                <p>Powered by <a href="#">test</a></p>
+                <p>Powered by <a href="#">test</a></p>sdsdf
             </div>
         </div>
     </div>
 <?php } else { ?>
-<?php the_content();?>
+    <?php the_content(); ?>
 <?php } ?>
 <?php get_footer(); ?>

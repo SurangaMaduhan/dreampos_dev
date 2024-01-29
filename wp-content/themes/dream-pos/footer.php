@@ -31,12 +31,11 @@
 <script src="<?php echo get_bloginfo('template_directory'); ?>/src/js/script.js"></script>
 
 <script>
-  jQuery(document).ready(function ($) {
-    $(document).on('added_to_cart', function (event, fragments, cart_hash) {
+  jQuery(document).ready(function($) {
+    $(document).on('added_to_cart', function(event, fragments, cart_hash) {
       $('.mini-cart').html(fragments['div.widget_shopping_cart_content']);
     });
   });
-
 </script>
 <?php wp_footer(); ?>
 </body>
