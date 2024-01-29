@@ -348,66 +348,63 @@ $cost_totals_json = json_encode(array_values($cost_totals_array));
                         <thead>
                             <tr>
                                 <th>SNo</th>
-                                <th>Product Code</th>
                                 <th>Product Name</th>
+                                <th>Product Category</th>
                                 <th>Brand Name</th>
-                                <th>Category Name</th>
-                                <th>Expiry Date</th>
+                                <th>Product Cost</th>
+                                <th>Product Price</th>
+                                <th>Product Status</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td><a href="javascript:void(0);">IT0001</a></td>
-                                <td class="productimgname">
-                                    <a class="product-img" href="productlist.html">
-                                        <img src="assets/img/product/product2.jpg" alt="product">
-                                    </a>
-                                    <a href="productlist.html">Orange</a>
-                                </td>
-                                <td>N/D</td>
-                                <td>Fruits</td>
-                                <td>12-12-2022</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td><a href="javascript:void(0);">IT0002</a></td>
-                                <td class="productimgname">
-                                    <a class="product-img" href="productlist.html">
-                                        <img src="assets/img/product/product3.jpg" alt="product">
-                                    </a>
-                                    <a href="productlist.html">Pineapple</a>
-                                </td>
-                                <td>N/D</td>
-                                <td>Fruits</td>
-                                <td>25-11-2022</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td><a href="javascript:void(0);">IT0003</a></td>
-                                <td class="productimgname">
-                                    <a class="product-img" href="productlist.html">
-                                        <img src="assets/img/product/product4.jpg" alt="product">
-                                    </a>
-                                    <a href="productlist.html">Stawberry</a>
-                                </td>
-                                <td>N/D</td>
-                                <td>Fruits</td>
-                                <td>19-11-2022</td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td><a href="javascript:void(0);">IT0004</a></td>
-                                <td class="productimgname">
-                                    <a class="product-img" href="productlist.html">
-                                        <img src="assets/img/product/product5.jpg" alt="product">
-                                    </a>
-                                    <a href="productlist.html">Avocat</a>
-                                </td>
-                                <td>N/D</td>
-                                <td>Fruits</td>
-                                <td>20-11-2022</td>
-                            </tr>
+                            <?php $out_of_stock_products = wc_get_products(array(
+                                'status'      => 'publish',
+                                'limit'       => -1,
+                                'stock_status' => 'outofstock',
+                            ));
+
+                            if ($out_of_stock_products) {
+                                foreach ($out_of_stock_products as $product) {
+                                    $product_id = get_the_ID();
+                                    $product_categories = get_the_terms( $product_id, 'product_cat'); 
+                                    ?>
+                                    <tr>
+                                        <td>
+                                            <?php echo $product->get_sku(); ?>
+                                        </td>
+                                        <td class="productimgname">
+                                            <a href="javascript:void(0);" class="product-img">
+                                                <?php echo woocommerce_get_product_thumbnail(); ?>
+                                            </a>
+                                            <a href="javascript:void(0);"><?php echo $product->get_name(); ?></a>
+                                        </td>
+                                        <td><?php if ($product_categories[0]->name) {
+                                                echo $product_categories[0]->name;
+                                            }; ?></td>
+                                        <td>
+                                            <img class="brand_image" src="
+                                            <?php if ($thumbnail_url) {
+                                                echo $thumbnail_url;
+                                            } else {
+                                                echo get_template_directory_uri() . '/src/img/noimage.png';
+                                            } ?>" alt="<?php echo $product_terms[0]->name; ?>">
+                                        </td>
+                                        <td><?php echo get_woocommerce_currency_symbol() . ': ' . number_format((float) $product->get_meta('_cost'), 2, '.', ''); ?></td>
+                                        <td><?php echo get_woocommerce_currency_symbol() . ': ' . number_format((float) $product->get_price(), 2, '.', ''); ?></td>
+                                        <td>
+                                            <?php if ($product->managing_stock() && $product->is_in_stock()) {
+                                                echo '<span class="instock">In stock</span>';
+                                            } else {
+                                                echo '<span class="outofstock">Out of stock</span>';
+                                            } ?>
+                                        </td>
+                                    </tr>
+                                <?php }
+                            } else { ?>
+                                <tr>
+                                    <?php echo 'No out-of-stock products found.'; ?>
+                                <tr>
+                                <?php } ?>
                         </tbody>
                     </table>
                 </div>
@@ -418,8 +415,7 @@ $cost_totals_json = json_encode(array_values($cost_totals_array));
 <script>
     jQuery(document).ready(function($) {
         var options = {
-            series: [
-                {
+            series: [{
                     name: 'Net Profit',
                     data: <?php echo $profit_totals_json; ?>
                 },
