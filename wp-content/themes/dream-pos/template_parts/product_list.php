@@ -234,7 +234,7 @@ $args = array(
                                                                     </div>
                                                                     <div class="col-sm-12">
                                                                         <label for="product_name">Product Category</label>
-                                                                        <select class="style_select select2" name="product_category" required>
+                                                                        <select class="style_select select" name="product_category" required>
                                                                             <?php foreach ($categories as $category) {
                                                                                 if ($currentCategory->name == $category->name) {
                                                                                     echo '<option value="' . $category->slug . '" selected>' . $category->name . '</option>';
@@ -246,7 +246,7 @@ $args = array(
                                                                     </div>
                                                                     <div class="col-sm-12">
                                                                         <label for="product_name">Product Brand</label>
-                                                                        <select class="style_select select2" name="product_brand" required>
+                                                                        <select class="style_select select" name="product_brand" required>
                                                                             <?php foreach ($product_brand as $brand) {
                                                                                 if ($product_terms[0]->name == $brand->name) {
                                                                                     echo '<option value="' . $brand->slug . '" selected>' . $brand->name . '</option>';
@@ -341,7 +341,6 @@ $args = array(
                                                             close
                                                         </button>
                                                     </div>
-                                                    </form>
                                                     <div class="global-loader" style="display:none">
                                                         <div class="whirly-loader"> </div>
                                                     </div>
