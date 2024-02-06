@@ -49,8 +49,8 @@
                 <li class="submenu-open">
                     <h6 class="submenu-hdr">Topup Cards</h6>
                     <ul>
-                        <li><a href="/reload-list/"><i data-feather="send"></i><span>Card Sales</span></a></li>
-                        <li><a href="/reload-provider-list/"><i data-feather="globe"></i><span>Cards List</span></a></li>
+                        <li><a href="/cards/"><i data-feather="send"></i><span>Card Sales</span></a></li>
+                        <li><a href="/cards-list/"><i data-feather="globe"></i><span>Cards List</span></a></li>
                     </ul>
                 </li>
                 <li class="submenu-open">
