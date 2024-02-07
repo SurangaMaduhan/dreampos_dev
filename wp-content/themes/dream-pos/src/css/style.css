@@ -6729,6 +6729,7 @@ span.select2-container.select2-container--default.select2-container--open {
   width: 40px;
   height: 40px;
   border: 0;
+  object-fit: contain;
 }
 .table tbody tr td a {
   color: #212b36;

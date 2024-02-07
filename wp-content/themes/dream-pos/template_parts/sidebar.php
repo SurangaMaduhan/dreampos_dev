@@ -28,8 +28,7 @@
                     <ul>
                         <li><a href="/point-of-sale/"><i data-feather="hard-drive"></i><span>POS</a></li>
                         <li class="submenu">
-                            <a href="javascript:void(0);"><i data-feather="shopping-cart"></i><span>Sales</span><span
-                                    class="menu-arrow"></span></a>
+                            <a href="javascript:void(0);"><i data-feather="shopping-cart"></i><span>Sales</span><span class="menu-arrow"></span></a>
                             <ul>
                                 <li><a href="/sales/"><span>All Sales</span></a></li>
                                 <li><a href="/pending-sales/"><span>Pending Sales</span></a></li>
@@ -37,6 +36,21 @@
                                 <li><a href="/canceled-sales/"><span>Canceled Sales</span></a></li>
                             </ul>
                         </li>
+                    </ul>
+                </li>
+                <li class="submenu-open">
+                    <h6 class="submenu-hdr">Reload</h6>
+                    <ul>
+                        <li><a href="/reload-list/"><i data-feather="send"></i><span>Reload list</span></a></li>
+                        <li><a href="/reload-provider-list/"><i data-feather="globe"></i><span>Reload Providers</span></a></li>
+                        
+                    </ul>
+                </li>
+                <li class="submenu-open">
+                    <h6 class="submenu-hdr">Topup Cards</h6>
+                    <ul>
+                        <li><a href="/reload-list/"><i data-feather="send"></i><span>Card Sales</span></a></li>
+                        <li><a href="/reload-provider-list/"><i data-feather="globe"></i><span>Cards List</span></a></li>
                     </ul>
                 </li>
                 <li class="submenu-open">
@@ -51,8 +65,7 @@
                     <h6 class="submenu-hdr">User Management</h6>
                     <ul>
                         <li class="submenu">
-                            <a href="javascript:void(0);"><i data-feather="users"></i><span>Manage Users</span><span
-                                    class="menu-arrow"></span></a>
+                            <a href="javascript:void(0);"><i data-feather="users"></i><span>Manage Users</span><span class="menu-arrow"></span></a>
                             <ul>
                                 <li><a href="/add-user/">New User </a></li>
                                 <li><a href="/users-list/">Users List</a></li>
@@ -64,7 +77,7 @@
                     <h6 class="submenu-hdr">Settings</h6>
                     <ul>
                         <li>
-                            <a href="<?php echo wp_logout_url( get_permalink() ); ?>"><i data-feather="log-out"></i><span>Logout</span> </a>
+                            <a href="<?php echo wp_logout_url(get_permalink()); ?>"><i data-feather="log-out"></i><span>Logout</span> </a>
                         </li>
                     </ul>
                 </li>
