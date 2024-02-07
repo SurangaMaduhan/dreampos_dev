@@ -366,8 +366,8 @@ $cost_totals_json = json_encode(array_values($cost_totals_array));
                             if ($out_of_stock_products) {
                                 foreach ($out_of_stock_products as $product) {
                                     $product_id = get_the_ID();
-                                    $product_categories = get_the_terms($product_id, 'product_cat');
-                            ?>
+                                    $product_categories = get_the_terms( $product_id, 'product_cat'); 
+                                    ?>
                                     <tr>
                                         <td>
                                             <?php echo $product->get_sku(); ?>
@@ -401,10 +401,10 @@ $cost_totals_json = json_encode(array_values($cost_totals_array));
                                     </tr>
                                 <?php }
                             } else { ?>
-
-                                <?php echo 'No out-of-stock products found.'; ?>
-
-                            <?php } ?>
+                                <tr>
+                                    <?php echo 'No out-of-stock products found.'; ?>
+                                <tr>
+                                <?php } ?>
                         </tbody>
                     </table>
                 </div>

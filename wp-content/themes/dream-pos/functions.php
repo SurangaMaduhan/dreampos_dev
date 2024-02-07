@@ -24,13 +24,6 @@ require_once 'inc/api/update_user.php';
 require_once 'inc/api/export_products.php';
 require_once 'inc/api/import_purchase.php';
 require_once 'inc/api/remove_order.php';
-require_once 'inc/api/add_reload_provider.php';
-require_once 'inc/api/remove_reload_providers.php';
-require_once 'inc/api/top_up_reload.php';
-require_once 'inc/api/add_reload.php';
-require_once 'inc/api/remove_reload.php';
-require_once 'inc/api/update_reload.php';
-require_once 'inc/api/reload_status_update.php';
 
 
 
@@ -97,8 +90,7 @@ function mytheme_add_woocommerce_support()
 }
 add_action('after_setup_theme', 'mytheme_add_woocommerce_support');
 
-function enqueue_custom_scripts()
-{
+function enqueue_custom_scripts() {
   // Enqueue your custom script
   wp_enqueue_script('woocommerce');
   wp_enqueue_script('wc-cart-fragments', null, array('jquery'), '', true);
@@ -253,297 +245,56 @@ add_filter('facetwp_render_output', function ($output, $params) {
 
 add_action('wp_ajax_empty_cart_action', 'ts_empty_cart_action_callback');
 add_action('wp_ajax_nopriv_empty_cart_action', 'ts_empty_cart_action_callback');
-function ts_empty_cart_action_callback()
-{
-  // Set quantities to zero for all items in the cart
-  foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
-    WC()->cart->set_quantity($cart_item_key, 0);
-  }
-  die();
+function ts_empty_cart_action_callback() {
+    // Set quantities to zero for all items in the cart
+    foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
+        WC()->cart->set_quantity( $cart_item_key, 0 );
+    }
+    die();
 }
 
-function clear_cart()
-{
+function clear_cart() {
   if (function_exists('WC')) {
-    WC()->cart->empty_cart();
-    error_log('Cart emptied successfully', 0);
+      WC()->cart->empty_cart();
+      error_log('Cart emptied successfully', 0);
   } else {
-    error_log('WooCommerce not active', 0);
+      error_log('WooCommerce not active', 0);
   }
 }
 
 add_action('rest_api_init', function () {
   register_rest_route(
-    'v1',
-    '/products/empty-cart',
-    array(
-      'methods' => 'POST',
-      'callback' => 'empty_cart_callback',
-    )
+      'v1',
+      '/products/empty-cart',
+      array(
+          'methods' => 'POST',
+          'callback' => 'empty_cart_callback',
+      )
   );
 });
 
-function empty_cart_callback()
-{
+function empty_cart_callback() {
   clear_cart();
   return 'Cart cleared successfully';
 }
 
-function redirect_to_last_page()
-{
+function redirect_to_last_page() {
   // Check if the current request is a single product page
   if (is_product()) {
-    // Get the referrer (last visited page)
-    $referrer = wp_get_referer();
+      // Get the referrer (last visited page)
+      $referrer = wp_get_referer();
 
-    // If a referrer is found, redirect to the last visited page
-    if ($referrer) {
-      wp_safe_redirect($referrer);
-      exit;
-    } else {
-      // If no referrer is found, redirect to the home page or any other desired page
-      wp_safe_redirect(home_url('/'));
-      exit;
-    }
+      // If a referrer is found, redirect to the last visited page
+      if ($referrer) {
+          wp_safe_redirect($referrer);
+          exit;
+      } else {
+          // If no referrer is found, redirect to the home page or any other desired page
+          wp_safe_redirect(home_url('/'));
+          exit;
+      }
   }
 }
 
 // Hook the function to the template_redirect action
 add_action('template_redirect', 'redirect_to_last_page');
-
-// Add multiple custom meta boxes
-function add_custom_meta_boxes()
-{
-  add_meta_box(
-    'reload_amount',         // Unique ID
-    'Reload Amount',         // Box title
-    'display_reload_amount_box', // Callback function to display the meta box
-    'reload_providers',                      // Post type
-    'normal',                    // Context (normal, advanced, side)
-    'default'                    // Priority (high, core, default, low)
-  );
-
-  add_meta_box(
-    'reload_commission',         // Unique ID
-    'Reload Commission',         // Box title
-    'display_reload_commission_box', // Callback function to display the meta box
-    'reload_providers',                      // Post type
-    'normal',                    // Context (normal, advanced, side)
-    'default'                    // Priority (high, core, default, low)
-  );
-
-  add_meta_box(
-    'commission_type',         // Unique ID
-    'Commission type',         // Box title
-    'display_commission_type_box', // Callback function to display the meta box
-    'reload_providers',                      // Post type
-    'normal',                    // Context (normal, advanced, side)
-    'default'                    // Priority (high, core, default, low)
-  );
-
-  add_meta_box(
-    'amount',         // Unique ID
-    'Reload Amount',         // Box title
-    'display_reloads_amount_box', // Callback function to display the meta box
-    'reloads',                      // Post type
-    'normal',                    // Context (normal, advanced, side)
-    'default'                    // Priority (high, core, default, low)
-  );
-
-  add_meta_box(
-    'provider',         // Unique ID
-    'Reload provider',         // Box title
-    'display_provider_box', // Callback function to display the meta box
-    'reloads',                      // Post type
-    'normal',                    // Context (normal, advanced, side)
-    'default'                    // Priority (high, core, default, low)
-  );
-
-  add_meta_box(
-    'status',         // Unique ID
-    'Reload status',         // Box title
-    'display_status_box', // Callback function to display the meta box
-    'reloads',                      // Post type
-    'normal',                    // Context (normal, advanced, side)
-    'default'                    // Priority (high, core, default, low)
-  );
-
-  add_meta_box(
-    'reload_item_commission',         // Unique ID
-    'Reload item commission',         // Box title
-    'display_reload_item_commission_box', // Callback function to display the meta box
-    'reloads',                      // Post type
-    'normal',                    // Context (normal, advanced, side)
-    'default'                    // Priority (high, core, default, low)
-  );
-
-  add_meta_box(
-    'provider_before_balance',         // Unique ID
-    'provider before balance',         // Box title
-    'display_provider_before_balance_box', // Callback function to display the meta box
-    'reloads',                      // Post type
-    'normal',                    // Context (normal, advanced, side)
-    'default'                    // Priority (high, core, default, low)
-  );
-
-  add_meta_box(
-    'provider_after_balance',         // Unique ID
-    'provider after balance',         // Box title
-    'display_provider_after_balance_box', // Callback function to display the meta box
-    'reloads',                      // Post type
-    'normal',                    // Context (normal, advanced, side)
-    'default'                    // Priority (high, core, default, low)
-  );
-}
-add_action('add_meta_boxes', 'add_custom_meta_boxes');
-
-// Display content for custom meta box 1
-function display_reload_amount_box($post)
-{
-  $reload_amount = get_post_meta($post->ID, 'reload_amount', true);
-?>
-  <input type="text" id="reload_amount" name="reload_amount" value="<?php echo esc_attr($reload_amount); ?>">
-<?php
-}
-
-// Display content for custom meta box 2
-function display_reload_commission_box($post)
-{
-  $reload_commission = get_post_meta($post->ID, 'reload_commission', true);
-?>
-  <input type="text" id="reload_commission" name="reload_commission" value="<?php echo esc_attr($reload_commission); ?>" readonly>
-<?php
-}
-
-function display_commission_type_box($post)
-{
-  $commission_type = get_post_meta($post->ID, 'commission_type', true);
-?>
-  <input type="text" id="commission_type" name="commission_type" value="<?php echo esc_attr($commission_type); ?>" readonly>
-<?php
-}
-
-
-function display_reloads_amount_box($post)
-{
-  $amount = get_post_meta($post->ID, 'amount', true);
-?>
-  <input type="text" id="commission_type" name="amount" value="<?php echo esc_attr($amount); ?>" readonly>
-<?php
-}
-
-function display_provider_box($post)
-{
-  $provider = get_post_meta($post->ID, 'provider', true);
-?>
-  <input type="text" id="commission_type" name="provider" value="<?php echo esc_attr($provider); ?>" readonly>
-<?php
-}
-
-function display_status_box($post)
-{
-  $status = get_post_meta($post->ID, 'status', true);
-?>
-  <input type="text" id="commission_type" name="status" value="<?php echo esc_attr($status); ?>" readonly>
-<?php
-}
-
-function display_reload_item_commission_box($post)
-{
-  $reload_item_commission = get_post_meta($post->ID, 'reload_item_commission', true);
-?>
-  <input type="text" id="reload_item_commission" name="reload_item_commission" value="<?php echo esc_attr($reload_item_commission); ?>" readonly>
-<?php
-}
-
-function display_provider_before_balance_box($post)
-{
-  $provider_before_balance = get_post_meta($post->ID, 'provider_before_balance', true);
-?>
-  <input type="text" id="provider_before_balance" name="provider_before_balance" value="<?php echo esc_attr($provider_before_balance); ?>" readonly>
-<?php
-}
-
-function display_provider_after_balance_box($post)
-{
-  $provider_after_balance = get_post_meta($post->ID, 'provider_after_balance', true);
-?>
-  <input type="text" id="provider_after_balance" name="provider_after_balance" value="<?php echo esc_attr($provider_after_balance); ?>" readonly>
-<?php
-}
-// Save custom meta box values
-function save_custom_meta_boxes($post_id)
-{
-  if (array_key_exists('reload_commission', $_POST)) {
-    update_post_meta(
-      $post_id,
-      'reload_commission',
-      sanitize_text_field($_POST['reload_commission'])
-    );
-  }
-
-  if (array_key_exists('reload_amount', $_POST)) {
-    update_post_meta(
-      $post_id,
-      'reload_amount',
-      sanitize_text_field($_POST['reload_amount'])
-    );
-  }
-
-  if (array_key_exists('commission_type', $_POST)) {
-    update_post_meta(
-      $post_id,
-      'commission_type',
-      sanitize_text_field($_POST['commission_type'])
-    );
-  }
-
-  if (array_key_exists('amount', $_POST)) {
-    update_post_meta(
-      $post_id,
-      'amount',
-      sanitize_text_field($_POST['amount'])
-    );
-  }
-
-  if (array_key_exists('provider', $_POST)) {
-    update_post_meta(
-      $post_id,
-      'provider',
-      sanitize_text_field($_POST['provider'])
-    );
-  }
-
-  if (array_key_exists('status', $_POST)) {
-    update_post_meta(
-      $post_id,
-      'status',
-      sanitize_text_field($_POST['status'])
-    );
-  }
-
-  if (array_key_exists('reload_item_commission', $_POST)) {
-    update_post_meta(
-      $post_id,
-      'reload_item_commission',
-      sanitize_text_field($_POST['reload_item_commission'])
-    );
-  }
-
-  if (array_key_exists('provider_before_balance', $_POST)) {
-    update_post_meta(
-      $post_id,
-      'provider_before_balance',
-      sanitize_text_field($_POST['provider_before_balance'])
-    );
-  }
-
-  if (array_key_exists('provider_after_balance', $_POST)) {
-    update_post_meta(
-      $post_id,
-      'provider_after_balance',
-      sanitize_text_field($_POST['provider_after_balance'])
-    );
-  }
-}
-add_action('save_post', 'save_custom_meta_boxes');
