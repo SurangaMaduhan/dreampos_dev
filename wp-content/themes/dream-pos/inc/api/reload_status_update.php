@@ -27,7 +27,14 @@ function update_status($data)
         $reload_amount = get_post_meta($post_id, 'amount', true);
         $reload_provider = get_post_meta($post_id, 'provider', true);
         $provider = get_page_by_title($reload_provider, OBJECT, 'reload_providers');
-        $provider_balance = get_post_meta($provider->ID, 'reload_amount', true);
+       
+        $use_another_provider = get_post_meta($provider->ID, 'use_another_provider', true);
+        $existing_provider = get_post_meta($provider->ID, 'existing_provider', true);
+        
+        if($use_another_provider =='on'){
+            $provider_balance = get_post_meta($existing_provider, 'reload_amount', true);
+        }
+
         $provider_commission = get_post_meta($provider->ID, 'reload_commission', true);
         $provider_commission_type = get_post_meta($provider->ID, 'commission_type', true);
 

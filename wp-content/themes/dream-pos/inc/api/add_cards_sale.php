@@ -34,7 +34,16 @@ function add_card_sale(WP_REST_Request $request)
 
     $updateQut = $card_qut - $card_qut_item;
 
-    update_post_meta($card_id, 'card_qut', $updateQut);
+    if ($updateQut < 0) {
+        $res = array(
+            'status' => 'out_stock',
+            'message' => 'Error creating new post',
+            'stock'    => $card_qut
+        );
+        return new WP_REST_Response($res, 500);
+    } else {
+        update_post_meta($card_id, 'card_qut', $updateQut);
+    }
 
     $post_args = array(
         'post_status'   => 'publish',
@@ -45,7 +54,7 @@ function add_card_sale(WP_REST_Request $request)
     // Check if the post was successfully created
     if ($new_post_id) {
         // Build updated post title and update the post
-        $updated_post_title = "#". $new_post_id;
+        $updated_post_title = "#" . $new_post_id;
         wp_update_post(array('ID' => $new_post_id, 'post_title' => $updated_post_title));
 
         // Add post meta to the newly created post

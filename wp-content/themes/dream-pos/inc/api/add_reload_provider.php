@@ -60,6 +60,18 @@ function add_reload_provider($data) {
                 update_post_meta($post_id, $meta_key, sanitize_text_field($meta_value));
             }
         }
+        
+        if (isset($data['use_another_provider']) && !empty($data['use_another_provider'])) {
+            foreach ($data['use_another_provider'] as $meta_key => $meta_value) {
+                update_post_meta($post_id, $meta_key, sanitize_text_field($meta_value));
+            }
+        }
+        
+        if (isset($data['existing_provider']) && !empty($data['existing_provider'])) {
+            foreach ($data['existing_provider'] as $meta_key => $meta_value) {
+                update_post_meta($post_id, $meta_key, sanitize_text_field($meta_value));
+            }
+        }
 
         return 'Reload provider added successfully with ID: ' . $post_id;
     } else {

@@ -1,10 +1,18 @@
 <?php
-$args = array(
+$args_cards = array(
     'post_type' => 'cards',
     'posts_per_page' => -1,
     'post_status' => 'publish',
+    'meta_query'     => array(
+        array(
+            'key'     => 'card_qut', // Replace with your actual meta key
+            'value'   => 0,
+            'compare' => '!=',
+        ),
+    ),
+    // 'facetwp' => true
 );
-$query = new WP_Query($args);
+$query = new WP_Query($args_cards);
 $cards_args = array(
     'post_type' => 'cards_sales',
     'posts_per_page' => -1,
@@ -91,11 +99,13 @@ $cards = new WP_Query($cards_args);
                                     <tr>
                                         <th>Sale ID</th>
                                         <th>Sold Date & time</th>
+                                        <th>Sold Card provider</th>
                                         <th>Sold Card(s) Count</th>
                                         <th>Sale total</th>
                                         <th>Sale Commission</th>
                                     </tr>
                                 </thead>
+
                                 <tbody class="facetwp-template ps-res">
                                     <?php
                                     if ($cards->have_posts()) {
@@ -105,7 +115,8 @@ $cards = new WP_Query($cards_args);
                                     ?>
                                             <tr>
                                                 <td><?php the_title(); ?></td>
-                                                <td><?php echo get_the_date('Y-m-d H:i:s') ?></td>
+                                                <td><?php echo get_the_date('Y-m-d H:i:s'); ?></td>
+                                                <td><?php echo get_post_meta($post->ID, 'sale_item_provider', true); ?></td>
                                                 <td><?php echo get_post_meta($post->ID, 'sale_item_count', true); ?></td>
                                                 <td><?php echo get_woocommerce_currency_symbol() . ': ' . number_format((float)  get_post_meta($post->ID, 'sale_amount', true), 2, '.', ''); ?></td>
                                                 <td><?php echo get_woocommerce_currency_symbol() . ': ' . number_format((float)get_post_meta($post->ID, 'sale_commission_amount', true), 2, '.', ''); ?></td>
@@ -115,7 +126,8 @@ $cards = new WP_Query($cards_args);
                                         <tr>
                                             <td colspan="5">No Cards sale in the list</td>
                                         </tr>
-                                    <?php } ?>
+                                    <?php }
+                                    wp_reset_query(); ?>
                                 </tbody>
                             </table>
                         </div>
@@ -123,19 +135,26 @@ $cards = new WP_Query($cards_args);
                             <div class="cards_sale">
                                 <div class="row">
                                     <div class="col-12">
-                                        <h5>Add New Cards Sale</h5>
+                                        <h5>Cards Counter</h5>
                                     </div>
                                     <div class="card_filters">
+                                        <div class="search-input">
+                                            <div class="form-group"><input id="myInput2" type="text" placeholder="Search.."></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="cards_list">
                                         <div class="row">
                                             <?php
-                                            $loop = new WP_Query($args);
-                                            while ($loop->have_posts()) :
-                                                $loop->the_post();
+                                            if ($query->have_posts()) {
+                                            // $loop = new WP_Query($args);
+                                            while ($query->have_posts()) :
+                                                $query->the_post();
                                                 global $post;
                                             ?>
                                                 <div class="col-sm-3">
                                                     <button type="button" class="me-3 card_sale" data-toggle="modal" data-target="#card_sale_<?php echo $post->ID; ?>">
-                                                        <h3><?php echo get_post_meta($post->ID, 'amount', true); ?></h3>
+                                                        <h3><?php echo get_post_meta($post->ID, 'amount', true); ?>/=</h3>
                                                         <span><?php echo get_post_meta($post->ID, 'card_provider', true); ?></span>
                                                     </button>
                                                     <div id="card_sale_<?php echo $post->ID; ?>" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
@@ -144,7 +163,7 @@ $cards = new WP_Query($cards_args);
                                                                 <form method="post" class="card_sale">
                                                                     <div class="row">
                                                                         <div class="col-sm-12">
-                                                                            <h5><?php echo  get_post_meta($post->ID, 'amount', true); ?>/=</h5>
+                                                                            <h6><?php echo  get_post_meta($post->ID, 'amount', true); ?>/=</h6>
                                                                         </div>
                                                                         <div class="col-sm-12">
                                                                             <div class="form-group">
@@ -171,12 +190,15 @@ $cards = new WP_Query($cards_args);
                                                     </div>
 
                                                 </div>
-                                            <?php endwhile;
+                                            <?php endwhile; } else {
+                                                echo 'No cards Avilable';
+                                            }
                                             wp_reset_query();
                                             // echo facetwp_display('per_page');
                                             ?>
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
@@ -197,10 +219,11 @@ $cards = new WP_Query($cards_args);
                 $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
             });
         });
-
-        $('input[name=provider]').change(function() {
-            $('.provider_item').removeClass('active');
-            $(this).closest('.provider_item').addClass('active');
+        $("#myInput2").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $(".cards_list .row .col-sm-3").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
         });
 
         $(document).on('facetwp-refresh', function() {
@@ -208,154 +231,11 @@ $cards = new WP_Query($cards_args);
                 $('.facetwp-template').prepend('<div class="global-loader"><div class="whirly-loader"> </div></div>');
             }
         });
-        $("#submit_reload").submit(function(event) {
-            event.preventDefault();
-            const modalId = $(this).closest('.modal').attr('id');
-            // $(".global-loader").show();
-            var formData = new FormData(this);
-            $.ajax({
-                type: "POST",
-                url: "/wp-json/v1/reload/add-reload", // Corrected the URL
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function(response) {
-                    // console.log(response);
-                    FWP.refresh();
-                    $("form").trigger('reset');
-                    $('.provider_item').removeClass('active');
-                    Swal.fire({
-                        icon: "success",
-                        title: "success...",
-                        text: response.message,
-                    });
-                    // document.location.reload(true);
-                },
-                error: function(error) {
-                    console.log(error);
-                    // $('[data-dismiss="modal"]').trigger('click');
-                    Swal.fire({
-                        icon: "error",
-                        title: "Oops...",
-                        text: 'User denied the submit reload.',
-                    });
-                }
-            });
-        });
-
-        $(".edit_reload").submit(function(event) {
-            event.preventDefault();
-            const modalId = $(this).closest('.modal').attr('id');
-            // $(".global-loader").show();
-            var formData = new FormData(this);
-            $.ajax({
-                type: "POST",
-                url: "/wp-json/v1/reload/update-reload", // Corrected the URL
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function(response) {
-                    $('[data-dismiss="modal"]').trigger('click');
-                    FWP.refresh();
-                    Swal.fire({
-                        icon: "success",
-                        title: "success...",
-                        text: response.message,
-                    });
-                },
-                error: function(error) {
-                    console.log(error);
-                    $('[data-dismiss="modal"]').trigger('click');
-                    Swal.fire({
-                        icon: "error",
-                        title: "Oops...",
-                        text: 'User denied the submit reload.',
-                    });
-                }
-            });
-        });
-
-        // Use event delegation to handle the click event for any element with the class 'remove_product'
-        $(document).on('click', '.remove_product', function() {
-            var productID = $(this).attr('pr_id');
-            Swal.fire({
-                title: "Do you want to remove reload?",
-                icon: "info",
-                showDenyButton: true,
-                confirmButtonText: "Yes",
-                denyButtonText: "No"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        url: '/wp-json/v1/reload/remove-reload',
-                        type: 'POST',
-                        data: {
-                            'post_id': productID
-                        },
-                        success: function(response) {
-                            // Rebind SweetAlert2 events or perform actions after successful reload
-                            FWP.refresh();
-                        },
-                        error: function(xhr, status, error) {
-                            Swal.fire({
-                                icon: "error",
-                                title: "Oops...",
-                                text: xhr.responseText,
-                            });
-                        }
-                    });
-                } else if (result.isDenied) {
-                    Swal.fire({
-                        icon: "error",
-                        title: "Oops...",
-                        text: 'User denied the deletion.',
-                    });
-                }
-            });
-        });
-        $(document).on('click', '.update_btn', function() {
-            var productID = $(this).attr('p_id');
-            Swal.fire({
-                title: "Do you want to Update status?",
-                icon: "info",
-                showDenyButton: true,
-                confirmButtonText: "Complete Reload",
-                denyButtonText: "No"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        url: '/wp-json/v1/reload/update-status',
-                        type: 'POST',
-                        data: {
-                            'p_id': productID
-                        },
-                        success: function(response) {
-                            console.log(response);
-                            // // Rebind SweetAlert2 events or perform actions after successful reload
-                            FWP.refresh();
-                        },
-                        error: function(xhr, status, error) {
-                            // Swal.fire({
-                            //     icon: "error",
-                            //     title: "Oops...",
-                            //     text: xhr.responseText,
-                            // });
-                            console.log(xhr.responseText);
-                        }
-                    });
-                } else if (result.isDenied) {
-                    // Swal.fire({
-                    //     icon: "error",
-                    //     title: "Oops...",
-                    //     text: 'User denied the deletion.',
-                    // });
-                }
-            });
-        });
 
         $(".card_sale").submit(function(event) {
             event.preventDefault();
             // const modalId = $(this).closest('.modal').attr('id');
+            var error_mas = 'User denied the submit reload.';
             $(".global-loader").show();
             var formData = new FormData(this);
             $.ajax({
@@ -365,27 +245,34 @@ $cards = new WP_Query($cards_args);
                 contentType: false,
                 processData: false,
                 success: function(response) {
+                    console.log(response);
                     // console.log(response);
                     $('[data-dismiss="modal"]').trigger('click');
                     $(".global-loader").hide();
-                    $("form").trigger('reset');                    
-                    $('.provider_item').removeClass('active');
+                    $("form").trigger('reset');
+                    // $('.provider_item').removeClass('active');
                     Swal.fire({
                         icon: "success",
                         title: "success...",
                         text: response.message,
                     });
                     FWP.refresh();
-                    // document.location.reload(true);
+                    document.location.reload(true);
                 },
                 error: function(error) {
-                    // console.log(error);
+                    if (error.responseJSON.status == 'out_stock') {
+                        console.log(error.responseJSON.stock);
+                        error_mas = 'Only Left ' + error.responseJSON.stock + 'Card(s) Only';
+                    }
                     $('[data-dismiss="modal"]').trigger('click');
+                    $(".global-loader").hide();
                     Swal.fire({
                         icon: "error",
                         title: "Oops...",
-                        text: 'User denied the submit reload.',
+                        text: error_mas,
                     });
+                    // FWP.refresh();
+                    // FWP.facets['reload_status'].refresh();
                 }
             });
         });

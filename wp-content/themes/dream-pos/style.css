@@ -1016,6 +1016,47 @@ select#card {
   border-radius: 5px;
   text-transform: capitalize;
 }
-.md_pos{
+.md_pos {
   position: relative;
+}
+button.me-3.card_sale {
+  border: 5px solid #ddd;
+  width: 100%;
+  border-radius: 12px;
+  padding: 20px 0;
+  margin: 0 !important;
+  transition: all 0.5s;
+}
+
+button.me-3.card_sale h3 {
+  font-weight: bold;
+  font-size: 30px;
+}
+
+button.me-3.card_sale span {
+  font-style: italic;
+  text-transform: uppercase;
+}
+
+button.me-3.card_sale:hover {
+  background: #ff9f43;
+  border-color: #1b2950;
+}
+button.me-3.card_sale:hover * {
+  color: #fff;
+}
+button.me-3.card_sale {
+  margin-bottom: 20px !important;
+}
+.cards_sale h5 {
+  font-size: 30px;
+  font-weight: 900;
+  margin-bottom: 20px;
+}
+
+.cards_sale {
+  padding-left: 30px;
+}
+.card_filters {
+  margin-bottom: 30px;
 }

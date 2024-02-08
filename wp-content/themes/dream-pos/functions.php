@@ -347,6 +347,24 @@ function add_custom_meta_boxes()
   );
 
   add_meta_box(
+    'use_another_provider',         // Unique ID
+    'Use Another provider',         // Box title
+    'display_use_another_provider_box', // Callback function to display the meta box
+    'reload_providers',                      // Post type
+    'normal',                    // Context (normal, advanced, side)
+    'default'                    // Priority (high, core, default, low)
+  );
+  
+  add_meta_box(
+    'existing_provider',         // Unique ID
+    'existing provider',         // Box title
+    'display_existing_provider_box', // Callback function to display the meta box
+    'reload_providers',                      // Post type
+    'normal',                    // Context (normal, advanced, side)
+    'default'                    // Priority (high, core, default, low)
+  );
+
+  add_meta_box(
     'amount',         // Unique ID
     'Reload Amount',         // Box title
     'display_reloads_amount_box', // Callback function to display the meta box
@@ -623,6 +641,22 @@ function display_sale_item_provider_box($post)
   <input type="text" id="sale_item_provider" name="sale_item_provider" value="<?php echo esc_attr($sale_item_provider); ?>" readonly>
 <?php
 }
+
+function display_use_another_provider_box($post)
+{
+  $use_another_provider = get_post_meta($post->ID, 'use_another_provider', true);
+?>
+  <input type="text" id="use_another_provider" name="use_another_provider" value="<?php echo esc_attr($use_another_provider); ?>" readonly>
+<?php
+}
+
+function display_existing_provider_box($post)
+{
+  $existing_provider = get_post_meta($post->ID, 'existing_provider', true);
+?>
+  <input type="text" id="existing_provider" name="existing_provider" value="<?php echo esc_attr($existing_provider); ?>" readonly>
+<?php
+}
 // Save custom meta box values
 function save_custom_meta_boxes($post_id)
 {
@@ -765,6 +799,22 @@ function save_custom_meta_boxes($post_id)
       $post_id,
       'sale_item_provider',
       sanitize_text_field($_POST['sale_item_provider'])
+    );
+  }
+
+  if (array_key_exists('use_another_provider', $_POST)) {
+    update_post_meta(
+      $post_id,
+      'use_another_provider',
+      sanitize_text_field($_POST['use_another_provider'])
+    );
+  }
+
+  if (array_key_exists('existing_provider', $_POST)) {
+    update_post_meta(
+      $post_id,
+      'existing_provider',
+      sanitize_text_field($_POST['existing_provider'])
     );
   }
 }
