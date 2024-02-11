@@ -36,6 +36,7 @@ require_once 'inc/api/remove_card.php';
 require_once 'inc/api/update_cards.php';
 require_once 'inc/api/top_up_cards.php';
 require_once 'inc/api/add_cards_sale.php';
+require_once 'inc/api/index_all.php';
 
 
 
@@ -213,6 +214,7 @@ add_action('wp_ajax_update_mini_cart', 'update_mini_cart_callback');
 add_action('wp_ajax_nopriv_update_mini_cart', 'update_mini_cart_callback');
 
 add_filter('facetwp_render_output', function ($output, $params) {
+  
   // Check if 'categories_list' facet exists in the output
   if (isset($output['facets']['categories_list'])) {
     $categoriesHTML = $output['facets']['categories_list'];
@@ -239,7 +241,7 @@ add_filter('facetwp_render_output', function ($output, $params) {
 
           $thumbnail_url = wp_get_attachment_thumb_url($thumbnail_id);
           $is_selected = in_array($category_slug, $params['facets'][1]['selected_values']);
-          var_dump($thumbnail_url);
+          // var_dump($thumbnail_url);
         }
 
         $checked_attr = $is_selected ? 'checked' : '';
@@ -819,3 +821,22 @@ function save_custom_meta_boxes($post_id)
   }
 }
 add_action('save_post', 'save_custom_meta_boxes');
+
+
+// Hook for handling custom AJAX action
+add_action('wp_ajax_custom_index_posts', 'custom_index_posts');
+
+// Function to trigger Relevanssi indexing
+function custom_index_posts() {
+    // Check nonce for security
+    check_ajax_referer('custom_index_nonce', 'security');
+
+    // Trigger Relevanssi indexing
+    do_action('relevanssi_count_missing_posts');
+
+    // Return a response (optional)
+    echo 'Indexing started...';
+
+    // Always exit to avoid extra output
+    wp_die();
+}

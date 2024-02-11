@@ -73,16 +73,20 @@ function import_products_from_csv($csv_file)
                 $success_count++;
             }
             $term = get_term_by('id', $data[5], 'product_cat');
-            $term_brands = get_term_by('id', $data[6], 'brands');
+            // $term_brands = get_term_by('id', $data[6], 'brands');
             wp_set_object_terms($product_id, $term->term_id, 'product_cat');
-            wp_set_object_terms($product_id, $term_brands->term_id, 'brands');
+            // wp_set_object_terms($product_id, $term_brands->term_id, 'brands');
             $product->set_regular_price(sanitize_text_field($data[3]));
             update_post_meta($product_id, '_sku', $sku);
             update_post_meta($product_id, '_cost', $data[4]);
-            update_post_meta($product_id, '_stock', sanitize_text_field($data[2]));
-            update_post_meta($product_id, '_stock_status', 'instock');
             update_post_meta($product_id, '_manage_stock', 'yes');
+            update_post_meta($product_id, '_stock', sanitize_text_field($data[2]));
 
+            if (sanitize_text_field($data[2]) > 0) {
+                update_post_meta($product_id, '_stock_status', 'instock');
+            } else {
+                update_post_meta($product_id, '_stock_status', 'outofstock');
+            }
             $product->save();
         }
         fclose($handle);

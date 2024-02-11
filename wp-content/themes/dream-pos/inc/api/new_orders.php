@@ -22,8 +22,13 @@ function add_order($request)
     $cost_total = $request->get_param('cost-total');
     $order_profit = $request->get_param('order-profit');
     $payment_type = $request->get_param('payment_type');
-    $parts_type = $request->get_param('parts_type');
+    // $parts_type = $request->get_param('parts_type');
     $customer_name = $request->get_param('customer_name');
+    $walk_in_customer = $request->get_param('walk_in_customer');
+
+    if($walk_in_customer){
+        $customer_name = 'Walk in Customer';
+    }
     
     // Validate the cart data
     if (empty($cart_data) || !is_array($cart_data)) {
@@ -63,7 +68,7 @@ function add_order($request)
     $order->update_meta_data('_cost_total', $cost_total);
     $order->update_meta_data('_order_profit', $order_profit);
     // $order->update_meta_data('_payment_type', $payment_type);
-    $order->update_meta_data('_parts_type', $parts_type);
+    // $order->update_meta_data('_parts_type', $parts_type);
     $order->update_meta_data('_customer_name', $customer_name);
     
 

@@ -1060,3 +1060,12 @@ button.me-3.card_sale {
 .card_filters {
   margin-bottom: 30px;
 }
+.walkin_custom {
+  margin: 20px 0;
+}
+
+.walkin_custom label {
+  display: flex;
+  gap: 10px;
+  font-size: 17px;
+}

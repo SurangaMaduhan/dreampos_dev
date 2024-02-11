@@ -59,12 +59,6 @@ $args = array(
                                     </div>
                                     <div class="col-lg col-sm-4 col-12">
                                         <div class="form-group">
-                                            <?php echo do_shortcode('[facetwp facet="brands"]'); ?>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg col-sm-4 col-12">
-                                        <div class="form-group">
                                             <?php echo do_shortcode('[facetwp facet="price"]'); ?>
                                         </div>
                                     </div>
@@ -83,7 +77,6 @@ $args = array(
                                 <th>Product Name</th>
                                 <th>SKU</th>
                                 <th>Category</th>
-                                <th>Brand</th>
                                 <th>Cost</th>
                                 <th>Sale Price</th>
                                 <th>Qty</th>
@@ -110,24 +103,9 @@ $args = array(
                                     )
                                 );
 
-                                $product_brand = get_categories(
-                                    array(
-                                        'taxonomy' => 'brands',
-                                        'orderby' => 'name',
-                                        'show_count' => 0,
-                                        'pad_counts' => 0,
-                                        'hierarchical' => 1,
-                                        'title_li' => '',
-                                        'hide_empty' => 0,
-                                    )
-                                );
-
                                 $currentCategories = get_the_terms($product->get_id(), 'product_cat');
                                 $currentCategory = $currentCategories[0];
                                 $product_terms = get_the_terms($product->get_id(), 'brands');
-                                $thumbnail_id = get_option('z_taxonomy_image_id' . $product_terms[0]->term_id);
-                                $thumbnail_url = wp_get_attachment_thumb_url($thumbnail_id, 'thumbnail');
-
                                 $image = wp_get_attachment_url($product->get_image_id(), 'single-post-thumbnail');
                             ?>
                                 <tr>
@@ -141,15 +119,10 @@ $args = array(
                                         <a href="javascript:void(0);"><?php echo $product->get_name(); ?></a>
                                     </td>
                                     <td><?php echo $product->get_sku(); ?></td>
-                                    <td><?php if ($currentCategories[0]->name) {
-                                            echo $currentCategories[0]->name;
-                                        }; ?></td>
                                     <td>
-                                        <img class="brand_image" src="<?php if ($thumbnail_url) {
-                                                                            echo $thumbnail_url;
-                                                                        } else {
-                                                                            echo get_template_directory_uri() . '/src/img/noimage.png';
-                                                                        } ?>" alt="<?php echo $product_terms[0]->name; ?>">
+                                        <?php if ($currentCategories[0]->name) {
+                                            echo $currentCategories[0]->name;
+                                        }; ?>
                                     </td>
                                     <td><?php echo get_woocommerce_currency_symbol() . ': ' . number_format((float) $product->get_meta('_cost'), 2, '.', ''); ?></td>
                                     <td><?php echo get_woocommerce_currency_symbol() . ': ' . number_format((float) $product->get_price(), 2, '.', ''); ?></td>
@@ -234,24 +207,12 @@ $args = array(
                                                                     </div>
                                                                     <div class="col-sm-12">
                                                                         <label for="product_name">Product Category</label>
-                                                                        <select class="style_select select" name="product_category" required>
+                                                                        <select class="style_select" name="product_category" required>
                                                                             <?php foreach ($categories as $category) {
                                                                                 if ($currentCategory->name == $category->name) {
                                                                                     echo '<option value="' . $category->slug . '" selected>' . $category->name . '</option>';
                                                                                 } else {
                                                                                     echo '<option value="' . $category->slug . '">' . $category->name . '</option>';
-                                                                                }
-                                                                            }; ?>
-                                                                        </select>
-                                                                    </div>
-                                                                    <div class="col-sm-12">
-                                                                        <label for="product_name">Product Brand</label>
-                                                                        <select class="style_select select" name="product_brand" required>
-                                                                            <?php foreach ($product_brand as $brand) {
-                                                                                if ($product_terms[0]->name == $brand->name) {
-                                                                                    echo '<option value="' . $brand->slug . '" selected>' . $brand->name . '</option>';
-                                                                                } else {
-                                                                                    echo '<option value="' . $brand->slug . '">' . $brand->name . '</option>';
                                                                                 }
                                                                             }; ?>
                                                                         </select>
@@ -319,15 +280,6 @@ $args = array(
                                                                 <div class="col-sm-12">
                                                                     <strong>Product Category </strong>:
                                                                     <span><?php echo $currentCategory->name; ?></span>
-                                                                </div>
-                                                                <div class="col-sm-12">
-                                                                    <strong>Product Brand </strong><br>
-                                                                    <span><img class="brand_image" src="
-                                                                    <?php if ($thumbnail_url) {
-                                                                        echo $thumbnail_url;
-                                                                    } else {
-                                                                        echo get_template_directory_uri() . '/src/img/noimage.png';
-                                                                    } ?>" alt="<?php echo $product_terms[0]->name; ?>"></span>
                                                                 </div>
                                                                 <div class="col-sm-12">
                                                                     <strong>Product Description</strong><br>
@@ -411,7 +363,7 @@ $args = array(
             }
         });
 
-        $('.remove_product').on('click', function() {
+        $(document).on('click', '.remove_product', function() {
             var productID = $(this).attr('pr_id');
 
             Swal.fire({
@@ -428,7 +380,8 @@ $args = array(
                             'product_id': productID
                         },
                         success: function(response) {
-                            document.location.reload(true);
+                            // document.location.reload(true);
+                            FWP.refresh();
                         },
                         error: function(xhr, status, error) {
                             Swal.fire({
@@ -468,7 +421,8 @@ $args = array(
                         title: "success...",
                         text: 'ID ' + response + ' Updated',
                     });
-                    document.location.reload(true);
+                    // document.location.reload(true);
+                    FWP.refresh();
                 },
                 error: function(error) {
                     $('[data-dismiss="modal"]').trigger('click');

@@ -18,7 +18,6 @@
                         <li><a href="/add-products/"><i data-feather="plus-square"></i><span>Create Product</span></a>
                         </li>
                         <li><a href="/category-list/"><i data-feather="codepen"></i><span>Category</span></a></li>
-                        <li><a href="/brand-list/"><i data-feather="tag"></i><span>Brands</span></a></li>
                         <li><a href="/import-product/"><i data-feather="minimize-2"></i><span>Import Products</span></a>
                         </li>
                     </ul>

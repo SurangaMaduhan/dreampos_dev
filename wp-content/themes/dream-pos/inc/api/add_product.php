@@ -17,8 +17,9 @@ add_action('rest_api_init', function () {
 
 function add_new_product($product)
 {
+    $titleFor = $product['product_title'].' ('.$_POST['product_sku'].')';
     $product_data = array(
-        'post_title' => sanitize_text_field($product['product_title']),
+        'post_title' => sanitize_text_field($titleFor),
         'post_content' => $product['product_description'],
         'post_status' => 'publish',
         'post_type' => 'product',
@@ -28,11 +29,11 @@ function add_new_product($product)
     $product = wc_get_product($product_id);
 
     $term = get_term_by('slug', $_POST['product_category'], 'product_cat');
-    $term_brands = get_term_by('slug', $_POST['product_brand'], 'brands');
+    // $term_brands = get_term_by('slug', $_POST['product_brand'], 'brands');
 
     wp_set_object_terms($product_id, $term->term_id, 'product_cat');
 
-    wp_set_object_terms($product_id, $term_brands->term_id, 'brands');
+    // wp_set_object_terms($product_id, $term_brands->term_id, 'brands');
 
     $product->set_regular_price(sanitize_text_field($_POST['product_price']));
 
@@ -41,7 +42,7 @@ function add_new_product($product)
     update_post_meta($product_id, '_stock', sanitize_text_field($_POST['quantity']));
     update_post_meta($product_id, '_manage_stock', 'yes');
 
-    if(sanitize_text_field($_POST['quantity']) < 0 ){
+    if(sanitize_text_field($_POST['quantity']) > 0 ){
         update_post_meta($product_id, '_stock_status', 'instock');
     } else{
         update_post_meta($product_id, '_stock_status', 'outofstock');
