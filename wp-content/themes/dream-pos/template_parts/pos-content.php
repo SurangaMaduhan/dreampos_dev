@@ -11,10 +11,18 @@
                 <div class="pos-products-list">
 
                     <?php include_once 'pos_product_list.php'; ?>
+
+                    <div class="mini_loder_product" style="display:none">
+                        <div class="whirly-loader"> </div>
+                    </div>
                 </div>
             </div>
             <div class="col-lg-4 col-sm-12 overs">
                 <?php include_once 'pos_order_list.php'; ?>
+
+                <div class="global-loader new_opener" style="display:none">
+                    <div class="whirly-loader"> </div>
+                </div>
             </div>
         </div>
     </div>

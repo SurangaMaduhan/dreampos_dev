@@ -29,21 +29,13 @@ $quary = array(
 );
 $start_date = isset($_GET['start_date']) ? sanitize_text_field($_GET['start_date']) : '';
 $end_date = isset($_GET['end_date']) ? sanitize_text_field($_GET['end_date']) : '';
-$sales_type = isset($_GET['sales_type']) ? sanitize_text_field($_GET['sales_type']) : '';
 
-if (!empty($_GET['start_date']) || !empty($_GET['end_date']) || !empty($_GET['sales_type']) || !empty($_GET['sales_type'])) {
+if (!empty($_GET['start_date']) || !empty($_GET['end_date'])) {
     $quary = array(
         'limit' => -1,
         'orderby'  => 'ID',
         'order'    => 'DESC',
         'date_created' => date("Y-m-d", strtotime($start_date)) . '...' .  date("Y-m-d", strtotime($end_date . ' 23:59:59')),
-        'meta_query' => array(
-            array(
-                'key' => '_parts_type',
-                'value' => $sales_type,
-                'compare' => '='
-            )
-        )
     );
 }
 
@@ -211,16 +203,6 @@ foreach ($orders as $order2) {
                                     <label for="end_date">End Date:</label>
                                     <input type="date" id="end_date" name="end_date" placeholder="YYYY-MM-DD" min="<?= $earliest_date ?>" max="<?= $latest_date ?>" required>
                                 </div>
-
-                                <div class="col-sm-2">
-                                    <label for="sales_type">Sales Type:</label>
-                                    <select name="sales_type" id="sales_type" class="select" required>
-                                        <option value="">--- Select Sales Type ---</option>
-                                        <option value="motorbike">High capacity</option>
-                                        <option value="motorcycle">Low Capacity</option>
-                                        <option value="modification">Modifications</option>
-                                    </select>
-                                </div>
                                 <div class="col-sm-2 d-flex align-items-end">
                                     <button type="submit" class="filter_submit">Search</button>
                                     <button type="button" class="filter_clear" onclick="jQuery('.Form_Serch_orders *').removeAttr('required');jQuery('.Form_Serch_orders').trigger('reset'); jQuery('.filter_submit').trigger('click')"><img src="<?php echo get_bloginfo('template_directory'); ?>/src/img/closes.svg" alt="img"></button>
@@ -235,7 +217,6 @@ foreach ($orders as $order2) {
                             <tr>
                                 <th>#</th>
                                 <th>Customer Name</th>
-                                <th>Order Type</th>
                                 <th>Order Subtotal</th>
                                 <th>Order Cost</th>
                                 <th>Order Profit</th>
@@ -251,21 +232,12 @@ foreach ($orders as $order2) {
                             // var_dump($loop);
                             foreach ($orders as $order) {
                                 $order_id = $order->get_id();
-                                $bike_type = "";
-                                if ($order->get_meta('_parts_type', true) == 'motorbike') {
-                                    $bike_type = 'High capacity';
-                                } elseif ($order->get_meta('_parts_type', true) == 'motorcycle') {
-                                    $bike_type = 'Low Capacity';
-                                } else {
-                                    $bike_type = 'Modifications';
-                                }
                             ?>
                                 <tr>
                                     <td>
                                         #<?php echo $order_id; ?>
                                     </td>
                                     <td><?php echo $order->get_meta('_customer_name', true); ?></td>
-                                    <td style="text-transform: capitalize;"><?php echo $bike_type; ?></td>
                                     <td><?php echo get_woocommerce_currency_symbol() . ': ' . number_format((float) $order->get_subtotal(), 2, '.', ','); ?></td>
                                     <td><?php echo get_woocommerce_currency_symbol() . ': ' . number_format((float) $order->get_meta('_cost_total', true), 2, '.', ','); ?></td>
                                     <td><?php echo get_woocommerce_currency_symbol() . ': ' . number_format((float) $order->get_meta('_order_profit', true), 2, '.', ','); ?></td>
@@ -301,10 +273,12 @@ foreach ($orders as $order2) {
                                                             <?php
                                                             foreach ($order->get_items() as $item_id => $item) {
                                                                 $product = wc_get_product($item->get_product_id());
+                                                                $thumbnail = get_the_post_thumbnail_url($item->get_product_id());
+                                                                $thumbnail_url = ($thumbnail) ? $thumbnail : get_template_directory_uri() . '/src/img/noimage.png';
                                                             ?>
                                                                 <div class="row align-items-center">
                                                                     <div class="col-sm-2">
-                                                                        <?php echo $product->get_image(); ?>
+                                                                        <?php echo '<img src="' . esc_url($thumbnail_url) . '" alt="Product Thumbnail">'; ?>
                                                                     </div>
                                                                     <div class="col-sm-4">
                                                                         <strong><?php echo $item->get_name(); ?></strong><br>
@@ -387,10 +361,12 @@ foreach ($orders as $order2) {
                                                         <?php
                                                         foreach ($order->get_items() as $item_id => $item) {
                                                             $product = wc_get_product($item->get_product_id());
+                                                            $thumbnail = get_the_post_thumbnail_url($item->get_product_id());
+                                                            $thumbnail_url = ($thumbnail) ? $thumbnail : get_template_directory_uri() . '/src/img/noimage.png';
                                                         ?>
                                                             <div class="row">
                                                                 <div class="col-sm-2">
-                                                                    <?php echo $product->get_image(); ?>
+                                                                    <?php echo '<img src="' . esc_url($thumbnail_url) . '" alt="Product Thumbnail">'; ?>
                                                                 </div>
                                                                 <div class="col-sm-4">
                                                                     <strong><?php echo $item->get_name(); ?></strong><br>

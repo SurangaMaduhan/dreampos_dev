@@ -26,10 +26,10 @@ function update_product($request)
     update_post_meta($parameters['product_id'], '_manage_stock', 'yes');
     $product->set_stock_quantity(sanitize_text_field($parameters['product_qty']));
 
-    if ($parameters['quantity'] == 0) {
-        update_post_meta($parameters['product_id'], '_stock_status', 'outofstock');
-    } else {
+    if(sanitize_text_field($parameters['product_qty']) > 0 ){
         update_post_meta($parameters['product_id'], '_stock_status', 'instock');
+    } else{
+        update_post_meta($parameters['product_id'], '_stock_status', 'outofstock');
     }
     update_post_meta($parameters['product_id'], '_sku', $parameters['product_sku']);
 

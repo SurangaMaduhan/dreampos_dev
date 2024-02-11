@@ -29,6 +29,9 @@ do_action('woocommerce_before_mini_cart'); ?>
         <button type="button" id="clear_cart" class="button" title="<?php echo esc_attr('Empty Cart', 'woocommerce'); ?>"><img src="<?php echo get_bloginfo('template_directory'); ?>/src/img/delete-2.svg" alt="img"> <?php echo esc_html('Empty cart', 'woocommerce'); ?></button>
     </div>
     <div class="product-table">
+        <div class="mini_loder" style="display:none">
+            <div class="whirly-loader"> </div>
+        </div>
         <?php
         do_action('woocommerce_before_mini_cart_contents');
 
@@ -116,25 +119,6 @@ do_action('woocommerce_before_mini_cart'); ?>
     <div class="split-card"></div>
     <div class="card-body pt-0 pb-2">
         <form method="post" id="order_submit_form">
-
-            <div class="parts_type">
-                <div class="parts_type_item">
-                    <img src="<?php echo get_bloginfo('template_directory'); ?>/src/img/motorbike.png" alt="img" class="me-2">
-                    <input type='radio' name='parts_type' value='motorbike' required />
-                    High Capacity
-                </div>
-                <div class="parts_type_item">
-                    <img src="<?php echo get_bloginfo('template_directory'); ?>/src/img/motorcycle.png" alt="img" class="me-2">
-                    <input type='radio' name='parts_type' value='motorcycle' />
-                    Low Capacity
-                </div>
-                <div class="parts_type_item">
-                    <img src="<?php echo get_bloginfo('template_directory'); ?>/src/img/modification.png" alt="img" class="me-2">
-                    <input type='radio' name='parts_type' value='modification' />
-                    Modifications
-                </div>
-            </div>
-
             <div class="setvalue">
                 <?php $order_profit = WC()->cart->get_subtotal() - $product_cost; ?>
                 <ul>
@@ -168,8 +152,11 @@ do_action('woocommerce_before_mini_cart'); ?>
                 </div>
             </div>
 
+            <div class="walkin_custom">
+                <label> <input type="checkbox" name="walk_in_customer" id="walk_in_customer"> Walk in Customer</label>
+            </div>
             <div class="customer_input">
-                <input type="text" name="customer_name" placeholder="Please enter customer Name" required>
+                <input type="text" name="customer_name" placeholder="Please enter customer Name" id="customer_name" required>
             </div>
 
             <div class="btn-totallabel">
@@ -190,12 +177,29 @@ do_action('woocommerce_before_mini_cart'); ?>
 <?php else : ?>
     <div class="woocommerce-mini-cart__empty-message">
         <img src="<?php echo get_bloginfo('template_directory'); ?>/src/img/no-product.png" alt="<?php esc_html_e('No products in the cart.', 'woocommerce'); ?>">
-
+        <div class="mini_loder" style="display:none">
+            <div class="whirly-loader"> </div>
+        </div>
     </div>
 <?php endif; ?>
 <?php do_action('woocommerce_after_mini_cart'); ?>
 
 <script>
+    var walkInCheckbox = document.getElementById('walk_in_customer');
+    var customerInputDiv = document.querySelector('.customer_input');
+    var customerNameInput = document.getElementById('customer_name');
+
+    // Add an event listener to the checkbox
+    walkInCheckbox.addEventListener('change', function() {
+        customerInputDiv.style.display = walkInCheckbox.checked ? 'none' : 'block';
+
+        if (walkInCheckbox.checked) {
+            customerNameInput.removeAttribute('required');
+        } else {
+            customerNameInput.setAttribute('required', 'required');
+        }
+    });
+
     function checkMaxValue($this) {
         const num = parseFloat($this.val());
         const maxValue = parseFloat($this.attr('max'));
@@ -289,12 +293,64 @@ do_action('woocommerce_before_mini_cart'); ?>
         jQuery(document.body).on('added_to_cart', function() {
             FWP.refresh();
         });
-        jQuery(document.body)
-            .on(
-                'removed_from_cart updated_cart_totals',
-                function() {
-                    FWP.refresh();
+        jQuery(document.body).on('removed_from_cart updated_cart_totals', function() {
+            FWP.refresh();
+        });
+        $(document.body).on('adding_to_cart', function() {
+            $('.mini_loder').show();
+        });
+
+        $(document.body).on('added_to_cart', function() {
+            $('.mini_loder').hide();
+        });
+
+        $('.remove_from_cart_button').on('click', function(event) {
+            // Prevent the default link behavior
+            event.preventDefault();
+
+            // Show loader when the link is clicked
+            showLoader();
+
+            // Get the remove link URL
+            var removeLink = $(this).attr('href');
+
+            // Perform your removal logic, for example, an AJAX request to remove the product
+            $.ajax({
+                url: removeLink,
+                type: 'GET',
+                success: function(response) {
+                    // Simulating the removal process with a successful AJAX request
+                    // Replace this with your actual removal logic
+
+                    // After the removal is completed, hide the loader
+                    hideLoader();
+                },
+                error: function(error) {
+                    // Handle errors if needed
+                    console.error('Error:', error);
+                    hideLoader();
                 }
-            );
+            });
+        });
+
+        $(document).on('facetwp-refresh', function() {
+            // Show loader when the refresh is triggered
+            $('.mini_loder_product').show();
+        });
+
+        // After FacetWP refreshes, hide the loader
+        $(document).on('facetwp-loaded', function() {
+            $('.mini_loder_product').hide();
+        });
+
+        // Function to show the loader
+        function showLoader() {
+            $('.mini_loder').show();
+        }
+
+        // Function to hide the loader
+        function hideLoader() {
+            $('.mini_loder').hide();
+        }
     });
 </script>

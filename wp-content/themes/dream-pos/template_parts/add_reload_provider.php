@@ -39,6 +39,38 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label for="use_another_provider">Use another Provider Amount</label>
+                                <input type="checkbox" name="use_another_provider" id="use_another_provider">
+                            </div>
+                        </div>
+                        <div class="col-3 open_only_another_rovider" style="display:none">
+                            <div class="form-group">
+                                <label for="existing_provider">Existing Provider list</label>
+                                <select name="existing_provider" id="existing_provider" class="style_select select">
+                                    <option value="">-- Select Provider --</option>
+                                    <?php
+                                    $provider_args = array(
+                                        'post_type' => 'reload_providers',
+                                        'posts_per_page' => -1,
+                                        'post_status' => 'publish',
+                                    );
+
+                                    $provider_query = new WP_Query($provider_args);
+                                    ?>
+                                    <?php if ($provider_query->have_posts()) {
+                                        while ($provider_query->have_posts()) {
+                                            $provider_query->the_post();
+                                            $post_id = get_the_ID();
+                                            $title = get_the_title();
+                                    ?>
+                                            <option value="<?php echo $post_id; ?>"><?php echo $title; ?></option>
+                                    <?php }
+                                    } ?>
+                                </select>
+                            </div>
+                        </div>
                         <div class="col-12">
                             <div class="form-group">
                                 <label> Category Image</label>
@@ -72,6 +104,19 @@
     const filePreview = document.getElementById('file-preview');
     const removeBtn = document.getElementById('remove-btn');
     const hide_wrap = document.getElementById('preview_wrap');
+
+    const checkbox = document.getElementById('use_another_provider');
+    const open_only_another_rovider = document.querySelector('.open_only_another_rovider');
+
+    checkbox.addEventListener('change', function() {
+        if (checkbox.checked) {
+            open_only_another_rovider.style.display = 'block';
+            jQuery('#reload_amount').removeAttr('required');
+        } else {
+            open_only_another_rovider.style.display = 'none';
+            jQuery('#reload_amount').attr('required' , true);
+        }
+    });
 
     fileInput.addEventListener('change', () => {
         const files = fileInput.files;
@@ -129,7 +174,7 @@
                     // console.log(response);
                     $(".global-loader").hide();
                     $("form").trigger('reset');
-                    hide_wrap.style.display = 'none'; 
+                    hide_wrap.style.display = 'none';
                     Swal.fire({
                         icon: "success",
                         title: "Reload Provider added...",

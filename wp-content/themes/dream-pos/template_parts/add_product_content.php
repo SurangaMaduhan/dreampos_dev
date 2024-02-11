@@ -56,19 +56,6 @@
                                 </select>
                             </div>
                         </div>
-
-                        <div class="col-lg-3 col-sm-6 col-12">
-                            <div class="form-group">
-                                <label>Brand</label>
-                                <select class="select" name="product_brand" id="product_brand" required>
-                                    <option value="">Choose brand</option>
-                                    <?php foreach ($brands as $brand) {
-                                        echo '<option value="' . $brand->slug .'">' . $brand->name . '</option>';
-                                    };?>
-                                </select>
-                            </div>
-                        </div>
-
                         <div class="col-lg-3 col-sm-6 col-12">
                             <div class="form-group">
                                 <label>SKU</label>

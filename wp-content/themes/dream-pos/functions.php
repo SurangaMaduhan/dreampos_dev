@@ -31,6 +31,12 @@ require_once 'inc/api/add_reload.php';
 require_once 'inc/api/remove_reload.php';
 require_once 'inc/api/update_reload.php';
 require_once 'inc/api/reload_status_update.php';
+require_once 'inc/api/add_card.php';
+require_once 'inc/api/remove_card.php';
+require_once 'inc/api/update_cards.php';
+require_once 'inc/api/top_up_cards.php';
+require_once 'inc/api/add_cards_sale.php';
+require_once 'inc/api/index_all.php';
 
 
 
@@ -208,6 +214,7 @@ add_action('wp_ajax_update_mini_cart', 'update_mini_cart_callback');
 add_action('wp_ajax_nopriv_update_mini_cart', 'update_mini_cart_callback');
 
 add_filter('facetwp_render_output', function ($output, $params) {
+  
   // Check if 'categories_list' facet exists in the output
   if (isset($output['facets']['categories_list'])) {
     $categoriesHTML = $output['facets']['categories_list'];
@@ -234,7 +241,7 @@ add_filter('facetwp_render_output', function ($output, $params) {
 
           $thumbnail_url = wp_get_attachment_thumb_url($thumbnail_id);
           $is_selected = in_array($category_slug, $params['facets'][1]['selected_values']);
-          var_dump($thumbnail_url);
+          // var_dump($thumbnail_url);
         }
 
         $checked_attr = $is_selected ? 'checked' : '';
@@ -342,6 +349,24 @@ function add_custom_meta_boxes()
   );
 
   add_meta_box(
+    'use_another_provider',         // Unique ID
+    'Use Another provider',         // Box title
+    'display_use_another_provider_box', // Callback function to display the meta box
+    'reload_providers',                      // Post type
+    'normal',                    // Context (normal, advanced, side)
+    'default'                    // Priority (high, core, default, low)
+  );
+  
+  add_meta_box(
+    'existing_provider',         // Unique ID
+    'existing provider',         // Box title
+    'display_existing_provider_box', // Callback function to display the meta box
+    'reload_providers',                      // Post type
+    'normal',                    // Context (normal, advanced, side)
+    'default'                    // Priority (high, core, default, low)
+  );
+
+  add_meta_box(
     'amount',         // Unique ID
     'Reload Amount',         // Box title
     'display_reloads_amount_box', // Callback function to display the meta box
@@ -391,6 +416,87 @@ function add_custom_meta_boxes()
     'provider after balance',         // Box title
     'display_provider_after_balance_box', // Callback function to display the meta box
     'reloads',                      // Post type
+    'normal',                    // Context (normal, advanced, side)
+    'default'                    // Priority (high, core, default, low)
+  );
+  
+
+  add_meta_box(
+    'amount',         // Unique ID
+    'Card amount',         // Box title
+    'display_card_amount_box', // Callback function to display the meta box
+    'cards',                      // Post type
+    'normal',                    // Context (normal, advanced, side)
+    'default'                    // Priority (high, core, default, low)
+  );
+
+  add_meta_box(
+    'card_commission',         // Unique ID
+    'Card commission',         // Box title
+    'display_card_commission_box', // Callback function to display the meta box
+    'cards',                      // Post type
+    'normal',                    // Context (normal, advanced, side)
+    'default'                    // Priority (high, core, default, low)
+  );
+
+  add_meta_box(
+    'card_commission_type',         // Unique ID
+    'Card commission type',         // Box title
+    'display_card_commission_type_box', // Callback function to display the meta box
+    'cards',                      // Post type
+    'normal',                    // Context (normal, advanced, side)
+    'default'                    // Priority (high, core, default, low)
+  );
+
+  add_meta_box(
+    'card_qut',         // Unique ID
+    'Card Quntity',         // Box title
+    'display_card_qut_box', // Callback function to display the meta box
+    'cards',                      // Post type
+    'normal',                    // Context (normal, advanced, side)
+    'default'                    // Priority (high, core, default, low)
+  );
+
+  add_meta_box(
+    'card_provider',         // Unique ID
+    'Card provider',         // Box title
+    'display_card_provider_box', // Callback function to display the meta box
+    'cards',                      // Post type
+    'normal',                    // Context (normal, advanced, side)
+    'default'                    // Priority (high, core, default, low)
+  );
+
+  add_meta_box(
+    'sale_amount',         // Unique ID
+    'Sale Amount',         // Box title
+    'display_sale_amount_box', // Callback function to display the meta box
+    'cards_sales',                      // Post type
+    'normal',                    // Context (normal, advanced, side)
+    'default'                    // Priority (high, core, default, low)
+  );
+
+  add_meta_box(
+    'sale_commission_amount',         // Unique ID
+    'Sale Commission Amount',         // Box title
+    'display_sale_commission_amount_box', // Callback function to display the meta box
+    'cards_sales',                      // Post type
+    'normal',                    // Context (normal, advanced, side)
+    'default'                    // Priority (high, core, default, low)
+  );
+
+  add_meta_box(
+    'sale_item_count',         // Unique ID
+    'Sale item Count',         // Box title
+    'display_sale_item_count_box', // Callback function to display the meta box
+    'cards_sales',                      // Post type
+    'normal',                    // Context (normal, advanced, side)
+    'default'                    // Priority (high, core, default, low)
+  );
+  add_meta_box(
+    'sale_item_provider',         // Unique ID
+    'Sale item provider',         // Box title
+    'display_sale_item_provider_box', // Callback function to display the meta box
+    'cards_sales',                      // Post type
     'normal',                    // Context (normal, advanced, side)
     'default'                    // Priority (high, core, default, low)
   );
@@ -448,6 +554,14 @@ function display_status_box($post)
 <?php
 }
 
+function display_card_amount_box($post)
+{
+  $amount = get_post_meta($post->ID, 'amount', true);
+?>
+  <input type="text" id="amount" name="status" value="<?php echo esc_attr($amount); ?>" readonly>
+<?php
+}
+
 function display_reload_item_commission_box($post)
 {
   $reload_item_commission = get_post_meta($post->ID, 'reload_item_commission', true);
@@ -466,9 +580,83 @@ function display_provider_before_balance_box($post)
 
 function display_provider_after_balance_box($post)
 {
-  $provider_after_balance = get_post_meta($post->ID, 'provider_after_balance', true);
+  $amount = get_post_meta($post->ID, 'amount', true);
 ?>
-  <input type="text" id="provider_after_balance" name="provider_after_balance" value="<?php echo esc_attr($provider_after_balance); ?>" readonly>
+  <input type="text" id="amount" name="amount" value="<?php echo esc_attr($amount); ?>" readonly>
+<?php
+}
+
+function display_card_commission_box($post)
+{
+  $card_commission = get_post_meta($post->ID, 'card_commission', true);
+?>
+  <input type="text" id="card_commission" name="card_commission" value="<?php echo esc_attr($card_commission); ?>" readonly>
+<?php
+}
+
+function display_card_commission_type_box($post)
+{
+  $card_commission_type = get_post_meta($post->ID, 'card_commission_type', true);
+?>
+  <input type="text" id="card_commission_type" name="card_commission_type" value="<?php echo esc_attr($card_commission_type); ?>" readonly>
+<?php
+}
+function display_card_qut_box($post)
+{
+  $card_qut = get_post_meta($post->ID, 'card_qut', true);
+?>
+  <input type="text" id="card_qut" name="card_qut" value="<?php echo esc_attr($card_qut); ?>" readonly>
+<?php
+}
+function display_card_provider_box($post)
+{
+  $card_provider = get_post_meta($post->ID, 'card_provider', true);
+?>
+  <input type="text" id="card_provider" name="card_provider" value="<?php echo esc_attr($card_provider); ?>" readonly>
+<?php
+}
+function display_sale_amount_box($post)
+{
+  $sale_amount = get_post_meta($post->ID, 'sale_amount', true);
+?>
+  <input type="text" id="sale_amount" name="sale_amount" value="<?php echo esc_attr($sale_amount); ?>" readonly>
+<?php
+}
+function display_sale_commission_amount_box($post)
+{
+  $sale_commission_amount = get_post_meta($post->ID, 'sale_commission_amount', true);
+?>
+  <input type="text" id="sale_commission_amount" name="sale_commission_amount" value="<?php echo esc_attr($sale_commission_amount); ?>" readonly>
+<?php
+}
+function display_sale_item_count_box($post)
+{
+  $sale_item_count = get_post_meta($post->ID, 'sale_item_count', true);
+?>
+  <input type="text" id="sale_item_count" name="sale_item_count" value="<?php echo esc_attr($sale_item_count); ?>" readonly>
+<?php
+}
+function display_sale_item_provider_box($post)
+{
+  $sale_item_provider = get_post_meta($post->ID, 'sale_item_provider', true);
+?>
+  <input type="text" id="sale_item_provider" name="sale_item_provider" value="<?php echo esc_attr($sale_item_provider); ?>" readonly>
+<?php
+}
+
+function display_use_another_provider_box($post)
+{
+  $use_another_provider = get_post_meta($post->ID, 'use_another_provider', true);
+?>
+  <input type="text" id="use_another_provider" name="use_another_provider" value="<?php echo esc_attr($use_another_provider); ?>" readonly>
+<?php
+}
+
+function display_existing_provider_box($post)
+{
+  $existing_provider = get_post_meta($post->ID, 'existing_provider', true);
+?>
+  <input type="text" id="existing_provider" name="existing_provider" value="<?php echo esc_attr($existing_provider); ?>" readonly>
 <?php
 }
 // Save custom meta box values
@@ -545,5 +733,110 @@ function save_custom_meta_boxes($post_id)
       sanitize_text_field($_POST['provider_after_balance'])
     );
   }
+
+  if (array_key_exists('amount', $_POST)) {
+    update_post_meta(
+      $post_id,
+      'amount',
+      sanitize_text_field($_POST['amount'])
+    );
+  }
+
+  if (array_key_exists('card_commission', $_POST)) {
+    update_post_meta(
+      $post_id,
+      'card_commission',
+      sanitize_text_field($_POST['card_commission'])
+    );
+  }
+
+  if (array_key_exists('card_commission_type', $_POST)) {
+    update_post_meta(
+      $post_id,
+      'card_commission_type',
+      sanitize_text_field($_POST['card_commission_type'])
+    );
+  }
+
+  if (array_key_exists('card_qut', $_POST)) {
+    update_post_meta(
+      $post_id,
+      'card_qut',
+      sanitize_text_field($_POST['card_qut'])
+    );
+  }
+
+  if (array_key_exists('card_provider', $_POST)) {
+    update_post_meta(
+      $post_id,
+      'card_provider',
+      sanitize_text_field($_POST['card_qut'])
+    );
+  }
+
+  if (array_key_exists('sale_amount', $_POST)) {
+    update_post_meta(
+      $post_id,
+      'sale_amount',
+      sanitize_text_field($_POST['sale_amount'])
+    );
+  }
+
+  if (array_key_exists('sale_commission_amount', $_POST)) {
+    update_post_meta(
+      $post_id,
+      'sale_commission_amount',
+      sanitize_text_field($_POST['sale_commission_amount'])
+    );
+  }
+  if (array_key_exists('sale_item_count', $_POST)) {
+    update_post_meta(
+      $post_id,
+      'sale_item_count',
+      sanitize_text_field($_POST['sale_item_count'])
+    );
+  }
+  if (array_key_exists('sale_item_provider', $_POST)) {
+    update_post_meta(
+      $post_id,
+      'sale_item_provider',
+      sanitize_text_field($_POST['sale_item_provider'])
+    );
+  }
+
+  if (array_key_exists('use_another_provider', $_POST)) {
+    update_post_meta(
+      $post_id,
+      'use_another_provider',
+      sanitize_text_field($_POST['use_another_provider'])
+    );
+  }
+
+  if (array_key_exists('existing_provider', $_POST)) {
+    update_post_meta(
+      $post_id,
+      'existing_provider',
+      sanitize_text_field($_POST['existing_provider'])
+    );
+  }
 }
 add_action('save_post', 'save_custom_meta_boxes');
+
+
+// Hook for handling custom AJAX action
+add_action('wp_ajax_custom_index_posts', 'custom_index_posts');
+
+// Function to trigger Relevanssi indexing
+function custom_index_posts() {
+    // Check nonce for security
+    check_ajax_referer('custom_index_nonce', 'security');
+
+    // Trigger Relevanssi indexing
+    do_action('relevanssi_count_missing_posts');
+
+    // Return a response (optional)
+    echo 'Indexing started...';
+
+    // Always exit to avoid extra output
+    wp_die();
+}

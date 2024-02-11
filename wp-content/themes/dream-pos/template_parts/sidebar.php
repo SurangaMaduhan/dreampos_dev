@@ -18,7 +18,6 @@
                         <li><a href="/add-products/"><i data-feather="plus-square"></i><span>Create Product</span></a>
                         </li>
                         <li><a href="/category-list/"><i data-feather="codepen"></i><span>Category</span></a></li>
-                        <li><a href="/brand-list/"><i data-feather="tag"></i><span>Brands</span></a></li>
                         <li><a href="/import-product/"><i data-feather="minimize-2"></i><span>Import Products</span></a>
                         </li>
                     </ul>
@@ -49,8 +48,8 @@
                 <li class="submenu-open">
                     <h6 class="submenu-hdr">Topup Cards</h6>
                     <ul>
-                        <li><a href="/reload-list/"><i data-feather="send"></i><span>Card Sales</span></a></li>
-                        <li><a href="/reload-provider-list/"><i data-feather="globe"></i><span>Cards List</span></a></li>
+                        <li><a href="/cards/"><i data-feather="send"></i><span>Card Sales</span></a></li>
+                        <li><a href="/cards-list/"><i data-feather="globe"></i><span>Cards List</span></a></li>
                     </ul>
                 </li>
                 <li class="submenu-open">

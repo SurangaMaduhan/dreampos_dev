@@ -191,6 +191,7 @@ function relevanssiUpdateClock() {
 
 jQuery(document).ready(function ($) {
 	$("#continue_indexing").on("click", function () {
+		alert();
 		$("#relevanssi-progress").show()
 		$("#results").show()
 		$("#relevanssi-timer").show()

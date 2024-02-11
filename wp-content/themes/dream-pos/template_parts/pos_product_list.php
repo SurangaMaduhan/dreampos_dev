@@ -33,12 +33,10 @@
                 $product_in_cart = true;
                 break;
             }
-        } ?>
+        }  
+        ?>
         <div class="col-lg-2 col-sm-3 d-flex">
-            <div class="productset flex-fill 
-            <?php if ($product_in_cart) {
-                echo 'active2';
-            } ?>">
+            <div class="productset flex-fill <?php echo ($product_in_cart) ? 'active2' : '';?>">
                 <div class="productsetimg">
                     <?php echo woocommerce_get_product_thumbnail(); ?>
                     <h6><?php echo get_woocommerce_currency_symbol() . ': ' . number_format((float) $product->get_meta('_cost'), 2, '.', ''); ?></h6>
@@ -54,6 +52,7 @@
                                 echo $currentCategories[0]->name;
                             }; ?></h5>
                         <h4><?php echo $product->get_name(); ?></h4>
+                        <h4><?php echo $product->get_sku(); ?></h4>
                     </div>
                     <div class="stock">
                         <span class="cost">Qty: <?php echo $product->get_stock_quantity(); ?></span>
@@ -70,33 +69,3 @@
     <?php endwhile;
     wp_reset_query(); ?>
 </div>
-<script>
-    jQuery(document).ready(function() {
-        $('.add_to_cart_button').on('click', function(event) {
-            // Prevent the default behavior (i.e., following the link)
-            event.preventDefault();
-
-            // Get product information from the link attributes
-            var product_id = $(this).data('product_id');
-            var quantity = $(this).data('quantity');
-
-            // Perform the add-to-cart operation using AJAX
-            $.ajax({
-                type: 'POST',
-                url: wc_add_to_cart_params.ajax_url,
-                data: {
-                    action: 'woocommerce_add_to_cart',
-                    product_id: product_id,
-                    quantity: quantity,
-                },
-                success: function(response) {
-                    // Optionally, you can handle the response if needed
-                    console.log(response);
-
-                    // Optionally, you can redirect to the cart page after successful addition
-                    // window.location.href = wc_add_to_cart_params.cart_url;
-                },
-            });
-        });
-    })
-</script>
