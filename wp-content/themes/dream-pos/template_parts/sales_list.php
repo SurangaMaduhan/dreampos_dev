@@ -88,7 +88,7 @@ foreach ($orders as $order2) {
                     <div class="dash-widget">
                         <div class="dash-widgetimg">
                             <span>
-                                <img src="http://dreamspos.loc/wp-content/themes/dream-pos/src/img/dash1.svg" alt="img">
+                                <img src="<?php echo get_bloginfo('template_directory'); ?>/src/img/dash1.svg" alt="img">
                             </span>
                         </div>
                         <div class="dash-widgetcontent">
@@ -101,7 +101,7 @@ foreach ($orders as $order2) {
                     <div class="dash-widget dash1">
                         <div class="dash-widgetimg">
                             <span>
-                                <img src="http://dreamspos.loc/wp-content/themes/dream-pos/src/img/dash2.svg" alt="img">
+                                <img src="<?php echo get_bloginfo('template_directory'); ?>/src/img/dash2.svg" alt="img">
                             </span>
                         </div>
                         <div class="dash-widgetcontent">
@@ -113,7 +113,7 @@ foreach ($orders as $order2) {
                 <div class="col-lg-4 col-sm-6 col-12">
                     <div class="dash-widget dash2">
                         <div class="dash-widgetimg">
-                            <span><img src="http://dreamspos.loc/wp-content/themes/dream-pos/src/img/dash3.svg" alt="img"></span>
+                            <span><img src="<?php echo get_bloginfo('template_directory'); ?>/src/img/dash3.svg" alt="img"></span>
                         </div>
                         <div class="dash-widgetcontent">
                             <h5><?php echo get_woocommerce_currency_symbol(); ?>,<span class="counters" data-count="<?php echo (float) $orders_profit_total; ?>"><?php echo $orders_profit_total; ?></span>.00</h5>
